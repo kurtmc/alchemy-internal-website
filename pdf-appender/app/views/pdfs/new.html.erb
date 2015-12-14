@@ -1,0 +1,10 @@
+<h1>Append footer to pdf</h1>
+
+<%= form_for :pdf, url: pdfs_path do |p| %>
+<p>
+<%= p.file_field :pdf_file %>
+</p>
+<p>
+    <%= p.submit %>
+</p>
+<% end %>
