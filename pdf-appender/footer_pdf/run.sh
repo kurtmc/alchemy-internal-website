@@ -19,14 +19,16 @@ mkdir -p $OUTPUT_DIR
 
 cp "$FILENAME" "$TMP_DIR/"
 
-pdfseparate "$TMP_DIR/$BASENAME" "$TMP_DIR/tmp_%d.pdf"
+pdfseparate "$TMP_DIR/$BASENAME" "$TMP_DIR/tmp_%05d.pdf"
 
-FIRST=$(echo $TMP_DIR/tmp_1.pdf | sed -e 's/[\/&]/\\&/g')
+
+FIRST=$(ls $TMP_DIR | grep tmp_ | head -1)
+FIRST=$(echo $TMP_DIR/$FIRST | sed -e 's/[\/&]/\\&/g')
 
 cat footer.tex | sed "s/%%FILENAME%%/$FIRST/" | pdflatex &>/dev/null && rm texput.log texput.aux
 
 rm "$TMP_DIR/$BASENAME"
-mv texput.pdf $TMP_DIR/tmp_1.pdf
+mv texput.pdf $TMP_DIR/tmp_00001.pdf
 
 pdfunite $TMP_DIR/tmp_* "$TMP_DIR/$BASENAME.new"
 
