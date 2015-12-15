@@ -4,7 +4,7 @@ require 'rubygems'
 require 'json'
 require 'csv'
 
-report_path = "/home/kurt/alchemy-workspace/ashland/Mock Reports/Mock Reports Simple.csv"
+report_path = "/home/kurt/alchemy-workspace/ashland/Mock Reports/Mock Reports (24).csv"
 ordering_path = "Ordering"
 mapping_path = "Mapping"
     
@@ -28,4 +28,29 @@ for i in 0...original_titles.size
     end
 end
 
-print new_titles
+# Setup values
+result = Array.new
+result.push(new_titles)
+
+for i in 1...report_csv.size
+    tmp = Array.new(mapping.size)
+    for j in 0...original_titles.size
+        new_title = mapping[original_titles[j]]
+        new_index = ordering.index(new_title)
+
+        value = ""
+        if report_csv[i].size <= j
+            value = ""
+        else
+            value = report_csv[i][j]
+
+            # TODO hooks
+        end
+        tmp[new_index] = value
+    end
+    result.push(tmp)
+end
+
+CSV.open("ashland-report.csv", "wb") do |csv|
+    result.each { |row| csv << row }
+end
