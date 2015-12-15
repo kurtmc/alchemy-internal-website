@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+require 'rubygems'
+require 'json'
 require 'csv'
 
 report_path = "/home/kurt/alchemy-workspace/ashland/Mock Reports/Mock Reports Simple.csv"
@@ -14,4 +16,6 @@ ordering.map do |line|
     line.strip!
 end
 
-print ordering
+mapping = JSON.parse(File.read(mapping_path))
+
+print mapping["Company"]
