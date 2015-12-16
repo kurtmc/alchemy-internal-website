@@ -25,7 +25,7 @@ pdfseparate "$TMP_DIR/$BASENAME" "$TMP_DIR/tmp_%05d.pdf"
 FIRST=$(ls $TMP_DIR | grep tmp_ | head -1)
 FIRST=$(echo $TMP_DIR/$FIRST | sed -e 's/[\/&]/\\&/g')
 
-cat footer.tex | sed "s/%%FILENAME%%/$FIRST/" | pdflatex &>/dev/null && rm texput.log texput.aux
+cat header.tex | sed "s/%%FILENAME%%/$FIRST/" | pdflatex &>/dev/null && rm texput.log texput.aux
 
 rm "$TMP_DIR/$BASENAME"
 mv texput.pdf $TMP_DIR/tmp_00001.pdf
