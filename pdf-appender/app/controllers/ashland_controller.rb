@@ -10,6 +10,10 @@ class AshlandController < ApplicationController
     end
 
     def create
+        if params[:ashland].nil?
+            render 'new'
+            return
+        end
         uploaded_io = params[:ashland][:csv_file]
         filename = uploaded_io.original_filename
         report_path = Rails.root.join('public', 'uploads', filename)

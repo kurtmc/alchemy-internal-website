@@ -3,6 +3,10 @@ class PdfsController < ApplicationController
     end
 
     def create
+        if params[:pdf].nil?
+            render 'new'
+            return
+        end
         uploaded_io = params[:pdf][:pdf_file]
         filename = uploaded_io.original_filename
         File.open(Rails.root.join('public', 'uploads', filename), 'wb') do |file|
