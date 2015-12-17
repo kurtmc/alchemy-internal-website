@@ -14,9 +14,9 @@ class SdsController < ApplicationController
         end
         #redirect_to pdfs_path
         cmd = 'cd sds_header_pdf; ./run.sh "../public/uploads/' + filename + '"'
-        value = `#{cmd}`
+        `#{cmd}`
         #render plain: cmd + ':::::::' + value
         #render plain: `pwd`
-        send_file(File.join(Rails.root, "sds_header_pdf", "output", filename))
+        send_file(File.join(Rails.root, 'sds_header_pdf', 'output', filename))
     end
 end
