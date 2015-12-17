@@ -31,6 +31,7 @@ class AshlandController < ApplicationController
     def transform(report_path, output_path)
         ordering_path = Rails.root.join('ashland-report', 'Ordering')
         mapping_path = Rails.root.join('ashland-report', 'Mapping')
+        hooks_path = Rails.root.join('ashland-report', 'Hooks')
             
         report_csv =  CSV.read(report_path)
         original_titles = report_csv[0]
@@ -41,6 +42,7 @@ class AshlandController < ApplicationController
         end
 
         mapping = JSON.parse(File.read(mapping_path))
+        hooks = JSON.parse(File.read(hooks_path))
 
         # Get new titles
         new_titles = Array.new(mapping.size)
@@ -68,6 +70,14 @@ class AshlandController < ApplicationController
                     value = report_csv[i][j]
 
                     # TODO hooks
+                    hook = hooks[original_titles[j]]
+                    unless hook.nil? or hook.empty?
+                        if hook == "american_date"
+                            date = Date.strptime(value, '%d/%m/%Y')
+                            value = date.strftime('%m/%d/%Y')
+                        end
+
+                    end
                 end
                 tmp[new_index] = value
             }
