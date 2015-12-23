@@ -16,3 +16,20 @@ sell.png]
 - Stock availability (found item card – see highlighted fields.
   Would be good to be able to drill down on purchase orders and
 packing slips to get more details [see stock.png and stock2.png]
+
+Read from another db
+=====================
+http://stackoverflow.com/questions/16533393/efficient-way-to-pull-data-from-second-database/16685353#16685353
+
+SQL Server
+===========
+https://github.com/rails-sqlserver/activerecord-sqlserver-adapter/tree/4-1-stable
+
+Rails 4.1.0 setup
+================
+rvm install ruby-2.1.1
+rvm 2.1.1
+gem install rails -v 4.1.0
+rvm gemset create rails410
+rvm 2.1.1@rails410
+gem install rails -v 4.1.0
