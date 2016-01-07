@@ -1,0 +1,530 @@
+"CONSUMER SPECIALTIES
+(Pharmaceuticals, Nutrition, AgChem, Personal Care, Adv Mat)",,,GREEN shaded columns represent Dropdown update Data,,,,,,,Ashland FisCal Quarter-1 (Oct 1 to Dec 31),,,,,,,,,,,,,,,,
+,,,,,,,,,,Ashland FisCal Quarter-2 (Jan 1 to Mar 31),,,,,,,,,,,,,,,,
+,,,,,,,,,,Ashland FisCal Quarter-3 (Apr 1 to Jun 30),,,,,,,,,,,,,,,,
+Distributor Name: ,,,PURPLE shaded columns represent Manually update Data,,,,,,,Ashland FisCal Quarter-4 (Jul 1 to Sep 30),,,,,,,,,,,,,,,,
+Dist. Rep Name: ,,,,,,,,,,,,,,,,,,,,,,,,,,
+Dist. Rep Email:  ,,,,,,,,,,,,,,,,,,,,,,,,,,
+LISD Information,,,,OPPORTUNITY OWNER,END USE CUSTOMER & CONTACT INFORMATION,,End Use CONTACT RELATIONSHIP STATUS,,DETAILED INFORMATION ON THE OPPORTUNITY,"DATE format MM/DD/YYYY-(Example: 10/22/2015 for OCT 22, 2015)",,ASI - MATERIAL & REVENUE INFORMATION,,,,AUTO FILL COLUMN ,COMPETITION DETAILS,Opportunity STAGE Qualification,STAGE Description,OPPORTUNITY DETAILS,,,,OPPORTUNITY RESULTS INFORMATION,OPPORTUNITY RESULTS INFORMATION (other reason),"DATE format MM/DD/YYYY-(Example: 10/22/2015 for OCT 22, 2015)"
+"Sales Office Desc 
+(Region)","Sales Group Desc 
+(Country Name)",Customer Group Desc (Business Unit),"PAC Description
+(END USE MARKET APPLICATION)","Opportunity Owner 
+(Ashland Account Rep)","End Use Customer Account 
+(Name & Address)","End Use Contact
+Name, Title (Designation) & Email","Contact Capability
+(Key Role)",RELATIONSHIP STATUS,"Opportunity Notes (Description)
+Info on customer project/ ASI samples /lab work support ?, etc","Expected Decision Date 
+(Close Date)","Expected Revenue Date
+(greater than close date)","ASI PRODUCT FULL NAME
+(MATERIAL WITH GRADE)","UOM
+(Unit of Measure)","PRODUCT QUANTITY
+Per Annum ( Kg / lb)","PRODUCT PRICE
+(USD per Kg / lb)","Total Opportunity Revenue 
+(Value per Annum)",Competitor Name & Related Information,Percent (%) Probability of Winning the Opportunity,"Describe current stage of the opportunity
+(Sampling, Need ASI Lab Support, Customer Trials, FDA approval, Negotiations, etc.) as applicable","SBU
+(Strategic Business Unit)",Functionality,Opportunity Type,Opportunity Status,"Result Reason (Reason for Close)
+(provide only for CLOSED Status from Previous Column)","Results Description 
+(provide only for option OTHER from Previous column)","Actual Decision Date
+(Won / Lost Status only)"
+,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P10*O10,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P11*O11,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P12*O12,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P13*O13,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P14*O14,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P15*O15,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P16*O16,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P17*O17,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P18*O18,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P19*O19,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P20*O20,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P21*O21,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P22*O22,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P23*O23,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P24*O24,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P25*O25,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P26*O26,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P27*O27,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P28*O28,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P29*O29,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P30*O30,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P31*O31,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P32*O32,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P33*O33,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P34*O34,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P35*O35,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P36*O36,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P37*O37,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P38*O38,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P39*O39,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P40*O40,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P41*O41,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P42*O42,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P43*O43,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P44*O44,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P45*O45,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P46*O46,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P47*O47,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P48*O48,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P49*O49,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P50*O50,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P51*O51,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P52*O52,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P53*O53,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P54*O54,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P55*O55,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P56*O56,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P57*O57,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P58*O58,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P59*O59,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P60*O60,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P61*O61,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P62*O62,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P63*O63,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P64*O64,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P65*O65,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P66*O66,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P67*O67,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P68*O68,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P69*O69,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P70*O70,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P71*O71,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P72*O72,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P73*O73,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P74*O74,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P75*O75,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P76*O76,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P77*O77,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P78*O78,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P79*O79,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P80*O80,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P81*O81,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P82*O82,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P83*O83,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P84*O84,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P85*O85,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P86*O86,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P87*O87,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P88*O88,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P89*O89,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P90*O90,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P91*O91,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P92*O92,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P93*O93,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P94*O94,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P95*O95,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P96*O96,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P97*O97,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P98*O98,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P99*O99,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P100*O100,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P101*O101,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P102*O102,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P103*O103,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P104*O104,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P105*O105,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P106*O106,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P107*O107,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P108*O108,,,,,,,,,,
+,,,,,"Name: 
+Address: 
+Phone No: ","Name: 
+Desg/Title: 
+Email: ",,,,,,,,,,=P109*O109,,,,,,,,,,
