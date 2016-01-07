@@ -7,16 +7,36 @@
     <strong>Description:</strong>
     <%= the_product.description %>
     </p>
-    <% unless the_product.sds.nil? %>
-        <p>
+    <p>
         <strong>SDS:</strong>
+    <% unless the_product.sds.nil? %>
         <%= link_to "#{the_product.sds}", :controller => "products", :action => "download_sds", :id => the_product.product_id %>
+    <% else %>
+        No SDS file
+    <% end %>
+    </p>
+    <%= form_for :product, url: products_path do |p| %>
+        <p>
+        <%= p.file_field :sds_file %>
+        </p>
+        <p>
+        <%= p.submit "Replace SDS" %>
         </p>
     <% end %>
-    <% unless the_product.pds.nil? %>
-        <p>
+    <p>
         <strong>PDS:</strong>
+    <% unless the_product.pds.nil? %>
         <%= link_to "#{the_product.pds}", :controller => "products", :action => "download_pds", :id => the_product.product_id %>
+    <% else %>
+        No PDS file
+    <% end %>
+    </p>
+    <%= form_for :product, url: products_path do |p| %>
+        <p>
+        <%= p.file_field :pds_file %>
+        </p>
+        <p>
+        <%= p.submit "Replace PDS" %>
         </p>
     <% end %>
     <%= link_to 'Products', products_path  %>
