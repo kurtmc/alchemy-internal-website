@@ -6,4 +6,7 @@
   <strong>Description:</strong>
     <%= @product.description %>
 </p>
+<p>
+  <strong>SDS:</strong>
+  <%= link_to 'download_sds', :controller => "products", :action => "download_sds", :id => @product.product_id %>
 </div>

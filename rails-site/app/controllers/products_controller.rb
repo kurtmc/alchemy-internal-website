@@ -15,6 +15,18 @@ class ProductsController < ApplicationController
         @product = find_product(params[:id])
     end
 
+    def download_sds
+          prod = find_product(params[:id])
+          send_file(Rails.root.join('alchemy-info-tables', 'res', 'Product_Information', prod.directory, prod.sds),
+                    filename: prod.sds,
+                    type: "application/pdf"
+          )
+          #send_data pdf,
+            #:filename => Rails.root.join('alchemy-info-tables', 'res', 'Product_Information', prod.directory, prod.sds),
+            #:type => "application/pdf"
+    end
+
+
     private
 
     def new_product(csv_entry)
