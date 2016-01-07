@@ -15,6 +15,10 @@ class ProductsController < ApplicationController
         @product = find_product(params[:id])
     end
 
+    def edit
+        @product = find_product(params[:id])
+    end
+
     def download_sds
           prod = find_product(params[:id])
           info_path = 'alchemy-info-tables/res/Product_Information/' + prod.directory
