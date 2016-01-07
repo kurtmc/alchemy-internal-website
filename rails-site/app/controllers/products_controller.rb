@@ -19,8 +19,34 @@ class ProductsController < ApplicationController
         @product = find_product(params[:id])
     end
 
-    def handle_upload(uploaded_io)
-        
+    def handle_upload(uploaded_io, file_type)
+        unless ['sds', 'pds'].include? file_type.downcase
+            return
+        end
+
+        new_filename = uploaded_io.original_filename
+            old_filename = nil
+            start = "#{file_type.upcase} - "
+            field = file_type.upcase
+            old_filename = @product[field.downcase]
+
+            unless new_filename.start_with?(start)
+                @product.errors.add("#{field}_filename", "\"#{new_filename}\" does not begin with \"#{start}\"")
+                return
+            end
+
+            path = "alchemy-info-tables/res/Product_Information"
+            path = path + "/#{@product.directory}"
+
+            # First delete old file
+            File.delete(Rails.root.join(path, old_filename))
+            
+            # Write new file
+            write_uploaded_file(path, uploaded_io)
+
+            regen_tables
+            
+            @product[field.downcase] = new_filename
     end
 
     def update
@@ -29,37 +55,12 @@ class ProductsController < ApplicationController
         
         unless params[:product][:sds_file].nil?
             uploaded_io = params[:product][:sds_file]
-            new_filename = uploaded_io.original_filename
-            unless new_filename.start_with?("SDS - ")
-                @product.errors.add(:SDS_filename, "\"#{new_filename}\" does not begin with \"SDS - \"")
-                render 'edit'
-                return
-            end
-
-            path = "alchemy-info-tables/res/Product_Information"
-            path = path + "/#{@product.directory}"
-
-            # First delete old SDS
-            File.delete(Rails.root.join(path, @product.sds))
-
-            # Write new file
-            write_uploaded_file(path, uploaded_io)
-
-            regen_tables
+            handle_upload(uploaded_io, "sds")
         end
 
         unless params[:product][:pds_file].nil?
-            path = "alchemy-info-tables/res/Product_Information"
-            path = path + "/#{@product.directory}"
-
-            # First delete old PDS
-            File.delete(Rails.root.join(path, @product.pds))
-
-            # Write new file
             uploaded_io = params[:product][:pds_file]
-            write_uploaded_file(path, uploaded_io)
-
-            regen_tables
+            handle_upload(uploaded_io, "pds")
         end
 
         render 'edit'
