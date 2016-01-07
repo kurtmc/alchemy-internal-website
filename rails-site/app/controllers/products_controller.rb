@@ -18,13 +18,17 @@ class ProductsController < ApplicationController
     def download_sds
           prod = find_product(params[:id])
           info_path = 'alchemy-info-tables/res/Product_Information/' + prod.directory
-          download_pdf(info_path, prod.sds)
+          unless prod.sds.nil?
+            download_pdf(info_path, prod.sds)
+          end
     end
 
     def download_pds
           prod = find_product(params[:id])
           info_path = 'alchemy-info-tables/res/Product_Information/' + prod.directory
-          download_pdf(info_path, prod.pds)
+          unless prod.pds.nil?
+            download_pdf(info_path, prod.pds)
+          end
     end
 
     private
@@ -42,6 +46,7 @@ class ProductsController < ApplicationController
         prod.description = csv_entry[4]
         prod.vendor_id = csv_entry[5]
         prod.vendor_name = csv_entry[6]
+        puts "#{prod.product_id}, #{prod.description}, #{prod.sds} "
         return prod
     end
     

@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   get 'welcome/index'
 
-  resources :pdfs, :ashland, :sds, :products
-  
+  resources :pdfs, :ashland, :sds
+  resources :products, :constraints => { :id => /[0-9A-Za-z\-\.\%_\s\:\+<&\(\)\/]+/ }
   get 'products/:id/download_sds' => 'products#download_sds'
   get 'products/:id/download_pds' => 'products#download_pds'
 

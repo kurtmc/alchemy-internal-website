@@ -1,17 +1,22 @@
+<% the_product = @product %>
 <div class="container theme-showcase" role="main">
 <div class="page-header">
-    <h1>ID: <%= @product.product_id %></h1>
+    <h1>ID: <%= the_product.product_id %></h1>
 </div>
 <p>
   <strong>Description:</strong>
-    <%= @product.description %>
+    <%= the_product.description %>
 </p>
+<% unless the_product.sds.nil? %>
 <p>
   <strong>SDS:</strong>
-  <%= link_to 'download_sds', :controller => "products", :action => "download_sds", :id => @product.product_id %>
+  <%= link_to "#{the_product.sds}", :controller => "products", :action => "download_sds", :id => the_product.product_id %>
 </p>
+<% end %>
+<% unless the_product.pds.nil? %>
 <p>
   <strong>PDS:</strong>
-  <%= link_to 'download_pds', :controller => "products", :action => "download_pds", :id => @product.product_id %>
+  <%= link_to "#{the_product.pds}", :controller => "products", :action => "download_pds", :id => the_product.product_id %>
 </p>
+<% end %>
 </div>
