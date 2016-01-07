@@ -4,12 +4,24 @@
     <div class="page-header">
         <h1>Editing: <%= product_id %></h1>
     </div>
+    <% if @product.errors.any? %>
+        <div id="error_explanation">
+            <h2>
+                <%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:
+            </h2>
+            <ul>
+                <% @product.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
     <p>
     <strong>Description:</strong>
     <%= the_product.description %>
     </p>
     <p>
-        <strong>SDS:</strong>
+    <strong>SDS:</strong>
     <% unless the_product.sds.nil? %>
         <%= link_to "#{the_product.sds}", :controller => "products", :action => "download_sds", :id => product_id %>
     <% else %>
@@ -25,7 +37,7 @@
         </p>
     <% end %>
     <p>
-        <strong>PDS:</strong>
+    <strong>PDS:</strong>
     <% unless the_product.pds.nil? %>
         <%= link_to "#{the_product.pds}", :controller => "products", :action => "download_pds", :id => product_id %>
     <% else %>

@@ -19,11 +19,23 @@ class ProductsController < ApplicationController
         @product = find_product(params[:id])
     end
 
+    def handle_upload(uploaded_io)
+        
+    end
+
     def update
         @product = find_product(params[:id])
         puts "Update: #{@product.product_id}"
         
         unless params[:product][:sds_file].nil?
+            uploaded_io = params[:product][:sds_file]
+            new_filename = uploaded_io.original_filename
+            unless new_filename.start_with?("SDS - ")
+                @product.errors.add(:SDS_filename, "\"#{new_filename}\" does not begin with \"SDS - \"")
+                render 'edit'
+                return
+            end
+
             path = "alchemy-info-tables/res/Product_Information"
             path = path + "/#{@product.directory}"
 
@@ -31,7 +43,6 @@ class ProductsController < ApplicationController
             File.delete(Rails.root.join(path, @product.sds))
 
             # Write new file
-            uploaded_io = params[:product][:sds_file]
             write_uploaded_file(path, uploaded_io)
 
             regen_tables
