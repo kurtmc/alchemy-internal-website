@@ -126,7 +126,10 @@ class ProductsController < ApplicationController
     end
 
     def regen_tables
-        cmd = 'cd alchemy-info-tables; make'
-        `#{cmd}`
+        cmd = 'cd alchemy-info-tables; '
+        cmd += 'make; '
+        cmd += 'git add . 2>&1; '
+        cmd += 'git commit -m "Data Sheet Update" 2>&1'
+        puts `#{cmd}`
     end
 end
