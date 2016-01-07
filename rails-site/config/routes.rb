@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :pdfs, :ashland, :sds, :products
   
   get 'products/:id/download_sds' => 'products#download_sds'
+  get 'products/:id/download_pds' => 'products#download_pds'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
