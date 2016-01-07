@@ -10,7 +10,7 @@
     <p>
         <strong>SDS:</strong>
     <% unless the_product.sds.nil? %>
-        <%= link_to "#{the_product.sds}", :controller => "products", :action => "download_sds", :id => the_product.product_id %>
+        <%= link_to "#{the_product.sds}", :controller => "products", :action => "download_sds", :id => the_product.product_id.gsub('/',"%2F") %>
     <% else %>
         No SDS file
     <% end %>
@@ -18,11 +18,11 @@
     <p>
         <strong>PDS:</strong>
     <% unless the_product.pds.nil? %>
-        <%= link_to "#{the_product.pds}", :controller => "products", :action => "download_pds", :id => the_product.product_id %>
+        <%= link_to "#{the_product.pds}", :controller => "products", :action => "download_pds", :id => the_product.product_id.gsub('/',"%2F") %>
     <% else %>
         No PDS file
     <% end %>
     </p>
 <%= link_to 'Products', products_path  %>
-<%= link_to 'Edit', edit_product_path(the_product.product_id) %>
+<%= link_to 'Edit', edit_product_path(the_product.product_id.gsub('/',"%2F")) %>
 </div>
