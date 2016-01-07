@@ -18,7 +18,15 @@ class ProductsController < ApplicationController
     private
 
     def new_product(csv_entry)
-        return Product.new(product_id:csv_entry[0], description:csv_entry[4])
+        prod = Product.new
+        prod.product_id = csv_entry[0]
+        prod.directory = csv_entry[1]
+        prod.sds = csv_entry[2]
+        prod.pds = csv_entry[3]
+        prod.description = csv_entry[4]
+        prod.vendor_id = csv_entry[5]
+        prod.vendor_name = csv_entry[6]
+        return prod
     end
     
     def get_product_csv
