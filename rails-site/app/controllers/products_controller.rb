@@ -22,6 +22,35 @@ class ProductsController < ApplicationController
     def update
         @product = find_product(params[:id])
         puts "Update: #{@product.product_id}"
+        
+        unless params[:product][:sds_file].nil?
+            path = "alchemy-info-tables/res/Product_Information"
+            path = path + "/#{@product.directory}"
+
+            # First delete old SDS
+            File.delete(Rails.root.join(path, @product.sds))
+
+            # Write new file
+            uploaded_io = params[:product][:sds_file]
+            write_uploaded_file(path, uploaded_io)
+
+            regen_tables
+        end
+
+        unless params[:product][:pds_file].nil?
+            path = "alchemy-info-tables/res/Product_Information"
+            path = path + "/#{@product.directory}"
+
+            # First delete old PDS
+            File.delete(Rails.root.join(path, @product.pds))
+
+            # Write new file
+            uploaded_io = params[:product][:pds_file]
+            write_uploaded_file(path, uploaded_io)
+
+            regen_tables
+        end
+
         render 'edit'
     end
 
@@ -75,5 +104,17 @@ class ProductsController < ApplicationController
             end
         }
         return nil
+    end
+
+    def write_uploaded_file(path, uploaded_io)
+        filename = uploaded_io.original_filename
+        File.open(Rails.root.join(path, filename), 'wb') do |file|
+            file.write(uploaded_io.read)
+        end
+    end
+
+    def regen_tables
+        cmd = 'cd alchemy-info-tables; make'
+        `#{cmd}`
     end
 end
