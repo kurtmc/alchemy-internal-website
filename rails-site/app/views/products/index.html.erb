@@ -14,7 +14,7 @@
         <tr>
             <td><%= product.product_id %></td>
             <td><%= product.description %></td>
-            <td><%= link_to 'Show', product_path(product.product_id.gsub('/',"%2F")) %></td>
+            <td><%= link_to 'Show', product_path(product.get_product_id) %></td>
         </tr>
     <% end %>
 </table>
