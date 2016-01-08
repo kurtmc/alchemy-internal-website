@@ -1,3 +1,12 @@
+<%
+        def display(product)
+            to_display = true
+            if params[:expired_sds] != nil && params[:expired_sds]
+                to_display = to_display && product.get_sds_expiry.past?
+            end
+            return to_display
+end
+%>
 <div class="container theme-showcase" role="main">
     <div class="page-header">
         <h1>Listing products</h1>
@@ -13,16 +22,23 @@
             <th colspan="2"></th>
         </tr>
 
+        <% expired_count = 0 %>
         <% @products.each do |product| %>
-            <% if params[:expired_sds] and product.get_sds_expiry.past? %>
+            <% if display(product) == true %>
+                <% expired_count += 1 %>
                 <tr>
                     <td><%= product.product_id %></td>
                     <td><%= product.description %></td>
-                    <td><%= product.get_sds_expiry_formatted %></td>
+                    <% if params[:expired_sds] %>
+                        <td><%= product.get_sds_expiry_formatted %></td>
+                    <% end %>
                     <td><%= link_to 'Show', product_path(product.get_product_id) %></td>
                 </tr>
             <% end %>
         <% end %>
     </table>
+    <% if params[:expired_sds] %>
+        <p><strong>Number of expired SDS's:</strong> <%= expired_count %>
+    <% end %>
     <%= link_to "Home", root_path %>
 </div>
