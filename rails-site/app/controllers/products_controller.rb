@@ -51,7 +51,6 @@ class ProductsController < ApplicationController
 
     def update
         @product = find_product(params[:id])
-        puts "Update: #{@product.product_id}"
         
         unless params[:product][:sds_file].nil?
             uploaded_io = params[:product][:sds_file]
@@ -97,7 +96,6 @@ class ProductsController < ApplicationController
         prod.description = csv_entry[4]
         prod.vendor_id = csv_entry[5]
         prod.vendor_name = csv_entry[6]
-        puts "#{prod.product_id}, #{prod.description}, #{prod.sds} "
         return prod
     end
 
@@ -130,6 +128,6 @@ class ProductsController < ApplicationController
         cmd += 'make; '
         cmd += 'git add . 2>&1; '
         cmd += 'git commit -m "Data Sheet Update" 2>&1'
-        puts `#{cmd}`
+        `#{cmd}`
     end
 end
