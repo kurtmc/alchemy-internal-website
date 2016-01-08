@@ -9,6 +9,10 @@ class ProductsController < ApplicationController
             prods << new_product(x)
         }
         @products = prods
+
+        sql = 'SELECT No_ AS NAV_ID FROM NAVLIVE.dbo."Alchemy Agencies Ltd$Item"'
+        records_array = Navision.connection.execute(sql)
+        puts "RECORDS: #{records_array}"
     end
 
     def show
