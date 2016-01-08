@@ -1,0 +1,36 @@
+<% the_product = @product %>
+<div class="container theme-showcase" role="main">
+    <div class="page-header">
+        <h1>ID: <%= the_product.product_id %></h1>
+    </div>
+    <p>
+    <strong>Description:</strong>
+    <%= the_product.description %>
+    </p>
+    <p>
+    <strong>SDS:</strong>
+    <% unless the_product.sds.nil? %>
+        <%= link_to "#{the_product.sds}", :controller => "products", :action => "download_sds", :id => the_product.product_id.gsub('/',"%2F") %>
+    <% else %>
+        No SDS file
+    <% end %>
+    </p>
+    <p>
+    <% if the_product.get_sds_expiry.past? %>
+        <strong style='color: red'>SDS HAS EXPIRED:</strong>
+    <% else %>
+        <strong>SDS expiry:</strong>
+    <% end %>
+    <%= the_product.get_sds_expiry.strftime("%Y-%m-%d") %>
+    </p>
+    <p>
+    <strong>PDS:</strong>
+    <% unless the_product.pds.nil? %>
+        <%= link_to "#{the_product.pds}", :controller => "products", :action => "download_pds", :id => the_product.product_id.gsub('/',"%2F") %>
+    <% else %>
+        No PDS file
+    <% end %>
+    </p>
+    <%= link_to 'Products', products_path  %>
+    <%= link_to 'Edit', edit_product_path(the_product.product_id.gsub('/',"%2F")) %>
+</div>

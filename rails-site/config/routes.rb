@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   get 'welcome/index'
 
-  resources :pdfs, :ashland, :sds, :sales_stats
+  resources :pdfs, :ashland, :sds
+  resources :products, :constraints => { :id => /[0-9A-Za-z\-\.\%_\s\:\+<&\(\)]+/ }
+  get 'products/:id/download_sds' => 'products#download_sds'
+  get 'products/:id/download_pds' => 'products#download_pds'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

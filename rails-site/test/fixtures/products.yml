@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  product_id: MyString
+  directory: MyString
+  sds: MyString
+  pds: MyString
+  vendor_id: MyString
+  vendor_name: MyString
+  description: MyString
+
+two:
+  product_id: MyString
+  directory: MyString
+  sds: MyString
+  pds: MyString
+  vendor_id: MyString
+  vendor_name: MyString
+  description: MyString
