@@ -1,22 +1,28 @@
 <div class="container theme-showcase" role="main">
-<div class="page-header">
-<h1>Listing products</h1>
-</div>
-<%= link_to "Home", root_path %>
-<table>
-    <tr>
-        <th>ID</th>
-        <th>Description</th>
-        <th colspan="1"></th>
-    </tr>
-
-    <% @products.each do |product| %>
+    <div class="page-header">
+        <h1>Listing products</h1>
+    </div>
+    <%= link_to "Home", root_path %>
+    <table>
         <tr>
-            <td><%= product.product_id %></td>
-            <td><%= product.description %></td>
-            <td><%= link_to 'Show', product_path(product.get_product_id) %></td>
+            <th>ID</th>
+            <th>Description</th>
+            <% if params[:expired_sds] %>
+                <th>SDS expiry</th>
+            <% end %>
+            <th colspan="2"></th>
         </tr>
-    <% end %>
-</table>
-<%= link_to "Home", root_path %>
+
+        <% @products.each do |product| %>
+            <% if params[:expired_sds] and product.get_sds_expiry.past? %>
+                <tr>
+                    <td><%= product.product_id %></td>
+                    <td><%= product.description %></td>
+                    <td><%= product.get_sds_expiry_formatted %></td>
+                    <td><%= link_to 'Show', product_path(product.get_product_id) %></td>
+                </tr>
+            <% end %>
+        <% end %>
+    </table>
+    <%= link_to "Home", root_path %>
 </div>

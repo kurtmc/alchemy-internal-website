@@ -11,4 +11,8 @@ class Product < ActiveRecord::Base
         return records_array.first["SDS Expiry Date"]
     end
 
+    def get_sds_expiry_formatted
+        return self.get_sds_expiry.strftime("%Y-%m-%d")
+    end
+
 end
