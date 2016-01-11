@@ -28,13 +28,9 @@
         No SDS file
     <% end %>
     </p>
-    <%= form_for :product, method: :patch, url: product_path(product_id) do |p| %>
-        <p>
-        <%= p.file_field :sds_file %>
-        </p>
-        <p>
-        <%= p.submit "Replace SDS" %>
-        </p>
+    <%= form_for :product, method: :patch, url: product_path(product_id), :html => {:class => 'form-inline'} do |p| %>
+        <%= p.file_field :sds_file, {class: 'form-control'} %>
+        <%= p.submit "Replace SDS", {class: 'btn btn-primary'} %>
     <% end %>
     <p>
     <strong>PDS:</strong>
@@ -44,13 +40,9 @@
         No PDS file
     <% end %>
     </p>
-    <%= form_for :product, method: :patch, url: product_path(product_id) do |p| %>
-        <p>
-        <%= p.file_field :pds_file %>
-        </p>
-        <p>
-        <%= p.submit "Replace PDS" %>
-        </p>
+    <%= form_for :product, method: :patch, url: product_path(product_id), :html => {:class => 'form-inline'} do |p| %>
+        <%= p.file_field :pds_file, {class: 'form-control'} %>
+        <%= p.submit "Replace PDS", {class: 'btn btn-primary'} %>
     <% end %>
     <div class="list-group">
     <%= link_to 'Finished editing', product_path(product_id), {class: 'list-group-item'} %>
