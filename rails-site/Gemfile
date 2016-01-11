@@ -43,3 +43,4 @@ gem 'tiny_tds'
 gem 'activerecord-sqlserver-adapter'
 
 gem 'rubyzip'
+gem 'jquery-turbolinks'
