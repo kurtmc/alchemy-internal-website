@@ -41,3 +41,5 @@ gem 'spring',        group: :development
 # Microsoft SQL Server stuff
 gem 'tiny_tds'
 gem 'activerecord-sqlserver-adapter'
+
+gem 'rubyzip'
