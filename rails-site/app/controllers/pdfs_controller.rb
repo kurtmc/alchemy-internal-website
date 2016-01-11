@@ -1,3 +1,5 @@
+require 'utils/file_process_utils'
+
 class PdfsController < ApplicationController
     def new
     end
@@ -7,16 +9,14 @@ class PdfsController < ApplicationController
             render 'new'
             return
         end
-        uploaded_io = params[:pdf][:pdf_file]
-        filename = uploaded_io.original_filename
-        File.open(Rails.root.join('public', 'uploads', filename), 'wb') do |file|
-            file.write(uploaded_io.read)
+
+        output_directory = Rails.root.join('footer_pdf', 'output')
+        zipfile_name = 'output.zip'
+        pdf_files = params[:pdf][:pdf_files]
+        file_processor = Proc.new do |filename|
+            cmd = 'cd footer_pdf; ./run.sh "../public/uploads/' + filename + '"'
+            `#{cmd}`
         end
-        #redirect_to pdfs_path
-        cmd = 'cd footer_pdf; ./run.sh "../public/uploads/' + filename + '"'
-        `#{cmd}`
-        #render plain: cmd + ':::::::' + value
-        #render plain: `pwd`
-        send_file(File.join(Rails.root, 'footer_pdf', 'output', filename))
+        FileProcessUtils.handle_bulk_processing(zipfile_name, pdf_files, output_directory, file_processor, self)
     end
 end

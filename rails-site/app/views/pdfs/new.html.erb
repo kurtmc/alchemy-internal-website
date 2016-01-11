@@ -5,7 +5,7 @@
 
 <%= form_for :pdf, url: pdfs_path do |p| %>
 <p>
-<%= p.file_field :pdf_file %>
+<%= p.file_field :pdf_files, :multiple => true %>
 </p>
 <p>
     <%= p.submit "Append footer to PDF" %>
