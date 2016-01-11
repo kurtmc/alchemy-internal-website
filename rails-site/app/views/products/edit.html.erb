@@ -52,6 +52,8 @@
         <%= p.submit "Replace PDS" %>
         </p>
     <% end %>
-    <%= link_to 'Products', products_path  %>
-    <%= link_to 'Finished editing', product_path(product_id) %>
+    <div class="list-group">
+    <%= link_to 'Finished editing', product_path(product_id), {class: 'list-group-item'} %>
+    <%= link_to 'Products', products_path, {class: 'list-group-item'} %>
+    </div>
 </div>

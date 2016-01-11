@@ -31,6 +31,8 @@
         No PDS file
     <% end %>
     </p>
-    <%= link_to 'Products', products_path  %>
-    <%= link_to 'Edit', edit_product_path(the_product.product_id.gsub('/',"%2F")) %>
+    <div class="list-group">
+    <%= link_to 'Edit', edit_product_path(the_product.product_id.gsub('/',"%2F")), {class: 'list-group-item'} %>
+    <%= link_to 'Products', products_path, {class: 'list-group-item'}  %>
+    </div>
 </div>
