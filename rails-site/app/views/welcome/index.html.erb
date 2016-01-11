@@ -1,12 +1,12 @@
 <div class="container theme-showcase" role="main">
-<div class="page-header">
-<%= image_tag("logo.svg", :alt => "Company Logo", width: 300) %>
-</div>
-<ul>
-    <li><%= link_to 'Append footer to PDF', new_pdf_path  %></li>
-    <li><%= link_to 'SDS emergency contact info', new_sd_path  %></li>
-    <li><%= link_to 'Ashland', new_ashland_path  %></li>
-    <li><%= link_to 'Products', products_path  %></li>
-    <li><%= link_to 'Products expired', products_path(expired_sds: true)  %></li>
-</ul>
+    <div class="page-header">
+        <%= image_tag("logo.svg", :alt => "Company Logo", width: 300) %>
+    </div>
+    <div class="list-group">
+        <%= link_to 'Append footer to PDF', new_pdf_path, {:class => 'list-group-item'} %>
+        <%= link_to 'SDS emergency contact info', new_sd_path, {:class => 'list-group-item'} %>
+        <%= link_to 'Ashland', new_ashland_path, {:class => 'list-group-item'} %>
+        <%= link_to 'Products', products_path, {:class => 'list-group-item'} %>
+        <%= link_to 'Products expired', products_path(expired_sds: true), {:class => 'list-group-item'} %>
+    </div>
 </div>
