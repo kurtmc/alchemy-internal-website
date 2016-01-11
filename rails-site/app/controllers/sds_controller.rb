@@ -10,36 +10,48 @@ class SdsController < ApplicationController
             render 'new'
             return
         end
-        zipfile_name = Rails.root.join('sds_header_pdf', 'output', 'output.zip')
+        output_directory = Rails.root.join('sds_header_pdf', 'output')
+        zipfile_name = 'output.zip'
+        pdf_files = params[:pdf][:pdf_files]
+        file_processor = Proc.new do |filename|
+            cmd = 'cd sds_header_pdf; ./run.sh "../public/uploads/' + filename + '"'
+            `#{cmd}`
+        end
+        handle_bulk_processing(zipfile_name, pdf_files, output_directory, file_processor)
+    end
+
+    private
+
+    def handle_bulk_processing(zipfile_name, input_files, output_directory, file_processor)
+        zipfile_path = "#{output_directory}/#{zipfile_name}"
         begin
-            File.delete(zipfile_name) # Initially delete output.zip
+            File.delete(zipfile_path)
         rescue
             # do nothing
         end
         new_filenames = Array.new
-        pdf_files = params[:pdf][:pdf_files]
-        pdf_files.each { |uploaded_io|
+        input_files.each { |uploaded_io|
+            # Write uploaded files
             filename = uploaded_io.original_filename
             File.open(Rails.root.join('public', 'uploads', filename), 'wb') do |file|
                 file.write(uploaded_io.read)
             end
-            #redirect_to pdfs_path
-            cmd = 'cd sds_header_pdf; ./run.sh "../public/uploads/' + filename + '"'
-            `#{cmd}`
+
+            # Process files
+            file_processor.call(filename)
             new_filenames << filename
         }
-        directory = Rails.root.join('sds_header_pdf', 'output')
 
-        Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
+        Zip::File.open(zipfile_path, Zip::File::CREATE) do |zipfile|
             new_filenames.each do |filename|
                 # Two arguments:
                 # - The name of the file as it will appear in the archive
                 # - The original file, including the path to find it
-                zipfile.add(filename, "#{directory}/#{filename}")
+                file_path = "#{output_directory}/#{filename}"
+                zipfile.add(filename, file_path)
             end
-            zipfile.get_output_stream("myFile") { |os| os.write "myFile contains just this" }
         end
         # Send files
-        send_file(File.join(zipfile_name))
+        send_file(File.join(zipfile_path))
     end
 end
