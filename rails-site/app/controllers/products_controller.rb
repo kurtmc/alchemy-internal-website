@@ -3,12 +3,7 @@ require 'csv'
 
 class ProductsController < ApplicationController
     def index
-        products_csv = get_product_csv
-        prods = Array.new
-        products_csv.each { |x|
-            prods << new_product(x)
-        }
-        @products = prods
+        @products = get_products
     end
 
     def show
@@ -87,6 +82,14 @@ class ProductsController < ApplicationController
         send_file(Rails.root.join(directory, filename), filename: filename, type: "application/pdf")
     end
 
+    def get_sds_expiry_date(product_id)
+        sql = "SELECT \"SDS Expiry Date\"
+        FROM NAVLIVE.dbo.\"Alchemy Agencies Ltd$Item\"
+        WHERE No_ = #{ActiveRecord::Base.connection.quote(product_id)}"
+        records_array = Navision.connection.select_all(sql)
+        return records_array.first["SDS Expiry Date"]
+    end
+
     def new_product(csv_entry)
         prod = Product.new
         prod.product_id = csv_entry[0]
@@ -96,6 +99,7 @@ class ProductsController < ApplicationController
         prod.description = csv_entry[4]
         prod.vendor_id = csv_entry[5]
         prod.vendor_name = csv_entry[6]
+        prod.sds_expiry = get_sds_expiry_date(prod.product_id)
         return prod
     end
 
@@ -129,5 +133,24 @@ class ProductsController < ApplicationController
         cmd += 'git add . 2>&1; '
         cmd += 'git commit -m "Data Sheet Update" 2>&1'
         `#{cmd}`
+    end
+
+    @@last_update = nil
+
+    def get_products
+        # update every hour
+        if @@last_update.nil? || (Time.now - @@last_update) > 3600
+            products_csv = get_product_csv
+            prods = Array.new
+            products_csv.each { |x|
+                prods << new_product(x)
+            }
+            @@last_update = Time.now
+            # save the products
+            Product.delete_all
+            prods.each(&:save)
+            return prods
+        end
+        return Product.all
     end
 end

@@ -16,7 +16,7 @@
     <% end %>
     </p>
     <p>
-    <% if the_product.get_sds_expiry.past? %>
+    <% if the_product.sds_expiry.past? %>
         <strong style='color: red'>SDS HAS EXPIRED:</strong>
     <% else %>
         <strong>SDS expiry:</strong>

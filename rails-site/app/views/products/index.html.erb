@@ -2,7 +2,7 @@
         def display(product)
             to_display = true
             if params[:expired_sds] != nil && params[:expired_sds]
-                to_display = to_display && product.get_sds_expiry.past?
+                to_display = to_display && (product.sds_expiry.nil? || product.sds_expiry.past?)
             end
             return to_display
 end
