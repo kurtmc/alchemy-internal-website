@@ -2,7 +2,7 @@
 <% product_id = @product.get_product_id %>
 <div class="container theme-showcase" role="main">
     <div class="page-header">
-        <h1>Editing: <%= product_id %></h1>
+        <h1>Editing: <%= @product.product_id %></h1>
     </div>
     <% if @product.errors.any? %>
         <div id="error_explanation">
