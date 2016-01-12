@@ -92,13 +92,13 @@ class ProductsController < ApplicationController
 
     def new_product(csv_entry)
         prod = Product.new
-        prod.product_id = csv_entry[0]
-        prod.directory = csv_entry[1]
-        prod.sds = csv_entry[2]
-        prod.pds = csv_entry[3]
-        prod.description = csv_entry[4]
-        prod.vendor_id = csv_entry[5]
-        prod.vendor_name = csv_entry[6]
+        prod.product_id = csv_entry['ID']
+        prod.directory = csv_entry['Directory']
+        prod.sds = csv_entry['SDS']
+        prod.pds = csv_entry['PDS']
+        prod.description = csv_entry['Description']
+        prod.vendor_id = csv_entry['VENDOR']
+        prod.vendor_name = csv_entry['Name']
         prod.sds_expiry = get_sds_expiry_date(prod.product_id)
         return prod
     end
@@ -111,12 +111,11 @@ class ProductsController < ApplicationController
     end
 
     def find_product(product_id)
-        products_csv = get_product_csv
-        products_csv.each { |x|
-            if x[0] == params[:id] then
-                return new_product(x)
+        CSV.foreach(csv_path, :headers => true) do |csv_obj|
+            if csv_obj['ID'] = params[:id] then
+                return new_product(csv_obj)
             end
-        }
+        end
         return nil
     end
 
@@ -140,11 +139,10 @@ class ProductsController < ApplicationController
     def get_products
         # update every hour
         if @@last_update.nil? || (Time.now - @@last_update) > 3600
-            products_csv = get_product_csv
             prods = Array.new
-            products_csv.each { |x|
-                prods << new_product(x)
-            }
+            CSV.foreach(csv_path, :headers => true) do |csv_obj|
+                prods << new_product(csv_obj)
+            end
             @@last_update = Time.now
             # save the products
             Product.delete_all
@@ -153,4 +151,9 @@ class ProductsController < ApplicationController
         end
         return Product.all
     end
+
+    def csv_path
+        return Rails.root.join('alchemy-info-tables', 'gen', 'NZ_ID_SDS_PDS_VENDOR_NAME.csv')
+    end
+ 
 end
