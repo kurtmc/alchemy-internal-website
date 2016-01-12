@@ -8,6 +8,7 @@ class ProductsController < ApplicationController
 
     def show
         @product = find_product(params[:id])
+        puts @product.inspect
     end
 
     def edit
@@ -60,19 +61,12 @@ class ProductsController < ApplicationController
         render 'edit'
     end
 
-    def download_sds
+    def download_document
+        type = params[:document_type]
         prod = find_product(params[:id])
         info_path = 'alchemy-info-tables/res/Product_Information/' + prod.directory
-        unless prod.sds.nil?
-            download_pdf(info_path, prod.sds)
-        end
-    end
-
-    def download_pds
-        prod = find_product(params[:id])
-        info_path = 'alchemy-info-tables/res/Product_Information/' + prod.directory
-        unless prod.pds.nil?
-            download_pdf(info_path, prod.pds)
+        unless prod[type].nil?
+            download_pdf(info_path, prod[type])
         end
     end
 
@@ -96,6 +90,7 @@ class ProductsController < ApplicationController
         prod.directory = csv_entry['Directory']
         prod.sds = csv_entry['SDS']
         prod.pds = csv_entry['PDS']
+        prod.coa = csv_entry['COA']
         prod.description = csv_entry['Description']
         prod.vendor_id = csv_entry['VENDOR']
         prod.vendor_name = csv_entry['Name']
@@ -112,7 +107,7 @@ class ProductsController < ApplicationController
 
     def find_product(product_id)
         CSV.foreach(csv_path, :headers => true) do |csv_obj|
-            if csv_obj['ID'] = params[:id] then
+            if csv_obj['ID'] == params[:id] then
                 return new_product(csv_obj)
             end
         end

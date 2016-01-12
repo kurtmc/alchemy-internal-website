@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160111002942) do
+ActiveRecord::Schema.define(version: 20160112032644) do
 
   create_table "navisions", force: true do |t|
     t.datetime "created_at"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20160111002942) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "sds_expiry"
+    t.string   "coa"
   end
 
 end

@@ -1,38 +1,45 @@
-<% the_product = @product %>
 <div class="container theme-showcase" role="main">
     <div class="page-header">
-        <h1>ID: <%= the_product.product_id %></h1>
+        <h1>ID: <%= @product.product_id %></h1>
     </div>
     <p>
     <strong>Description:</strong>
-    <%= the_product.description %>
+    <%= @product.description %>
     </p>
     <p>
     <strong>SDS:</strong>
-    <% unless the_product.sds.nil? %>
-        <%= link_to "#{the_product.sds}", :controller => "products", :action => "download_sds", :id => the_product.product_id.gsub('/',"%2F") %>
+    <% unless @product.sds.nil? %>
+        <%= link_to "#{@product.sds}", :controller => "products", :action => "download_document", :id => @product.get_product_id, :document_type => "sds" %>
     <% else %>
         No SDS file
     <% end %>
     </p>
     <p>
-    <% if the_product.sds_expiry.past? %>
+    <% if @product.sds_expiry.past? %>
         <strong style='color: red'>SDS HAS EXPIRED:</strong>
     <% else %>
         <strong>SDS expiry:</strong>
     <% end %>
-    <%= the_product.get_sds_expiry_formatted %>
+    <%= @product.get_sds_expiry_formatted %>
     </p>
     <p>
     <strong>PDS:</strong>
-    <% unless the_product.pds.nil? %>
-        <%= link_to "#{the_product.pds}", :controller => "products", :action => "download_pds", :id => the_product.product_id.gsub('/',"%2F") %>
+    <% unless @product.pds.nil? %>
+        <%= link_to "#{@product.pds}", :controller => "products", :action => "download_document", :id => @product.get_product_id, :document_type => "pds" %>
     <% else %>
         No PDS file
     <% end %>
     </p>
+    <p>
+    <strong>COA:</strong>
+    <% unless @product.coa.nil? %>
+        <%= link_to "#{@product.coa}", :controller => "products", :action => "download_document", :id => @product.get_product_id, :document_type => "coa" %>
+    <% else %>
+        No COA file
+    <% end %>
+    </p>
     <div class="list-group">
-    <%= link_to 'Edit', edit_product_path(the_product.product_id.gsub('/',"%2F")), {class: 'list-group-item'} %>
-    <%= link_to 'Products', products_path, {class: 'list-group-item'}  %>
+        <%= link_to 'Edit', edit_product_path(@product.get_product_id), {class: 'list-group-item'} %>
+        <%= link_to 'Products', products_path, {class: 'list-group-item'}  %>
     </div>
 </div>
