@@ -16,7 +16,7 @@ class ProductsController < ApplicationController
     end
 
     def handle_upload(uploaded_io, file_type)
-        unless ['sds', 'pds'].include? file_type.downcase
+        unless ['sds', 'pds', 'coa'].include? file_type.downcase
             return
         end
 
@@ -35,7 +35,9 @@ class ProductsController < ApplicationController
             path = path + "/#{@product.directory}"
 
             # First delete old file
-            File.delete(Rails.root.join(path, old_filename))
+            unless old_filename.nil?
+                File.delete(Rails.root.join(path, old_filename))
+            end
             
             # Write new file
             write_uploaded_file(path, uploaded_io)
@@ -47,6 +49,15 @@ class ProductsController < ApplicationController
 
     def update
         @product = find_product(params[:id])
+
+        document_types = ['sds', 'pds', 'coa']
+
+        document_types.each { |type|
+            unless params[:product]["#{type}_file"].nil?
+                uploaded_io = params[:product]["#{type}_file"]
+                handle_upload(uploaded_io, type)
+            end
+        }
         
         unless params[:product][:sds_file].nil?
             uploaded_io = params[:product][:sds_file]

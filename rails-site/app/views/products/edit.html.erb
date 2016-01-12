@@ -23,7 +23,7 @@
     <p>
     <strong>SDS:</strong>
     <% unless the_product.sds.nil? %>
-        <%= link_to "#{the_product.sds}", :controller => "products", :action => "download_sds", :id => product_id %>
+        <%= link_to "#{@product.sds}", :controller => "products", :action => "download_document", :id => @product.get_product_id, :document_type => "sds" %>
     <% else %>
         No SDS file
     <% end %>
@@ -35,7 +35,7 @@
     <p>
     <strong>PDS:</strong>
     <% unless the_product.pds.nil? %>
-        <%= link_to "#{the_product.pds}", :controller => "products", :action => "download_pds", :id => product_id %>
+        <%= link_to "#{@product.pds}", :controller => "products", :action => "download_document", :id => @product.get_product_id, :document_type => "pds" %>
     <% else %>
         No PDS file
     <% end %>
@@ -44,8 +44,20 @@
         <%= p.file_field :pds_file, {class: 'form-control'} %>
         <%= p.submit "Replace PDS", {class: 'btn btn-primary'} %>
     <% end %>
+    <p>
+    <strong>COA:</strong>
+    <% unless @product.coa.nil? %>
+        <%= link_to "#{@product.coa}", :controller => "products", :action => "download_document", :id => @product.get_product_id, :document_type => "coa" %>
+    <% else %>
+        No COA file
+    <% end %>
+    </p>
+    <%= form_for :product, method: :patch, url: product_path(product_id), :html => {:class => 'form-inline'} do |p| %>
+        <%= p.file_field :coa_file, {class: 'form-control'} %>
+        <%= p.submit "Replace COA", {class: 'btn btn-primary'} %>
+    <% end %>
     <div class="list-group">
-    <%= link_to 'Finished editing', product_path(product_id), {class: 'list-group-item'} %>
-    <%= link_to 'Products', products_path, {class: 'list-group-item'} %>
+        <%= link_to 'Finished editing', product_path(product_id), {class: 'list-group-item'} %>
+        <%= link_to 'Products', products_path, {class: 'list-group-item'} %>
     </div>
 </div>
