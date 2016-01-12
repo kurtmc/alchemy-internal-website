@@ -9,7 +9,6 @@ class ProductsController < ApplicationController
 
     def show
         @product = find_product(params[:id])
-        puts @product.inspect
     end
 
     def edit
@@ -120,7 +119,6 @@ class ProductsController < ApplicationController
     def find_product(product_id)
         id = URI.unescape(params[:id])
         CSV.foreach(csv_path, :headers => true) do |csv_obj|
-            puts "#{csv_obj['ID']} == #{params[:id]}"
             if csv_obj['ID'] == id then
                 return new_product(csv_obj)
             end
