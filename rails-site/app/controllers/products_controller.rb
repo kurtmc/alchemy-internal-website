@@ -3,6 +3,9 @@ require 'csv'
 require 'uri'
 
 class ProductsController < ApplicationController
+
+    @@document_types = ['sds', 'pds']
+
     def index
         @products = Product.all
     end
@@ -16,7 +19,7 @@ class ProductsController < ApplicationController
     end
 
     def handle_upload(uploaded_io, file_type)
-        unless ['sds', 'pds'].include? file_type.downcase
+        unless @@document_types.include? file_type.downcase
             return
         end
 
@@ -51,9 +54,8 @@ class ProductsController < ApplicationController
     def update
         @product = find_product(params[:id])
 
-        document_types = ['sds', 'pds']
 
-        document_types.each { |type|
+        @@document_types.each { |type|
             unless params[:product]["#{type}_file"].nil?
                 uploaded_io = params[:product]["#{type}_file"]
                 handle_upload(uploaded_io, type)
