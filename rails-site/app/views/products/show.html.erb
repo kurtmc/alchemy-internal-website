@@ -30,14 +30,6 @@
         No PDS file
     <% end %>
     </p>
-    <p>
-    <strong>COA:</strong>
-    <% unless @product.coa.nil? %>
-        <%= link_to "#{@product.coa}", :controller => "products", :action => "download_document", :id => @product.get_product_id, :document_type => "coa" %>
-    <% else %>
-        No COA file
-    <% end %>
-    </p>
     <div class="list-group">
         <%= link_to 'Edit', edit_product_path(@product.get_product_id), {class: 'list-group-item'} %>
         <%= link_to 'Products', products_path, {class: 'list-group-item'}  %>

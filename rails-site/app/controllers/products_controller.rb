@@ -16,7 +16,7 @@ class ProductsController < ApplicationController
     end
 
     def handle_upload(uploaded_io, file_type)
-        unless ['sds', 'pds', 'coa'].include? file_type.downcase
+        unless ['sds', 'pds'].include? file_type.downcase
             return
         end
 
@@ -51,7 +51,7 @@ class ProductsController < ApplicationController
     def update
         @product = find_product(params[:id])
 
-        document_types = ['sds', 'pds', 'coa']
+        document_types = ['sds', 'pds']
 
         document_types.each { |type|
             unless params[:product]["#{type}_file"].nil?

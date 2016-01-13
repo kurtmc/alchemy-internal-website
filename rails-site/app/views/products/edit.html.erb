@@ -44,18 +44,6 @@
         <%= p.file_field :pds_file, {class: 'form-control'} %>
         <%= p.submit "Replace PDS", {class: 'btn btn-primary'} %>
     <% end %>
-    <p>
-    <strong>COA:</strong>
-    <% unless @product.coa.nil? %>
-        <%= link_to "#{@product.coa}", :controller => "products", :action => "download_document", :id => @product.get_product_id, :document_type => "coa" %>
-    <% else %>
-        No COA file
-    <% end %>
-    </p>
-    <%= form_for :product, method: :patch, url: product_path(product_id), :html => {:class => 'form-inline'} do |p| %>
-        <%= p.file_field :coa_file, {class: 'form-control'} %>
-        <%= p.submit "Replace COA", {class: 'btn btn-primary'} %>
-    <% end %>
     <div class="list-group">
         <%= link_to 'Finished editing', product_path(product_id), {class: 'list-group-item'} %>
         <%= link_to 'Products', products_path, {class: 'list-group-item'} %>
