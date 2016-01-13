@@ -9,6 +9,7 @@ class CreateProducts < ActiveRecord::Migration
       t.string :vendor_id
       t.string :vendor_name
       t.string :description
+      t.datetime :sds_expiry
 
       t.timestamps
     end
