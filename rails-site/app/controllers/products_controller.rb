@@ -4,7 +4,7 @@ require 'uri'
 
 class ProductsController < ApplicationController
     def index
-        @products = get_products
+        @products = Product.all
     end
 
     def show
@@ -45,6 +45,7 @@ class ProductsController < ApplicationController
             regen_tables
             
             @product[field.downcase] = new_filename
+            @product.save
     end
 
     def update
@@ -87,43 +88,11 @@ class ProductsController < ApplicationController
         send_file(Rails.root.join(directory, filename), filename: filename, type: "application/pdf")
     end
 
-    def get_sds_expiry_date(product_id)
-        sql = "SELECT \"SDS Expiry Date\"
-        FROM NAVLIVE.dbo.\"Alchemy Agencies Ltd$Item\"
-        WHERE No_ = #{ActiveRecord::Base.connection.quote(product_id)}"
-        records_array = Navision.connection.select_all(sql)
-        return records_array.first["SDS Expiry Date"]
-    end
-
-    def new_product(csv_entry)
-        prod = Product.new
-        prod.product_id = csv_entry['ID']
-        prod.directory = csv_entry['Directory']
-        prod.sds = csv_entry['SDS']
-        prod.pds = csv_entry['PDS']
-        prod.coa = csv_entry['COA']
-        prod.description = csv_entry['Description']
-        prod.vendor_id = csv_entry['VENDOR']
-        prod.vendor_name = csv_entry['Name']
-        prod.sds_expiry = get_sds_expiry_date(prod.product_id)
-        return prod
-    end
-
-    def get_product_csv
-        products_csv_path = Rails.root.join('alchemy-info-tables', 'gen', 'NZ_ID_SDS_PDS_VENDOR_NAME.csv')
-        products_csv = CSV.read(products_csv_path)
-        titles = products_csv.shift
-        return products_csv
-    end
-
     def find_product(product_id)
         id = URI.unescape(params[:id])
-        CSV.foreach(csv_path, :headers => true) do |csv_obj|
-            if csv_obj['ID'] == id then
-                return new_product(csv_obj)
-            end
-        end
-        return nil
+        product = Product.find_by product_id: id
+        product.update_fields
+        return product
     end
 
     def write_uploaded_file(path, uploaded_io)
@@ -135,32 +104,13 @@ class ProductsController < ApplicationController
 
     def regen_tables
         cmd = 'cd alchemy-info-tables; '
-        cmd += 'make; '
         cmd += 'git add . 2>&1; '
         cmd += 'git commit -m "Data Sheet Update" 2>&1'
         `#{cmd}`
     end
 
-    @@last_update = nil
-
     def get_products
-        # update every hour
-        if @@last_update.nil? || (Time.now - @@last_update) > 3600
-            prods = Array.new
-            CSV.foreach(csv_path, :headers => true) do |csv_obj|
-                prods << new_product(csv_obj)
-            end
-            @@last_update = Time.now
-            # save the products
-            Product.delete_all
-            prods.each(&:save)
-            return prods
-        end
         return Product.all
     end
 
-    def csv_path
-        return Rails.root.join('alchemy-info-tables', 'gen', 'NZ_ID_SDS_PDS_VENDOR_NAME.csv')
-    end
- 
 end
