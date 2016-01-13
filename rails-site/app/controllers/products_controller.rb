@@ -60,16 +60,6 @@ class ProductsController < ApplicationController
             end
         }
         
-        unless params[:product][:sds_file].nil?
-            uploaded_io = params[:product][:sds_file]
-            handle_upload(uploaded_io, "sds")
-        end
-
-        unless params[:product][:pds_file].nil?
-            uploaded_io = params[:product][:pds_file]
-            handle_upload(uploaded_io, "pds")
-        end
-
         render 'edit'
     end
 
