@@ -4,28 +4,26 @@ class Customer < ActiveRecord::Base
     include SqlUtils
 
     def self.load_all
-        puts "Loading all customers!"
-        sql = "SELECT *
-      FROM NAVLIVE.dbo.\"Alchemy Agencies Ltd$Customer\""
-        records = SqlUtils.execute_sql(sql)
-        puts records.first.inspect
-        customers = Array.new
-        records.each { |customer_record|
-            customer = Customer.new
-            customer.customer_id = customer_record["No_"]
-            customer.name = customer_record["Name"]
-            customers << customer
+        SalesPerson.all.each { |person|
+            sql = "SELECT *
+          FROM NAVLIVE.dbo.\"Alchemy Agencies Ltd$Customer\"
+          WHERE \"Salesperson Code\" = #{SqlUtils.escape(person.salesperson_code)}"
+            records = SqlUtils.execute_sql(sql)
+            puts records.first.inspect
+            records.each { |customer_record|
+                customer = Customer.new
+                customer.customer_id = customer_record["No_"]
+                customer.update_fields
+                customer.save
+            }
         }
-        # save the products
-        Customer.delete_all
-        customers.each(&:save)
     end
 
     def update_fields
         sql = "SELECT *
       FROM NAVLIVE.dbo.\"Alchemy Agencies Ltd$Customer\"
       WHERE No_ = #{SqlUtils.escape(self.customer_id)}"
-        records = SqlUtils.execute_sql(sql)
+        records = SqlUtils.execute_sql(sql).first
         self.name = records["Name"]
         #TODO find these
         #self.balance = records[]
@@ -34,6 +32,9 @@ class Customer < ActiveRecord::Base
         #self.last_31_to_60 = records[]
         #self.last_31_90 = records[]
         #self.last_90_plus = records[]
+        person = SalesPerson.find_by salesperson_code: records["Salesperson Code"]
+        self.salesperson_id = person.id
+        self.save
     end
 
 end

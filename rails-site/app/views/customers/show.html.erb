@@ -14,6 +14,7 @@
                 <p><strong>31-60 Days (LCY):</strong> <%= @customer.last_31_to_60 %></p>
                 <p><strong>61-90 Days (LCY):</strong> <%= @customer.last_31_90 %></p>
                 <p><strong>90+ Days (LCY):</strong> <%= @customer.last_90_plus %></p>
+                <p><strong>Sales Person:</strong> <%= SalesPerson.find(@customer.salesperson_id).name %></p>
             </div>
         </div>
     </div>

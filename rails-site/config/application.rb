@@ -58,6 +58,7 @@ module PdfAppender
 
         config.after_initialize do
             load_products
+            SalesPerson.load_all
             load_customers
         end
     end
