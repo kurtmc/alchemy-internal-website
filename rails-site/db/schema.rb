@@ -11,7 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160112032644) do
+ActiveRecord::Schema.define(version: 20160114010020) do
+
+  create_table "customers", force: true do |t|
+    t.string   "customer_id"
+    t.string   "name"
+    t.decimal  "balance"
+    t.decimal  "credit_limit"
+    t.decimal  "current"
+    t.decimal  "last_1_to_30"
+    t.decimal  "last_31_to_60"
+    t.decimal  "last_31_90"
+    t.decimal  "last_90_plus"
+    t.integer  "salesperson_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "customers", ["salesperson_id"], name: "index_customers_on_salesperson_id"
 
   create_table "navisions", force: true do |t|
     t.datetime "created_at"
@@ -35,6 +52,13 @@ ActiveRecord::Schema.define(version: 20160112032644) do
     t.decimal  "inventory"
     t.decimal  "quantity_purchase_order"
     t.decimal  "quantity_packing_slip"
+  end
+
+  create_table "sales_people", force: true do |t|
+    t.string   "salesperson_code"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

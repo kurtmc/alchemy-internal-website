@@ -24,6 +24,7 @@ module PdfAppender
         # Do not swallow errors in after_commit/after_rollback callbacks.
         #config.active_record.raise_in_transactional_callbacks = true # Only for rails 4.2+
 
+        ## Initialistaion code
         def new_product(csv_entry)
             prod = Product.new
             prod.product_id = csv_entry['ID']
@@ -33,18 +34,11 @@ module PdfAppender
             prod.description = csv_entry['Description']
             prod.vendor_id = csv_entry['VENDOR']
             prod.vendor_name = csv_entry['Name']
-            prod.sds_expiry = get_sds_expiry_date(prod.product_id)
+            prod.update_fields
             return prod
         end
 
-        def get_sds_expiry_date(product_id)
-            sql = "SELECT \"SDS Expiry Date\"
-        FROM NAVLIVE.dbo.\"Alchemy Agencies Ltd$Item\"
-        WHERE No_ = #{ActiveRecord::Base.connection.quote(product_id)}"
-            records_array = Navision.connection.select_all(sql)
-            return records_array.first["SDS Expiry Date"]
-        end
-        config.after_initialize do
+        def load_products
             csv_path = Rails.root.join('alchemy-info-tables', 'gen', 'NZ_ID_SDS_PDS_VENDOR_NAME.csv')
             puts "THE SERVER HAS STARTED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
             prods = Array.new
@@ -54,6 +48,13 @@ module PdfAppender
             # save the products
             Product.delete_all
             prods.each(&:save)
+        end
+
+        def load_customers
+        end
+
+        config.after_initialize do
+            load_products
         end
     end
 end

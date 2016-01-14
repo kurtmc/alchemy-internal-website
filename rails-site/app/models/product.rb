@@ -14,7 +14,6 @@ class Product < ActiveRecord::Base
 
     def update_fields
         record = get_nav_record_for_product(self.product_id)
-        puts record.inspect
         self.sds_expiry = record["SDS Expiry Date"]
         self.description2 = record["Description 2"]
         self.unit_measure = record["Base Unit of Measure"]
@@ -42,7 +41,6 @@ class Product < ActiveRecord::Base
         WHERE \"Item No_\" = #{escape(product_id)}
         GROUP BY \"Item No_\""
         records_array = exec_sql(sql)
-        puts records_array.inspect
         return records_array.first["Inventory"]
     end
 

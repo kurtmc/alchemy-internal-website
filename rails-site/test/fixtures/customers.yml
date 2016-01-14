@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  customer_id: MyString
+  name: MyString
+  balance: 9.99
+  credit_limit: 9.99
+  current: 9.99
+  last_1_to_30: 9.99
+  last_31_to_60: 9.99
+  last_31_90: 9.99
+  last_90_plus: 9.99
+  salesperson_id: 
+
+two:
+  customer_id: MyString
+  name: MyString
+  balance: 9.99
+  credit_limit: 9.99
+  current: 9.99
+  last_1_to_30: 9.99
+  last_31_to_60: 9.99
+  last_31_90: 9.99
+  last_90_plus: 9.99
+  salesperson_id: 
