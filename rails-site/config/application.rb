@@ -24,6 +24,8 @@ module PdfAppender
         # Do not swallow errors in after_commit/after_rollback callbacks.
         #config.active_record.raise_in_transactional_callbacks = true # Only for rails 4.2+
 
+        config.autoload_paths += %W(#{config.root}/lib)
+
         ## Initialistaion code
         def new_product(csv_entry)
             prod = Product.new

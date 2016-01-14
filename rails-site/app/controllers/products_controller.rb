@@ -1,7 +1,6 @@
 require 'rubygems'
 require 'csv'
 require 'uri'
-
 class ProductsController < ApplicationController
 
     @@document_types = ['sds', 'pds']

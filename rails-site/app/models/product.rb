@@ -1,6 +1,7 @@
 require 'uri'
 
 class Product < ActiveRecord::Base
+    include SqlUtils
     def get_product_id
         return self.product_id.gsub('/',"%2F").gsub('%', "%25")
     end
@@ -27,28 +28,20 @@ class Product < ActiveRecord::Base
         #self.quantity_packing_slip = record[]
     end
 
-    def exec_sql(sql)
-        return Navision.connection.select_all(sql)
-    end
-
-    def escape(value)
-        return "#{ActiveRecord::Base.connection.quote(value)}"
-    end
-
     def get_inventory(product_id)
         sql = "SELECT \"Item No_\", SUM(\"Quantity\") as \"Inventory\"
         FROM NAVLIVE.dbo.\"Alchemy Agencies Ltd$Item Ledger Entry\"
-        WHERE \"Item No_\" = #{escape(product_id)}
+        WHERE \"Item No_\" = #{SqlUtils.escape(product_id)}
         GROUP BY \"Item No_\""
-        records_array = exec_sql(sql)
+        records_array = SqlUtils.execute_sql(sql)
         return records_array.first["Inventory"]
     end
 
     def get_nav_record_for_product(product_id)
         sql = "SELECT *
         FROM NAVLIVE.dbo.\"Alchemy Agencies Ltd$Item\"
-        WHERE No_ = #{escape(product_id)}"
-        records_array = exec_sql(sql)
+        WHERE No_ = #{SqlUtils.escape(product_id)}"
+        records_array = SqlUtils.execute_sql(sql)
         return records_array.first
     end
 
