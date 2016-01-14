@@ -53,10 +53,12 @@ module PdfAppender
         end
 
         def load_customers
+            Customer.load_all
         end
 
         config.after_initialize do
             load_products
+            load_customers
         end
     end
 end
