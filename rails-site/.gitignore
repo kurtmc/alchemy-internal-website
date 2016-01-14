@@ -21,3 +21,6 @@ public/uploads
 
 # RubyMine files
 .idea
+
+# Files that have credentials in them
+database.yml
