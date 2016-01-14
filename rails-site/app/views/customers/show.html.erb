@@ -1,0 +1,26 @@
+<div class="container theme-showcase" role="main">
+    <div class="page-header">
+        <h1>ID: <%= @customer.customer_id %></h1>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <h3>Credit Information</h3>
+                <p><strong>Name:</strong> <%= @customer.name %></p>
+                <p><strong>Balance (LCY):</strong> <%= @customer.balance %></p>
+                <p><strong>Credit Limit (LCY):</strong> <%= @customer.credit_limit %></p>
+                <p><strong>Current (LCY):</strong> <%= @customer.current  %></p>
+                <p><strong>1-30 Days (LCY):</strong> <%= @customer.last_1_to_30 %></p>
+                <p><strong>31-60 Days (LCY):</strong> <%= @customer.last_31_to_60 %></p>
+                <p><strong>61-90 Days (LCY):</strong> <%= @customer.last_31_90 %></p>
+                <p><strong>90+ Days (LCY):</strong> <%= @customer.last_90_plus %></p>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="list-group">
+        <%= link_to 'Customers', customers_path, {class: 'list-group-item'}  %>
+    </div>
+</div>
