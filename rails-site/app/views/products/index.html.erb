@@ -18,31 +18,33 @@ end
     <div class="container">
         <input type="search" id="product-search" class="form-control" data-table="order-table" placeholder="Filter">
     </div>
-    <table class="order-table table">
-        <thead>
-            <th>ID</th>
-            <th>Description</th>
-            <% if params[:expired_sds] %>
-                <th>SDS expiry</th>
-            <% end %>
-            <th colspan="2"></th>
-        </thead>
+    <div class="table-responsive">
+        <table class="order-table table">
+            <thead>
+                <th>ID</th>
+                <th>Description</th>
+                <% if params[:expired_sds] %>
+                    <th>SDS expiry</th>
+                <% end %>
+                <th colspan="2"></th>
+            </thead>
 
-        <% expired_count = 0 %>
-        <% @products.each do |product| %>
-            <% if display(product) == true %>
-                <% expired_count += 1 %>
-                <tr>
-                    <td><%= product.product_id %></td>
-                    <td><%= product.description %></td>
-                    <% if params[:expired_sds] %>
-                        <td><%= product.get_sds_expiry_formatted %></td>
-                    <% end %>
-                    <td><%= link_to 'Show', product_path(product.get_product_id) %></td>
-                </tr>
+            <% expired_count = 0 %>
+            <% @products.each do |product| %>
+                <% if display(product) == true %>
+                    <% expired_count += 1 %>
+                    <tr>
+                        <td><%= product.product_id %></td>
+                        <td><%= product.description %></td>
+                        <% if params[:expired_sds] %>
+                            <td><%= product.get_sds_expiry_formatted %></td>
+                        <% end %>
+                        <td><%= link_to 'Show', product_path(product.get_product_id) %></td>
+                    </tr>
+                <% end %>
             <% end %>
-        <% end %>
-    </table>
+        </table>
+    </div>
     <% if params[:expired_sds] %>
         <p><strong>Number of expired SDS's:</strong> <%= expired_count %>
 <% end %>
