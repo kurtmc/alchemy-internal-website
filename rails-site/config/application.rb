@@ -30,7 +30,6 @@ module PdfAppender
             prod.directory = csv_entry['Directory']
             prod.sds = csv_entry['SDS']
             prod.pds = csv_entry['PDS']
-            prod.coa = csv_entry['COA']
             prod.description = csv_entry['Description']
             prod.vendor_id = csv_entry['VENDOR']
             prod.vendor_name = csv_entry['Name']
