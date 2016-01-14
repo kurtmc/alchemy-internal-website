@@ -1,15 +1,11 @@
 <div class="container theme-showcase" role="main">
-<div class="page-header">
-<h1>Generate Ashland Report</h1>
-</div>
+    <div class="page-header">
+        <h1>Generate Ashland Report</h1>
+    </div>
 
-<%= form_for :ashland, url: ashland_index_path do |p| %>
-<p>
-<%= p.file_field :csv_file %>
-</p>
-<p>
-    <%= p.submit "Generate Report" %>
-</p>
-<% end %>
-<%= link_to "Home", root_path, {class: 'list-group-item'} %>
+    <%= form_for :ashland, url: ashland_index_path, :html => {:class => 'form-inline'} do |p| %>
+        <%= p.file_field :csv_file, :class => 'form-control' %>
+        <%= p.submit "Generate Report", {class: 'btn btn-primary'} %>
+    <% end %>
+    <%= link_to "Home", root_path, {class: 'list-group-item'} %>
 </div>

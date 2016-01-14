@@ -1,15 +1,11 @@
 <div class="container theme-showcase" role="main">
-<div class="page-header">
-<h1>Append footer to pdf</h1>
-</div>
+    <div class="page-header">
+        <h1>Append footer to pdf</h1>
+    </div>
 
-<%= form_for :pdf, url: pdfs_path do |p| %>
-<p>
-<%= p.file_field :pdf_files, :multiple => true %>
-</p>
-<p>
-    <%= p.submit "Append footer to PDF" %>
-</p>
-<% end %>
-<%= link_to "Home", root_path, {class: 'list-group-item'} %>
+    <%= form_for :pdf, url: pdfs_path, :html => {:class => 'form-inline'} do |p| %>
+        <%= p.file_field :pdf_files, :multiple => true, :class => 'form-control' %>
+        <%= p.submit "Append footer to PDF", {class: 'btn btn-primary'} %>
+    <% end %>
+    <%= link_to "Home", root_path, {class: 'list-group-item'} %>
 </div>
