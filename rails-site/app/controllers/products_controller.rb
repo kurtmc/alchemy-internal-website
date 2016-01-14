@@ -6,7 +6,13 @@ class ProductsController < ApplicationController
     @@document_types = ['sds', 'pds']
 
     def index
+        # This is how to handle different request types
         @products = Product.all
+        respond_to do |format|
+            format.html # index.html.erb
+            format.xml  { render xml: @products}
+            format.json { render json: @products}
+        end
     end
 
     def show
@@ -23,31 +29,31 @@ class ProductsController < ApplicationController
         end
 
         new_filename = uploaded_io.original_filename
-            old_filename = nil
-            start = "#{file_type.upcase} - "
-            field = file_type.upcase
-            old_filename = @product[field.downcase]
+        old_filename = nil
+        start = "#{file_type.upcase} - "
+        field = file_type.upcase
+        old_filename = @product[field.downcase]
 
-            unless new_filename.start_with?(start)
-                @product.errors.add("#{field}_filename", "\"#{new_filename}\" does not begin with \"#{start}\"")
-                return
-            end
+        unless new_filename.start_with?(start)
+            @product.errors.add("#{field}_filename", "\"#{new_filename}\" does not begin with \"#{start}\"")
+            return
+        end
 
-            path = "alchemy-info-tables/res/Product_Information"
-            path = path + "/#{@product.directory}"
+        path = "alchemy-info-tables/res/Product_Information"
+        path = path + "/#{@product.directory}"
 
-            # First delete old file
-            unless old_filename.nil?
-                File.delete(Rails.root.join(path, old_filename))
-            end
-            
-            # Write new file
-            write_uploaded_file(path, uploaded_io)
+        # First delete old file
+        unless old_filename.nil?
+            File.delete(Rails.root.join(path, old_filename))
+        end
 
-            regen_tables
-            
-            @product[field.downcase] = new_filename
-            @product.save
+        # Write new file
+        write_uploaded_file(path, uploaded_io)
+
+        regen_tables
+
+        @product[field.downcase] = new_filename
+        @product.save
     end
 
     def update
@@ -60,7 +66,7 @@ class ProductsController < ApplicationController
                 handle_upload(uploaded_io, type)
             end
         }
-        
+
         render 'edit'
     end
 
