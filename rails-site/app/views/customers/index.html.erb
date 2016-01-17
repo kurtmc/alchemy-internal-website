@@ -14,14 +14,12 @@
             <thead>
                 <th>Customer ID</th>
                 <th>Name</th>
-                <th colspan="1"></th>
             </thead>
 
             <% @customers.each do |customer| %>
                 <tr>
-                    <td><%= customer.customer_id %></td>
+                    <td><%= link_to "#{customer.customer_id}", customer_path(customer.customer_id) %></td>
                     <td><%= customer.name %></td>
-                    <td><%= link_to 'Show', customer_path(customer.customer_id) %></td>
                 </tr>
             <% end %>
         </table>
