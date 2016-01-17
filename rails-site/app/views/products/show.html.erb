@@ -1,16 +1,19 @@
 <div class="container theme-showcase" role="main">
     <div class="page-header">
-        <h1>ID: <%= @product.product_id %></h1>
+        <h1><%= @product.description %></h1>
     </div>
     <div class="container">
         <div class="row">
             <div class="col-sm-4">
                 <h3>Product Information</h3>
+                <p><strong>ID:</strong> <%= @product.product_id %></p>
                 <p><strong>Description:</strong> <%= @product.description %></p>
                 <p><strong>Description 2:</strong> <%= @product.description2 %></p>
                 <p><strong>Base Unit of Measure:</strong> <%= @product.unit_measure %></p>
                 <p><strong>Shelf Life:</strong> <%= @product.shelf_life  %></p>
                 <p><strong>Inventory:</strong> <%= @product.inventory %></p>
+                <p><strong>On Order:</strong> <%= @product.quantity_purchase_order %></p>
+                <p><strong>On Packing Slip:</strong> <%= @product.quantity_packing_slip %></p>
             </div>
             <div class="col-sm-4">
                 <h3>Documents</h3>

@@ -23,9 +23,8 @@ class Product < ActiveRecord::Base
             self.shelf_life = 'No information'
         end
         self.inventory = get_inventory(self.product_id)
-        # TODO figure out where these hide
-        #self.quantity_purchase_order = record[]
-        #self.quantity_packing_slip = record[]
+        self.quantity_purchase_order = get_purchase_order(self.product_id)
+        self.quantity_packing_slip = get_packing_slip(self.product_id)
     end
 
     def get_inventory(product_id)
@@ -35,6 +34,28 @@ class Product < ActiveRecord::Base
         GROUP BY \"Item No_\""
         records_array = SqlUtils.execute_sql(sql)
         return records_array.first["Inventory"]
+    end
+
+    def get_purchase_order(product_id)
+        sql = "SELECT Quantity
+        FROM NAVLIVE.dbo.\"Alchemy Agencies Ltd$Purchase Line\" as a
+        WHERE a.No_ = #{SqlUtils.escape(product_id)}"
+        record = SqlUtils.execute_sql(sql).first
+        if record.nil?
+            return 0
+        end
+        return record["Quantity"]
+    end
+
+    def get_packing_slip(product_id)
+        sql = "SELECT Quantity
+        FROM NAVLIVE.dbo.\"Alchemy Agencies Ltd$Sales Line\" as a
+        WHERE a.No_ = #{SqlUtils.escape(product_id)}"
+        record = SqlUtils.execute_sql(sql).first
+        if record.nil?
+            return 0
+        end
+        return record["Quantity"]
     end
 
     def get_nav_record_for_product(product_id)
