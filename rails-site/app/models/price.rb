@@ -28,5 +28,19 @@ WHERE a.\"Sales Code\" = #{SqlUtils.escape(customer_id)}"
         return price
     end
 
+    def get_start_date
+        if self.start_date < Date.parse("1754-01-01")
+            return "No date"
+        end
+        return self.start_date.strftime("%Y-%m-%d")
+    end
+
+    def get_end_date
+        if self.end_date < Date.parse("1754-01-01")
+            return "No date"
+        end
+        return self.end_date.strftime("%Y-%m-%d")
+    end
+
 
 end

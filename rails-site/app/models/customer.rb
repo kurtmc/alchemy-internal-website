@@ -5,6 +5,7 @@ class Customer < ActiveRecord::Base
     include SqlUtils
 
     def self.load_all
+        Customer.delete_all
         SalesPerson.all.each { |person|
             sql = "SELECT *
           FROM NAVLIVE.dbo.\"Alchemy Agencies Ltd$Customer\"
