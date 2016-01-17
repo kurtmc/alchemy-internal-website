@@ -23,11 +23,9 @@
                     <table class="order-table table">
                         <thead>
                             <th>Item ID</th>
-                            <th>Unit of Measure</th>
-                            <th>Minimum Quantity</th>
-                            <th>Published Price</th>
                             <th>Cost</th>
                             <th>Price</th>
+                            <th>Unit of Measure</th>
                             <th>Start Date</th>
                             <th>End Date</th>
                         </thead>
@@ -36,11 +34,9 @@
                         <% @customer.get_prices.each do |price| %>
                             <tr>
                                 <td><%= price.item_id %></td>
+                                <td><%= number_with_precision(price.cost, :precision => 2) %></td>
+                                <td><%= number_with_precision(price.price, :precision => 2) %></td>
                                 <td><%= price.unit_measure %></td>
-                                <td><%= price.min_quantity %></td>
-                                <td><%= price.published_price %></td>
-                                <td><%= price.cost %></td>
-                                <td><%= price.price %></td>
                                 <td><%= price.get_start_date %></td>
                                 <td><%= price.get_end_date %></td>
                             </tr>

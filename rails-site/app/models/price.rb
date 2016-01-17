@@ -42,5 +42,4 @@ WHERE a.\"Sales Code\" = #{SqlUtils.escape(customer_id)}"
         return self.end_date.strftime("%Y-%m-%d")
     end
 
-
 end
