@@ -1,6 +1,7 @@
 
 class Customer < ActiveRecord::Base
     belongs_to :salesperson
+    has_many :prices
     include SqlUtils
 
     def self.load_all
@@ -35,6 +36,11 @@ class Customer < ActiveRecord::Base
         person = SalesPerson.find_by salesperson_code: records["Salesperson Code"]
         self.salesperson_id = person.id
         self.save
+    end
+
+    def get_prices
+        prices = Price.get_for_customer(self.customer_id)
+        return prices
     end
 
 end

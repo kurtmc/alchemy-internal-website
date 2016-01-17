@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160114010020) do
+ActiveRecord::Schema.define(version: 20160117195939) do
 
   create_table "customers", force: true do |t|
     t.string   "customer_id"
@@ -34,6 +34,22 @@ ActiveRecord::Schema.define(version: 20160114010020) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "prices", force: true do |t|
+    t.string   "item_id"
+    t.string   "unit_measure"
+    t.decimal  "min_quantity"
+    t.decimal  "published_price"
+    t.decimal  "cost"
+    t.decimal  "price"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.integer  "customer_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "prices", ["customer_id"], name: "index_prices_on_customer_id"
 
   create_table "products", force: true do |t|
     t.string   "product_id"

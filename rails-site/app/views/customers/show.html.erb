@@ -18,6 +18,35 @@
             </div>
         </div>
     </div>
+                <h3>Sell Prices</h3>
+                <div class="table-responsive">
+                    <table class="order-table table">
+                        <thead>
+                            <th>Item ID</th>
+                            <th>Unit of Measure</th>
+                            <th>Minimum Quantity</th>
+                            <th>Published Price</th>
+                            <th>Cost</th>
+                            <th>Price</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                        </thead>
+
+                        <% prices = @customer.get_prices %>
+                        <% @customer.get_prices.each do |price| %>
+                            <tr>
+                                <td><%= price.item_id %></td>
+                                <td><%= price.unit_measure %></td>
+                                <td><%= price.min_quantity %></td>
+                                <td><%= price.published_price %></td>
+                                <td><%= price.cost %></td>
+                                <td><%= price.price %></td>
+                                <td><%= price.start_date %></td>
+                                <td><%= price.end_date %></td>
+                            </tr>
+                        <% end %>
+                    </table>
+                </div>
 
 
 
