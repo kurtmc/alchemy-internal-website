@@ -1,20 +1,22 @@
 <div class="container theme-showcase" role="main">
     <div class="page-header">
-        <h1>ID: <%= @customer.customer_id %></h1>
+        <h1><%= @customer.name %></h1>
     </div>
+    <h3>Credit Information</h3>
+    <p><strong>Sales Person:</strong> <%= SalesPerson.find(@customer.salesperson_id).name %></p>
     <div class="container">
         <div class="row">
             <div class="col-sm-4">
-                <h3>Credit Information</h3>
-                <p><strong>Name:</strong> <%= @customer.name %></p>
+                <p><strong>ID:</strong> <%= @customer.customer_id %></p>
                 <p><strong>Balance (LCY):</strong> <%= @customer.balance %></p>
                 <p><strong>Credit Limit (LCY):</strong> <%= @customer.credit_limit %></p>
                 <p><strong>Current (LCY):</strong> <%= @customer.current  %></p>
+            </div>
+            <div class="col-sm-4">
                 <p><strong>1-30 Days (LCY):</strong> <%= @customer.last_1_to_30 %></p>
                 <p><strong>31-60 Days (LCY):</strong> <%= @customer.last_31_to_60 %></p>
                 <p><strong>61-90 Days (LCY):</strong> <%= @customer.last_31_90 %></p>
                 <p><strong>90+ Days (LCY):</strong> <%= @customer.last_90_plus %></p>
-                <p><strong>Sales Person:</strong> <%= SalesPerson.find(@customer.salesperson_id).name %></p>
             </div>
         </div>
     </div>
@@ -33,7 +35,7 @@
                         <% prices = @customer.get_prices %>
                         <% @customer.get_prices.each do |price| %>
                             <tr>
-                                <td><%= price.item_id %></td>
+                                <td><%= link_to "#{price.item_id}", product_path(price.get_product_id) %></td>
                                 <td><%= number_with_precision(price.cost, :precision => 2) %></td>
                                 <td><%= number_with_precision(price.price, :precision => 2) %></td>
                                 <td><%= price.unit_measure %></td>

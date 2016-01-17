@@ -42,4 +42,8 @@ WHERE a.\"Sales Code\" = #{SqlUtils.escape(customer_id)}"
         return self.end_date.strftime("%Y-%m-%d")
     end
 
+    def get_product_id
+        return self.item_id.gsub('/',"%2F").gsub('%', "%25")
+    end
+
 end
