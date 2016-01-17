@@ -20,31 +20,41 @@
             </div>
         </div>
     </div>
-                <h3>Sell Prices</h3>
-                <div class="table-responsive">
-                    <table class="order-table table">
-                        <thead>
-                            <th>Item ID</th>
-                            <th>Cost</th>
-                            <th>Price</th>
-                            <th>Unit of Measure</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                        </thead>
+    <h3>Sell Prices</h3>
+    <% if params[:show_costs] == 'true' %>
+    <%= link_to 'Hide Cost', params.merge(:show_costs => false), {:class => 'btn btn-primary'} %>
+<% else %>
+    <%= link_to 'Show Cost', params.merge(:show_costs => true), {:class => 'btn btn-primary'} %>
+<% end %>
 
-                        <% prices = @customer.get_prices %>
-                        <% @customer.get_prices.each do |price| %>
-                            <tr>
-                                <td><%= link_to "#{price.item_id}", product_path(price.get_product_id) %></td>
-                                <td><%= number_with_precision(price.cost, :precision => 2) %></td>
-                                <td><%= number_with_precision(price.price, :precision => 2) %></td>
-                                <td><%= price.unit_measure %></td>
-                                <td><%= price.get_start_date %></td>
-                                <td><%= price.get_end_date %></td>
-                            </tr>
-                        <% end %>
-                    </table>
-                </div>
+    <div class="table-responsive">
+        <table class="order-table table">
+            <thead>
+                <th>Item ID</th>
+                <% if params[:show_costs] == 'true' %>
+                    <th>Cost</th>
+                <% end %>
+                <th>Price</th>
+                <th>Unit of Measure</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+            </thead>
+
+            <% prices = @customer.get_prices %>
+            <% @customer.get_prices.each do |price| %>
+                <tr>
+                    <td><%= link_to "#{price.item_id}", product_path(price.get_product_id) %></td>
+                    <% if params[:show_costs] == 'true' %>
+                        <td><%= number_with_precision(price.cost, :precision => 2) %></td>
+                    <% end %>
+                    <td><%= number_with_precision(price.price, :precision => 2) %></td>
+                    <td><%= price.unit_measure %></td>
+                    <td><%= price.get_start_date %></td>
+                    <td><%= price.get_end_date %></td>
+                </tr>
+            <% end %>
+        </table>
+    </div>
 
 
 
