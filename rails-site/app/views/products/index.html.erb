@@ -26,7 +26,6 @@ end
                 <% if params[:expired_sds] %>
                     <th>SDS expiry</th>
                 <% end %>
-                <th colspan="2"></th>
             </thead>
 
             <% expired_count = 0 %>
@@ -34,12 +33,11 @@ end
                 <% if display(product) == true %>
                     <% expired_count += 1 %>
                     <tr>
-                        <td><%= product.product_id %></td>
+                        <td><%= link_to "#{product.product_id}", product_path(product.get_product_id) %></td>
                         <td><%= product.description %></td>
                         <% if params[:expired_sds] %>
                             <td><%= product.get_sds_expiry_formatted %></td>
                         <% end %>
-                        <td><%= link_to 'Show', product_path(product.get_product_id) %></td>
                     </tr>
                 <% end %>
             <% end %>
