@@ -44,3 +44,5 @@ gem 'activerecord-sqlserver-adapter'
 
 gem 'rubyzip'
 gem 'jquery-turbolinks'
+
+gem 'passenger'
