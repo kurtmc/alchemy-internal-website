@@ -1,3 +1,3 @@
-[submodule "rails-site/alchemy-info-tables"]
-	path = rails-site/alchemy-info-tables
-	url = git@103.52.204.104:/opt/git/alchemy-info-tables.git
+[submodule "alchemy-info-tables"]
+	path = alchemy-info-tables
+	url = git@103.52.206.170:/opt/git/alchemy-info-tables.git
