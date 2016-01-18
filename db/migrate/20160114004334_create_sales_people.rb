@@ -6,5 +6,7 @@ class CreateSalesPeople < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    SalesPerson.load_all
   end
 end

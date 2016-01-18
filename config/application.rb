@@ -26,41 +26,9 @@ module PdfAppender
 
         config.autoload_paths += %W(#{config.root}/lib)
 
-        ## Initialistaion code
-        def new_product(csv_entry)
-            prod = Product.new
-            prod.product_id = csv_entry['ID']
-            prod.directory = csv_entry['Directory']
-            prod.sds = csv_entry['SDS']
-            prod.pds = csv_entry['PDS']
-            prod.description = csv_entry['Description']
-            prod.vendor_id = csv_entry['VENDOR']
-            prod.vendor_name = csv_entry['Name']
-            prod.update_fields
-            return prod
-        end
-
-        def load_products
-            csv_path = Rails.root.join('alchemy-info-tables', 'gen', 'NZ_ID_SDS_PDS_VENDOR_NAME.csv')
-            puts "THE SERVER HAS STARTED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-            prods = Array.new
-            CSV.foreach(csv_path, :headers => true) do |csv_obj|
-                prods << new_product(csv_obj)
-            end
-            # save the products
-            Product.delete_all
-            prods.each(&:save)
-        end
-
-        def load_customers
-            Customer.load_all
-        end
 
         config.after_initialize do
-            # These can't actually run on a fresh database
-            load_products
-            SalesPerson.load_all
-            load_customers
+            puts "Server start"
         end
     end
 end

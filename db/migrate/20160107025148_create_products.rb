@@ -20,5 +20,8 @@ class CreateProducts < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    Product.load_all
+
   end
 end

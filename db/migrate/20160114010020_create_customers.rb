@@ -14,5 +14,7 @@ class CreateCustomers < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    Customer.load_all
   end
 end

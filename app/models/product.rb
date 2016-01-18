@@ -70,5 +70,29 @@ class Product < ActiveRecord::Base
         record = get_nav_record_for_product(product_id)
         return record["SDS Expiry Date"]
     end
+    ## Initialistaion code
+    def self.new_product(csv_entry)
+        prod = Product.new
+        prod.product_id = csv_entry['ID']
+        prod.directory = csv_entry['Directory']
+        prod.sds = csv_entry['SDS']
+        prod.pds = csv_entry['PDS']
+        prod.description = csv_entry['Description']
+        prod.vendor_id = csv_entry['VENDOR']
+        prod.vendor_name = csv_entry['Name']
+        prod.update_fields
+        return prod
+    end
+
+    def self.load_all
+        csv_path = Rails.root.join('alchemy-info-tables', 'gen', 'NZ_ID_SDS_PDS_VENDOR_NAME.csv')
+        prods = Array.new
+        CSV.foreach(csv_path, :headers => true) do |csv_obj|
+            prods << new_product(csv_obj)
+        end
+        # save the products
+        Product.delete_all
+        prods.each(&:save)
+    end
 
 end
