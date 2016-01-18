@@ -57,6 +57,7 @@ module PdfAppender
         end
 
         config.after_initialize do
+            # These can't actually run on a fresh database
             load_products
             SalesPerson.load_all
             load_customers
