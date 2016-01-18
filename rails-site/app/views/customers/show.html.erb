@@ -2,6 +2,9 @@
     <div class="page-header">
         <h1><%= @customer.name %></h1>
     </div>
+    <div class="list-group">
+        <%= link_to 'Customers', customers_path, {class: 'btn btn-primary'}  %>
+    </div>
     <h3>Credit Information</h3>
     <p><strong>Sales Person:</strong> <%= SalesPerson.find(@customer.salesperson_id).name %></p>
     <div class="container">
@@ -59,6 +62,6 @@
 
 
     <div class="list-group">
-        <%= link_to 'Customers', customers_path, {class: 'list-group-item'}  %>
+        <%= link_to 'Customers', customers_path, {class: 'btn btn-primary'}  %>
     </div>
 </div>

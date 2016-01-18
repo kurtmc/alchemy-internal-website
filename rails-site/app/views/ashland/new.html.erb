@@ -7,5 +7,7 @@
         <%= p.file_field :csv_file, :class => 'form-control' %>
         <%= p.submit "Generate Report", {class: 'btn btn-primary'} %>
     <% end %>
-    <%= link_to "Home", root_path, {class: 'list-group-item'} %>
+    <div class="container">
+        <%= link_to "Back Home", root_path, {class: 'btn btn-primary'} %>
+    </div>
 </div>

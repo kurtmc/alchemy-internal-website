@@ -12,7 +12,7 @@ end
         <h1>Listing products</h1>
     </div>
     <div class="container">
-        <%= link_to "Home", root_path, {class: 'list-group-item'} %>
+        <%= link_to "Back Home", root_path, {class: 'btn btn-primary'} %>
     </div>
     <br>
     <div class="container">
@@ -46,5 +46,7 @@ end
     <% if params[:expired_sds] %>
         <p><strong>Number of expired SDS's:</strong> <%= expired_count %>
 <% end %>
-<%= link_to "Home", root_path, {class: 'list-group-item'} %>
+<div class="container">
+    <%= link_to "Back Home", root_path, {class: 'btn btn-primary'} %>
+</div>
 </div>

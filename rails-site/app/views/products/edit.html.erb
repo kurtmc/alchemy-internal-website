@@ -44,8 +44,6 @@
         <%= p.file_field :pds_file, {class: 'form-control'} %>
         <%= p.submit "Replace PDS", {class: 'btn btn-primary'} %>
     <% end %>
-    <div class="list-group">
-        <%= link_to 'Finished editing', product_path(product_id), {class: 'list-group-item'} %>
-        <%= link_to 'Products', products_path, {class: 'list-group-item'} %>
-    </div>
+    <%= link_to 'Finished editing', product_path(product_id), {class: 'btn btn-primary'} %>
+    <%= link_to 'Products', products_path, {class: 'btn btn-primary'} %>
 </div>
