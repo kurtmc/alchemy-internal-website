@@ -59,15 +59,15 @@ ActiveRecord::Schema.define(version: 20160117195939) do
     t.string   "vendor_id"
     t.string   "vendor_name"
     t.string   "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "sds_expiry"
     t.string   "description2"
+    t.datetime "sds_expiry"
     t.string   "unit_measure"
     t.string   "shelf_life"
     t.decimal  "inventory"
     t.decimal  "quantity_purchase_order"
     t.decimal  "quantity_packing_slip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "sales_people", force: true do |t|

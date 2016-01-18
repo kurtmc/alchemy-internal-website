@@ -67,7 +67,7 @@ class ProductsController < ApplicationController
             end
         }
 
-        render 'edit'
+        render 'show'
     end
 
     def download_document
