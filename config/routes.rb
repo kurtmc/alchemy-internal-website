@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :products, :constraints => { :id => /[0-9A-Za-z\-\.\%_\s\:\+<&\(\)]+/ }
   get 'products/:id/download_pds' => 'products#download_document'
   resources :customers
+  resources :tools
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
