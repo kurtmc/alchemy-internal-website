@@ -66,7 +66,8 @@ class Customer < ActiveRecord::Base
     def get_current
         sql = "SELECT SUM(a.\"Amount (LCY)\") as \"Amount\"
         FROM NAVLIVE.dbo.\"Alchemy Agencies Ltd$Detailed Cust_ Ledg_ Entry\" as a
-        where a.\"Customer No_\" = #{SqlUtils.escape(self.customer_id)}"
+        where a.\"Customer No_\" = #{SqlUtils.escape(self.customer_id)}
+        and a.\"Expected Due Date\" > CAST(GETDATE() AS DATETIME)"
         records = SqlUtils.execute_sql(sql)
         return records.first["Amount"]
     end
