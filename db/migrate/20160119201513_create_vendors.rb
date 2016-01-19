@@ -6,6 +6,5 @@ class CreateVendors < ActiveRecord::Migration
 
       t.timestamps
     end
-    Vendor.load_all
   end
 end
