@@ -26,3 +26,6 @@ public/uploads
 
 # Files that have credentials in them
 database.yml
+config/secrets.yml
+public/assets
+vendor/bundle
