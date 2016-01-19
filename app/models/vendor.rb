@@ -16,4 +16,7 @@ class Vendor < ActiveRecord::Base
         vendor.vendor_name = record["Name"]
         return vendor
     end
+
+    def update_fields
+    end
 end
