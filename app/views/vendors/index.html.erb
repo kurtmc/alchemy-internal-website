@@ -1,0 +1,30 @@
+<div class="container theme-showcase" role="main">
+    <div class="page-header">
+        <h1>Customers</h1>
+    </div>
+    <div class="container">
+        <%= link_to "Back Home", root_path, {class: 'btn btn-primary'} %>
+    </div>
+    <br>
+    <div class="container">
+        <input type="search" id="product-search" class="form-control" data-table="order-table" placeholder="Filter">
+    </div>
+    <div class="table-responsive">
+        <table class="order-table table">
+            <thead>
+                <th>Vendor ID</th>
+                <th>Name</th>
+            </thead>
+
+            <% @vendors.each do |vendor| %>
+                <tr>
+                    <td><%= link_to "#{vendor.vendor_id}", vendor_path(vendor.vendor_id) %></td>
+                    <td><%= vendor.vendor_name %></td>
+                </tr>
+            <% end %>
+        </table>
+    </div>
+    <div class="container">
+        <%= link_to "Back Home", root_path, {class: 'btn btn-primary'} %>
+    </div>
+</div>

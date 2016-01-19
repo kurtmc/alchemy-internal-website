@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'products/:id/download_pds' => 'products#download_document'
   resources :customers
   resources :tools
+  resources :vendors
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -1,0 +1,11 @@
+class CreateVendors < ActiveRecord::Migration
+  def change
+    create_table :vendors do |t|
+      t.string :vendor_id
+      t.string :vendor_name
+
+      t.timestamps
+    end
+    Vendor.load_all
+  end
+end

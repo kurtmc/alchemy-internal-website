@@ -28,6 +28,10 @@ module PdfAppender
 
 
         config.after_initialize do
+            Thread.new do
+                Vendor.load_all
+                ActiveRecord::Base.connection.close
+            end
             puts "Server start"
         end
     end

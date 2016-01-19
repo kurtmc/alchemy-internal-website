@@ -1,2 +1,2 @@
 #!/bin/bash
-bundle exec passenger start
+RAILS_ENV=development bundle exec passenger start
