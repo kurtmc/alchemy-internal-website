@@ -27,8 +27,8 @@ class Customer < ActiveRecord::Base
       WHERE No_ = #{SqlUtils.escape(self.customer_id)}"
         records = SqlUtils.execute_sql(sql).first
         self.name = records["Name"]
+        self.balance = get_balance
         #TODO find these
-        #self.balance = records[]
         #self.credit_limit = records[]
         #self.last_1_to_30 = records[]
         #self.last_31_to_60 = records[]
@@ -42,6 +42,14 @@ class Customer < ActiveRecord::Base
     def get_prices
         prices = Price.get_for_customer(self.customer_id)
         return prices
+    end
+
+    def get_balance
+        sql = "SELECT SUM(a.\"Amount (LCY)\") as \"Amount\"
+        FROM NAVLIVE.dbo.\"Alchemy Agencies Ltd$Detailed Cust_ Ledg_ Entry\" as a
+        where a.\"Customer No_\" = #{SqlUtils.escape(self.customer_id)}"
+        records = SqlUtils.execute_sql(sql)
+        return records.first["Amount"]
     end
 
 end

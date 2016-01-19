@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-sm-4">
                 <p><strong>ID:</strong> <%= @customer.customer_id %></p>
-                <p><strong>Balance (LCY):</strong> <%= @customer.balance %></p>
+                <p><strong>Balance (LCY):</strong> <%= number_to_currency(@customer.balance, :unit => "$") %></p>
                 <p><strong>Credit Limit (LCY):</strong> <%= @customer.credit_limit %></p>
                 <p><strong>Current (LCY):</strong> <%= @customer.current  %></p>
             </div>
