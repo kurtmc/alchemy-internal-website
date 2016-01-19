@@ -28,12 +28,12 @@ class Customer < ActiveRecord::Base
         records = SqlUtils.execute_sql(sql).first
         self.name = records["Name"]
         self.balance = get_balance
-        #TODO find these
-        #self.credit_limit = records[]
-        #self.last_1_to_30 = records[]
-        #self.last_31_to_60 = records[]
-        #self.last_31_90 = records[]
-        #self.last_90_plus = records[]
+        self.credit_limit = records["Credit Limit (LCY)"]
+        self.current = get_current
+        self.last_1_to_30 = get_range(0, 30)
+        self.last_31_to_60 = get_range(31, 60)
+        self.last_31_90 = get_range(61, 90)
+        self.last_90_plus = get_range(90, 9999)
         person = SalesPerson.find_by salesperson_code: records["Salesperson Code"]
         self.salesperson_id = person.id
         self.save
@@ -45,6 +45,25 @@ class Customer < ActiveRecord::Base
     end
 
     def get_balance
+        sql = "SELECT SUM(a.\"Amount (LCY)\") as \"Amount\"
+        FROM NAVLIVE.dbo.\"Alchemy Agencies Ltd$Detailed Cust_ Ledg_ Entry\" as a
+        where a.\"Customer No_\" = #{SqlUtils.escape(self.customer_id)}"
+        records = SqlUtils.execute_sql(sql)
+        return records.first["Amount"]
+    end
+
+    def get_range(start_days, end_days)
+        generic_sql = "
+        SELECT SUM(a.\"Amount (LCY)\") as \"Amount\"
+        FROM NAVLIVE.dbo.\"Alchemy Agencies Ltd$Detailed Cust_ Ledg_ Entry\" as a
+        where a.\"Customer No_\" = #{SqlUtils.escape(self.customer_id)}
+        and a.\"Expected Due Date\" < CAST(DATEADD (dd , -#{start_days}, GETDATE()) AS DATETIME)
+        and a.\"Expected Due Date\" >= CAST(DATEADD (dd , -#{end_days} , GETDATE()) AS DATETIME)"
+        records = SqlUtils.execute_sql(generic_sql)
+        return records.first["Amount"]
+    end
+
+    def get_current
         sql = "SELECT SUM(a.\"Amount (LCY)\") as \"Amount\"
         FROM NAVLIVE.dbo.\"Alchemy Agencies Ltd$Detailed Cust_ Ledg_ Entry\" as a
         where a.\"Customer No_\" = #{SqlUtils.escape(self.customer_id)}"
