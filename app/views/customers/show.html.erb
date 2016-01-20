@@ -1,67 +1,116 @@
 <div class="container theme-showcase" role="main">
-    <div class="page-header">
-        <h1><%= @customer.name %></h1>
+  <div class="page-header">
+    <h1><%= @customer.name %></h1>
+  </div>
+  <div class="list-group">
+    <%= link_to 'Customers', customers_path, {class: 'btn btn-primary'}  %>
+  </div>
+  <h3>Credit Information</h3>
+  <p><strong>Sales Person:</strong> <%= SalesPerson.find(@customer.salesperson_id).name %></p>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4">
+        <p><strong>ID:</strong> <%= @customer.customer_id %></p>
+        <p><strong>Balance (LCY):</strong> <%= number_to_currency(@customer.balance) %></p>
+        <p><strong>Credit Limit (LCY):</strong> <%= number_to_currency(@customer.credit_limit) %></p>
+        <p><strong>Current (LCY):</strong> <%= number_to_currency(@customer.current) %></p>
+      </div>
+      <div class="col-sm-4">
+        <p><strong>1-30 Days (LCY):</strong> <%= number_to_currency(@customer.last_1_to_30) %></p>
+        <p><strong>31-60 Days (LCY):</strong> <%= number_to_currency(@customer.last_31_to_60) %></p>
+        <p><strong>61-90 Days (LCY):</strong> <%= number_to_currency(@customer.last_31_90) %></p>
+        <p><strong>90+ Days (LCY):</strong> <%= number_to_currency(@customer.last_90_plus) %></p>
+      </div>
     </div>
-    <div class="list-group">
-        <%= link_to 'Customers', customers_path, {class: 'btn btn-primary'}  %>
-    </div>
-    <h3>Credit Information</h3>
-    <p><strong>Sales Person:</strong> <%= SalesPerson.find(@customer.salesperson_id).name %></p>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-4">
-                <p><strong>ID:</strong> <%= @customer.customer_id %></p>
-                <p><strong>Balance (LCY):</strong> <%= number_to_currency(@customer.balance) %></p>
-                <p><strong>Credit Limit (LCY):</strong> <%= number_to_currency(@customer.credit_limit) %></p>
-                <p><strong>Current (LCY):</strong> <%= number_to_currency(@customer.current) %></p>
-            </div>
-            <div class="col-sm-4">
-                <p><strong>1-30 Days (LCY):</strong> <%= number_to_currency(@customer.last_1_to_30) %></p>
-                <p><strong>31-60 Days (LCY):</strong> <%= number_to_currency(@customer.last_31_to_60) %></p>
-                <p><strong>61-90 Days (LCY):</strong> <%= number_to_currency(@customer.last_31_90) %></p>
-                <p><strong>90+ Days (LCY):</strong> <%= number_to_currency(@customer.last_90_plus) %></p>
-            </div>
-        </div>
-    </div>
-    <h3>Sell Prices</h3>
+  </div>
+  <% if params[:prices] == 'false' %>
+    <%= link_to 'Show Prices Table', params.merge(:prices => true), {:class => 'btn btn-primary'} %>
+  <% else %>
+    <%= link_to 'Show Metrics Table', params.merge(:prices => false), {:class => 'btn btn-primary'} %>
+  <% end %>
+  <% if params[:prices].nil? || params[:prices] == 'true' %>
     <% if params[:show_costs] == 'true' %>
-    <%= link_to 'Hide Cost', params.merge(:show_costs => false), {:class => 'btn btn-primary'} %>
-<% else %>
-    <%= link_to 'Show Cost', params.merge(:show_costs => true), {:class => 'btn btn-primary'} %>
-<% end %>
+      <%= link_to 'Hide Cost', params.merge(:show_costs => false), {:class => 'btn btn-primary'} %>
+    <% else %>
+      <%= link_to 'Show Cost', params.merge(:show_costs => true), {:class => 'btn btn-primary'} %>
+    <% end %>
+  <% end %>
 
+  <% if params[:prices].nil? || params[:prices] == 'true' %>
+    <h3>Sell Prices</h3>
     <div class="table-responsive">
-        <table class="order-table table">
-            <thead>
-                <th>Item ID</th>
-                <% if params[:show_costs] == 'true' %>
-                    <th>Cost</th>
-                <% end %>
-                <th>Price</th>
-                <th>Unit of Measure</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-            </thead>
+      <table class="order-table table">
+        <thead> <th>Item ID</th>
+          <% if params[:show_costs] == 'true' %>
+            <th>Cost</th>
+          <% end %>
+          <th>Price</th>
+          <th>Unit of Measure</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+        </thead>
 
-            <% prices = @customer.get_prices %>
-            <% @customer.get_prices.each do |price| %>
-                <tr>
-                    <td><%= link_to "#{price.item_id}", product_path(price.get_product_id) %></td>
-                    <% if params[:show_costs] == 'true' %>
-                        <td><%= number_with_precision(price.cost, :precision => 2) %></td>
-                    <% end %>
-                    <td><%= number_with_precision(price.price, :precision => 2) %></td>
-                    <td><%= price.unit_measure %></td>
-                    <td><%= price.get_start_date %></td>
-                    <td><%= price.get_end_date %></td>
-                </tr>
+        <% prices = @customer.get_prices %>
+        <% @customer.get_prices.each do |price| %>
+          <tr>
+            <td><%= link_to "#{price.item_id}", product_path(price.get_product_id) %></td>
+            <% if params[:show_costs] == 'true' %>
+              <td><%= number_with_precision(price.cost, :precision => 2) %></td>
             <% end %>
-        </table>
+            <td><%= number_with_precision(price.price, :precision => 2) %></td>
+            <td><%= price.unit_measure %></td>
+            <td><%= price.get_start_date %></td>
+            <td><%= price.get_end_date %></td>
+          </tr>
+        <% end %>
+      </table>
     </div>
 
+  <% else %>
+    <h3>Sales Metrics</h3>
+    <div class="table-responsive">
+      <table class="order-table table">
+        <thead>
+          <th>Item ID</th>
+          <th colspan="2"  style="text-align:center;">Volume</th>
+          <th colspan="2"  style="text-align:center;">Sales</th>
+          <th colspan="2"  style="text-align:center;">Cost</th>
+          <th colspan="2"  style="text-align:center;">Margin</th>
+        </thead>
+        <thead>
+          <th></th>
+          <th>YTD</th>
+          <th>PY</th>
+          <th>YTD</th>
+          <th>PY</th>
+          <th>YTD</th>
+          <th>PY</th>
+          <th>YTD</th>
+          <th>PY</th>
+        </thead>
 
-
-    <div class="list-group">
-        <%= link_to 'Customers', customers_path, {class: 'btn btn-primary'}  %>
+        <% @sales_stats["Product ID"].each do |key, value| %>
+          <tr>
+            <% ytd = @sales_stats["Product ID"][key]['ytd'] %>
+            <% py = @sales_stats["Product ID"][key]['py'] %>
+            <td><%= key %></td>
+            <td><%= ytd.nil? ? '-' : ytd['Volume'] %></td>
+            <td><%= py.nil? ? '-' : py['Volume'] %></td>
+            <td><%= ytd.nil? ? '-' : ytd['Sales'] %></td>
+            <td><%= py.nil? ? '-' : py['Sales'] %></td>
+            <td><%= ytd.nil? ? '-' : ytd['Cost'] %></td>
+            <td><%= py.nil? ? '-' : py['Cost'] %></td>
+            <td><%= ytd.nil? ? '-' : ytd['Margin'] %></td>
+            <td><%= py.nil? ? '-' : py['Margin'] %></td>
+          </tr>
+        <% end %>
+      </table>
     </div>
+  <% end %>
+
+
+
+  <div class="list-group">
+    <%= link_to 'Customers', customers_path, {class: 'btn btn-primary'}  %>
+  </div>
 </div>
