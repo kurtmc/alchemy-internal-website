@@ -5,10 +5,25 @@
   <canvas id="myChart" width="800" height="400"></canvas>
   <div id="js-legend" class="chart-legend"></div>
   <script>
+
+Number.prototype.formatMoney = function(c, d, t){
+  var n = this, 
+      c = isNaN(c = Math.abs(c)) ? 2 : c, 
+          d = d == undefined ? "." : d, 
+              t = t == undefined ? "," : t, 
+                  s = n < 0 ? "-" : "", 
+                      i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", 
+                          j = (j = i.length) > 3 ? j % 3 : 0;
+     return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+      };
+
+
+
 Chart.defaults.global.responsive = true;
 var options = {
   //String - A legend template
-  legendTemplate : "<ul class=\"<%%=name.toLowerCase()%>-legend\" style=\"list-style-type: none;\"><%% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%%=datasets[i].fillColor%>\">&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;<%%if(datasets[i].label){%><%%=datasets[i].label%><%%}%></li><%%}%></ul>"
+  legendTemplate : "<ul class=\"<%%=name.toLowerCase()%>-legend\" style=\"list-style-type: none;\"><%% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%%=datasets[i].fillColor%>\">&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;<%%if(datasets[i].label){%><%%=datasets[i].label%><%%}%></li><%%}%></ul>",
+     multiTooltipTemplate: "<%%= datasetLabel %> - <%%= '$' + value.formatMoney(2) %>"
   }
 var data = {
   labels: [2011, 2012, 2013, 2014, 2015, 2016],
