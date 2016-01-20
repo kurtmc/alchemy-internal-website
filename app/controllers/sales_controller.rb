@@ -45,8 +45,8 @@ WHERE
         cost = get_data(sql, cost_columns)
         sql = get_sql(profit_columns)
         profit = get_data(sql, profit_columns)
-        @sales = Chart.new('Sales', "[#{sales.join(",")}]", 'rgba(255, 0, 0, 0.2)')
-        @cost = Chart.new('Cost', "[#{cost.join(",")}]", 'rgba(0, 255, 0, 0.2)')
+        @sales = Chart.new('Sales', "[#{sales.join(",")}]", 'rgba(0, 255, 0, 0.2)')
+        @cost = Chart.new('Cost', "[#{cost.join(",")}]", 'rgba(255, 0, 0, 0.2)')
         @profit = Chart.new('Profit', "[#{profit.join(",")}]", 'rgba(0, 0, 255, 0.2)')
         @data_sets = [@sales, @cost, @profit]
     end
