@@ -1,5 +1,5 @@
 \documentclass{report}
-\usepackage[a4paper, margin=0cm]{geometry}
+\usepackage[a4paper, margin=0cm%%LANDSCAPE%%]{geometry}
 \usepackage{graphicx}
 \usepackage{color}
 \usepackage{array}
@@ -7,7 +7,7 @@
 \begin{document}
 \pagenumbering{gobble}
 \begin{center}
-	\includegraphics[height=0.9\textheight]{%%FILENAME%%}
+	\includegraphics[height=%%SCALE%%\textheight]{%%FILENAME%%}
 \end{center}
 \textcolor[RGB]{162,135,47}{
 \noindent\makebox[\linewidth]{\rule{0.9\paperwidth}{0.3cm}}

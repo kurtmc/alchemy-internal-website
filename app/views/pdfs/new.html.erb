@@ -6,6 +6,8 @@
     <%= form_for :pdf, url: pdfs_path, :html => {:class => 'form-inline'} do |p| %>
         <%= p.file_field :pdf_files, :multiple => true, :class => 'form-control' %>
         <%= p.submit "Append footer to PDF", {class: 'btn btn-primary'} %>
+        <br>
+        Landscape? <%= p.check_box :landscape %>
     <% end %>
     <br>
     <div class="container">

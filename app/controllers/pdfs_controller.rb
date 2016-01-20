@@ -9,12 +9,14 @@ class PdfsController < ApplicationController
             render 'new'
             return
         end
-
         output_directory = Rails.root.join('footer_pdf', 'output')
         zipfile_name = 'output.zip'
         pdf_files = params[:pdf][:pdf_files]
         file_processor = Proc.new do |filename|
             cmd = 'cd footer_pdf; ./run.sh "../public/uploads/' + filename + '"'
+            if params[:pdf][:landscape] == '1'
+                cmd = cmd + ' landscape'
+            end
             `#{cmd}`
         end
         FileProcessUtils.handle_bulk_processing(zipfile_name, pdf_files, output_directory, file_processor, self)
