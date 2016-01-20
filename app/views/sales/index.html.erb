@@ -1,0 +1,39 @@
+<div class="container theme-showcase" role="main">
+  <div class="page-header">
+    <h1>Sales</h1>
+  </div>
+  <canvas id="myChart" width="800" height="400"></canvas>
+  <div id="js-legend" class="chart-legend"></div>
+  <script>
+Chart.defaults.global.responsive = true;
+var options = {
+  //String - A legend template
+  legendTemplate : "<ul class=\"<%%=name.toLowerCase()%>-legend\" style=\"list-style-type: none;\"><%% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%%=datasets[i].fillColor%>\">&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;<%%if(datasets[i].label){%><%%=datasets[i].label%><%%}%></li><%%}%></ul>"
+  }
+var data = {
+  labels: [2011, 2012, 2013, 2014, 2015, 2016],
+  datasets: [
+    <% @data_sets.each_with_index do |data, i| %>
+        <% unless i == 0 %>
+          ,
+  <% end %>
+  {
+    label: "<%= data.name %>",
+    fillColor: "<%= data.colour %>",
+    strokeColor: "<%= data.colour %>",
+    pointColor: "<%= data.colour %>",
+    pointStrokeColor: "#fff",
+    pointHighlightFill: "#fff",
+    pointHighlightStroke: "<%= data.colour %>",
+    data: <%= data.data %>
+}
+    <% end %>
+]
+};
+
+// Get the context of the canvas element we want to select
+var ctx = document.getElementById("myChart").getContext("2d");
+var myBarChart = new Chart(ctx).Bar(data, options);
+document.getElementById('js-legend').innerHTML = myBarChart.generateLegend();
+  </script>
+</div>
