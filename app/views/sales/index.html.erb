@@ -4,6 +4,9 @@
   </div>
   <canvas id="myChart" width="800" height="400"></canvas>
   <div id="js-legend" class="chart-legend"></div>
+
+  <canvas id="individualChart" width="800" height="400"></canvas>
+  <div id="individual-legend" class="chart-legend"></div>
   <script>
 
 Number.prototype.formatMoney = function(c, d, t){
@@ -50,5 +53,33 @@ var data = {
 var ctx = document.getElementById("myChart").getContext("2d");
 var myBarChart = new Chart(ctx).Bar(data, options);
 document.getElementById('js-legend').innerHTML = myBarChart.generateLegend();
+
+var data2 = {
+  labels: [2011, 2012, 2013, 2014, 2015, 2016],
+  datasets: [
+    <% @individual.each_with_index do |data, i| %>
+        <% unless i == 0 %>
+          ,
+  <% end %>
+  {
+    label: "<%= data.name %>",
+    fillColor: "<%= data.colour %>",
+    strokeColor: "<%= data.colour %>",
+    pointColor: "<%= data.colour %>",
+    pointStrokeColor: "#fff",
+    pointHighlightFill: "#fff",
+    pointHighlightStroke: "<%= data.colour %>",
+    data: <%= data.data %>
+}
+    <% end %>
+]
+};
+
+// Get the context of the canvas element we want to select
+var ctx = document.getElementById("individualChart").getContext("2d");
+var myIndividualChart = new Chart(ctx).Bar(data2, options);
+document.getElementById('individual-legend').innerHTML = myIndividualChart.generateLegend();
+
+
   </script>
 </div>

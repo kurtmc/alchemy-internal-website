@@ -13,6 +13,10 @@ module SqlUtils
         return "CAST('#{date.strftime("%Y%m%d %H:%M:00.000")}' AS DATETIME)"
     end
 
+    def self.sql_date_only(date)
+        return "CAST('#{date.strftime("%Y%m%d")}' AS DATE)"
+    end
+    
     def self.date_range(column, start_date, end_date)
         return "#{column} >= #{self.sql_date(start_date)} and #{column} <= #{self.sql_date(end_date)}"
     end
