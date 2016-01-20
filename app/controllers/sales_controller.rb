@@ -36,6 +36,22 @@ WHERE
         GROUP BY person.\"Name\""
         return sql
     end
+
+    def get_sql_comparison(columns, prefix)
+        sql = "
+        SELECT person.\"Name\", #{get_column_select(columns, 'sugar.')}
+        from NAVLIVE.dbo.\"Alchemy Agencies Ltd$Sugar CRM Staging\" AS sugar
+        JOIN NAVLIVE.dbo.\"Alchemy Agencies Ltd$Customer\" AS customer
+        on sugar.\"Navision Company Code\" = customer.No_
+        JOIN NAVLIVE.dbo.\"Alchemy Agencies Ltd$Salesperson_Purchaser\" as person
+        ON customer.\"Salesperson Code\" = person.Code
+        WHERE sugar.\"Date\" = #{SqlUtils.sql_date_only(Time.now - 1.day)}
+        GROUP BY person.\"Name\"
+        ORDER BY #{columns.join(",")}
+        "
+        # TODO ORDER BY
+        return sql
+    end
     
     def get_data(sql, columns)
         record = SqlUtils.execute_sql(sql).first
@@ -81,5 +97,8 @@ WHERE
         
         sql = get_sql_individual(sales_columns)
         @individual = get_data_multiple(sql, sales_columns, "Name")
+
+        sql = get_sql_comparison(['Sales'], 'sugar.')
+        @comparison = get_data_multiple(sql, ['Sales'], "Name")
     end
 end
