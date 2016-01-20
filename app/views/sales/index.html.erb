@@ -11,26 +11,45 @@
   <canvas id="comparisonChart" width="800" height="400"></canvas>
   <div id="comparison-legend" class="chart-legend"></div>
   <script>
+function updateDataset(legendLi, chart, label) {
+  var store = chart.store;
+  var exists = false;
+  for (var i = 0; i < store.length; i++) {
+    if (store[i][0] === label) {
+      exists = true;
+      chart.datasets.push(store.splice(i, 1)[0][1]);
+      legendLi.fadeTo("slow", 1);
+    }
+  }
+  if (!exists) {
+    for (var i = 0; i < chart.datasets.length; i++) {
+      if (chart.datasets[i].label === label) {
+        chart.store.push([label, chart.datasets.splice(i, 1)[0]]);
+        legendLi.fadeTo("slow", 0.33);
+      }
+    }
+  }
+  chart.update();
+}
 
 Number.prototype.formatMoney = function(c, d, t){
   var n = this, 
-      c = isNaN(c = Math.abs(c)) ? 2 : c, 
-          d = d == undefined ? "." : d, 
-              t = t == undefined ? "," : t, 
-                  s = n < 0 ? "-" : "", 
-                      i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", 
-                          j = (j = i.length) > 3 ? j % 3 : 0;
-     return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
-      };
+  c = isNaN(c = Math.abs(c)) ? 2 : c, 
+  d = d == undefined ? "." : d, 
+  t = t == undefined ? "," : t, 
+  s = n < 0 ? "-" : "", 
+  i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", 
+  j = (j = i.length) > 3 ? j % 3 : 0;
+  return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+};
 
 
 
 Chart.defaults.global.responsive = true;
 var options = {
-  //String - A legend template
-  legendTemplate : "<ul class=\"<%%=name.toLowerCase()%>-legend\" style=\"list-style-type: none;\"><%% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%%=datasets[i].fillColor%>\">&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;<%%if(datasets[i].label){%><%%=datasets[i].label%><%%}%></li><%%}%></ul>",
-     multiTooltipTemplate: "<%%= datasetLabel %> - <%%= '$' + value.formatMoney(2) %>"
-  }
+    legendTemplate : "<ul class=\"<%%=name.toLowerCase()%>-legend\" style=\"list-style-type: none;\"><%% for (var i=0; i<datasets.length; i++){%><li class=\"legend-item\" onclick=\"updateDataset($(this), window.myBarChart, '<%%=datasets[i].label%>')\"><span style=\"background-color:<%%=datasets[i].strokeColor%>\">&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;<%%if(datasets[i].label){%><%%=datasets[i].label%><%%}%></li><%%}%></ul>",
+    multiTooltipTemplate: "<%%= datasetLabel %> - <%%= '$' + value.formatMoney(2) %>"
+}
 var data = {
   labels: [2011, 2012, 2013, 2014, 2015, 2016],
   datasets: [
@@ -49,14 +68,19 @@ var data = {
     data: <%= data.data %>
 }
     <% end %>
-]
-};
+  ]
+  };
 
 // Get the context of the canvas element we want to select
 var ctx = document.getElementById("myChart").getContext("2d");
-var myBarChart = new Chart(ctx).Bar(data, options);
+window.myBarChart = new Chart(ctx).Bar(data, options);
 document.getElementById('js-legend').innerHTML = myBarChart.generateLegend();
+window.myBarChart.store = new Array();
 
+var options2 = {
+    legendTemplate : "<ul class=\"<%%=name.toLowerCase()%>-legend\" style=\"list-style-type: none;\"><%% for (var i=0; i<datasets.length; i++){%><li class=\"legend-item\" onclick=\"updateDataset($(this), window.individualChart, '<%%=datasets[i].label%>')\"><span style=\"background-color:<%%=datasets[i].strokeColor%>\">&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;<%%if(datasets[i].label){%><%%=datasets[i].label%><%%}%></li><%%}%></ul>",
+    multiTooltipTemplate: "<%%= datasetLabel %> - <%%= '$' + value.formatMoney(2) %>"
+}
 var data2 = {
   labels: [2011, 2012, 2013, 2014, 2015, 2016],
   datasets: [
@@ -75,13 +99,14 @@ var data2 = {
     data: <%= data.data %>
 }
     <% end %>
-]
-};
+  ]
+  };
 
 // Get the context of the canvas element we want to select
 var ctx = document.getElementById("individualChart").getContext("2d");
-var myIndividualChart = new Chart(ctx).Bar(data2, options);
-document.getElementById('individual-legend').innerHTML = myIndividualChart.generateLegend();
+window.individualChart = new Chart(ctx).Bar(data2, options2);
+window.individualChart.store = new Array();
+document.getElementById('individual-legend').innerHTML = window.individualChart.generateLegend();
 
 var data3 = {
   labels: ["Current Sales"],
@@ -101,8 +126,8 @@ var data3 = {
     data: <%= data.data %>
 }
     <% end %>
-]
-};
+  ]
+  };
 
 // Get the context of the canvas element we want to select
 var ctx = document.getElementById("comparisonChart").getContext("2d");
