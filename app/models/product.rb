@@ -33,7 +33,12 @@ class Product < ActiveRecord::Base
         WHERE \"Item No_\" = #{SqlUtils.escape(product_id)}
         GROUP BY \"Item No_\""
         records_array = SqlUtils.execute_sql(sql)
-        return records_array.first["Inventory"]
+        record = records_array.first
+        unless record.nil?
+            return record["Inventory"]
+        else
+            return 0
+        end
     end
 
     def get_purchase_order(product_id)
