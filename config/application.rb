@@ -29,13 +29,13 @@ module PdfAppender
 
         config.after_initialize do
             # Cache Navision database in a new thread
-            Thread.new do
-                Product.load_all
-                SalesPerson.load_all
-                Customer.load_all
-                Vendor.load_all
-                ActiveRecord::Base.connection.close
-            end
+            #Thread.new do
+                #Product.load_all
+                #SalesPerson.load_all
+                #Customer.load_all
+                #Vendor.load_all
+                #ActiveRecord::Base.connection.close
+            #end
             puts "Server start"
         end
     end
