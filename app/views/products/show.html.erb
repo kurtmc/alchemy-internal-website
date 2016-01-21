@@ -21,7 +21,9 @@
         <p><strong>ID:</strong> <%= @product.product_id %></p>
         <p><strong>Name:</strong> <%= @product.description %></p>
         <p><strong>Pack size:</strong> <%= @product.description2 %></p>
-        <p><strong>Vendor:</strong> <%= link_to "#{@product.vendor_name}", vendor_path(@product.vendor_id) %></p>
+        <% if @product.vendor_id != nil %>
+          <p><strong>Vendor:</strong> <%= link_to "#{@product.vendor_name}", vendor_path(@product.vendor_id) %></p>
+        <% end %>
         <p><strong>Base Unit of Measure:</strong> <%= @product.unit_measure %></p>
         <p><strong>Shelf Life:</strong> <%= @product.shelf_life  %></p>
         <p><strong>Inventory:</strong> <%= @product.inventory %></p>
@@ -48,13 +50,13 @@
         <%= @product.get_sds_expiry_formatted %>
         </p>
         <% if params[:edit] == 'true' %>
-        <div class="container">
-          <%= form_for :product, method: :patch, url: product_path(@product.get_product_id), html: { :class => 'form-inline' } do |p| %>
-            <%= p.file_field :sds_file, {class: 'form-control'} %>
-            <%= p.submit "Replace SDS", {class: 'btn btn-danger'} %>
-          <% end %>
-        </div>
-      <% end %>
+          <div class="container">
+            <%= form_for :product, method: :patch, url: product_path(@product.get_product_id), html: { :class => 'form-inline' } do |p| %>
+              <%= p.file_field :sds_file, {class: 'form-control'} %>
+              <%= p.submit "Replace SDS", {class: 'btn btn-danger'} %>
+            <% end %>
+          </div>
+        <% end %>
         </br>
         <p>
         <strong>PDS:</strong>
