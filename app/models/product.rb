@@ -100,4 +100,15 @@ class Product < ActiveRecord::Base
         prods.each(&:save)
     end
 
+    def self.load_specific(product_id)
+        csv_path = Rails.root.join('alchemy-info-tables', 'gen', 'NZ_ID_SDS_PDS_VENDOR_NAME.csv')
+        prods = Array.new
+        CSV.foreach(csv_path, :headers => true) do |csv_obj|
+            if csv_obj['ID'] == product_id
+                prod = new_product(csv_obj)
+                prod.save
+            end
+        end
+    end
+
 end
