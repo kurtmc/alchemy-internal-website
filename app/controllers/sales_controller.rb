@@ -1,4 +1,5 @@
 class SalesController < ApplicationController
+    before_filter :authenticate_user!
     
     def get_column_select(columns, prefix)
         column_sql = ''

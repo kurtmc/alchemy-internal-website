@@ -2,6 +2,7 @@ require 'rubygems'
 require 'csv'
 require 'uri'
 class ProductsController < ApplicationController
+    before_filter :authenticate_user!
 
     @@document_types = ['sds', 'pds']
 
