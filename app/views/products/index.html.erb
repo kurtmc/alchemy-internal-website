@@ -1,52 +1,57 @@
 <%
-        def display(product)
-            to_display = true
-            if params[:expired_sds] != nil && params[:expired_sds]
-                to_display = to_display && (product.sds_expiry.nil? || product.sds_expiry.past?)
-            end
-            return to_display
+    def display(product)
+      to_display = true
+      if params[:expired_sds] == 'true'
+        to_display = to_display && (product.sds_expiry.nil? || product.sds_expiry.past?)
+      end
+      return to_display
 end
 %>
 <div class="container theme-showcase" role="main">
-    <div class="page-header">
-        <h1>Listing products</h1>
-    </div>
-    <div class="container">
-        <%= link_to "Back Home", root_path, {class: 'btn btn-primary'} %>
-    </div>
-    <br>
-    <div class="container">
-        <input type="search" id="product-search" class="form-control" data-table="order-table" placeholder="Filter">
-    </div>
-    <div class="table-responsive">
-        <table class="order-table table">
-            <thead>
-                <th>ID</th>
-                <th>Description</th>
-                <% if params[:expired_sds] %>
-                    <th>SDS expiry</th>
-                <% end %>
-            </thead>
+  <div class="page-header">
+    <h1>Listing products</h1>
+  </div>
+  <div class="container">
+    <%= link_to "Back Home", root_path, {class: 'btn btn-primary'} %>
+    <% if params[:expired_sds] == 'true' %>
+      <%= link_to 'Show all products', params.merge(:expired_sds => false), {:class => 'btn btn-primary'} %>
+    <% else %>
+      <%= link_to 'Show products with expired SDS', params.merge(:expired_sds => true), {:class => 'btn btn-primary'} %>
+    <% end %>
+  </div>
+  <br>
+  <div class="container">
+    <input type="search" id="product-search" class="form-control" data-table="order-table" placeholder="Filter">
+  </div>
+  <div class="table-responsive">
+    <table class="order-table table">
+      <thead>
+        <th>ID</th>
+        <th>Description</th>
+        <% if params[:expired_sds] == 'true' %>
+          <th>SDS expiry</th>
+        <% end %>
+      </thead>
 
-            <% expired_count = 0 %>
-            <% @products.each do |product| %>
-                <% if display(product) == true %>
-                    <% expired_count += 1 %>
-                    <tr>
-                        <td><%= link_to "#{product.product_id}", product_path(product.get_product_id) %></td>
-                        <td><%= product.description %></td>
-                        <% if params[:expired_sds] %>
-                            <td><%= product.get_sds_expiry_formatted %></td>
-                        <% end %>
-                    </tr>
-                <% end %>
+      <% expired_count = 0 %>
+      <% @products.each do |product| %>
+        <% if display(product) == true %>
+          <% expired_count += 1 %>
+          <tr>
+            <td><%= link_to "#{product.product_id}", product_path(product.get_product_id) %></td>
+            <td><%= product.description %></td>
+            <% if params[:expired_sds] == 'true' %>
+              <td><%= product.get_sds_expiry_formatted %></td>
             <% end %>
-        </table>
-    </div>
-    <% if params[:expired_sds] %>
-        <p><strong>Number of expired SDS's:</strong> <%= expired_count %>
+          </tr>
+        <% end %>
+      <% end %>
+    </table>
+  </div>
+  <% if params[:expired_sds] %>
+    <p><strong>Number of expired SDS's:</strong> <%= expired_count %>
 <% end %>
 <div class="container">
-    <%= link_to "Back Home", root_path, {class: 'btn btn-primary'} %>
+  <%= link_to "Back Home", root_path, {class: 'btn btn-primary'} %>
 </div>
 </div>
