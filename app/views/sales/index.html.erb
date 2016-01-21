@@ -47,7 +47,7 @@ Number.prototype.formatMoney = function(c, d, t){
 
 Chart.defaults.global.responsive = true;
 var options = {
-    legendTemplate : "<ul class=\"<%%=name.toLowerCase()%>-legend\" style=\"list-style-type: none;\"><%% for (var i=0; i<datasets.length; i++){%><li class=\"legend-item\" onclick=\"updateDataset($(this), window.myBarChart, '<%%=datasets[i].label%>')\"><span style=\"background-color:<%%=datasets[i].strokeColor%>\">&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;<%%if(datasets[i].label){%><%%=datasets[i].label%><%%}%></li><%%}%></ul>",
+    legendTemplate : "<ul class=\"<%%=name.toLowerCase()%>-legend list-group\" style=\"list-style-type: none;\"><%% for (var i=0; i<datasets.length; i++){%><li class=\"legend-item list-group-item\" onclick=\"updateDataset($(this), window.myBarChart, '<%%=datasets[i].label%>')\"><span style=\"background-color:<%%=datasets[i].strokeColor%>\">&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;<%%if(datasets[i].label){%><%%=datasets[i].label%><%%}%></li><%%}%></ul>",
     multiTooltipTemplate: "<%%= datasetLabel %> - <%%= '$' + value.formatMoney(2) %>"
 }
 var data = {
@@ -78,7 +78,7 @@ document.getElementById('js-legend').innerHTML = myBarChart.generateLegend();
 window.myBarChart.store = new Array();
 
 var options2 = {
-    legendTemplate : "<ul class=\"<%%=name.toLowerCase()%>-legend\" style=\"list-style-type: none;\"><%% for (var i=0; i<datasets.length; i++){%><li class=\"legend-item\" onclick=\"updateDataset($(this), window.individualChart, '<%%=datasets[i].label%>')\"><span style=\"background-color:<%%=datasets[i].strokeColor%>\">&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;<%%if(datasets[i].label){%><%%=datasets[i].label%><%%}%></li><%%}%></ul>",
+    legendTemplate : "<ul class=\"<%%=name.toLowerCase()%>-legend list-group\" style=\"list-style-type: none;\"><%% for (var i=0; i<datasets.length; i++){%><li class=\"legend-item list-group-item\" onclick=\"updateDataset($(this), window.individualChart, '<%%=datasets[i].label%>')\"><span style=\"background-color:<%%=datasets[i].strokeColor%>\">&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;<%%if(datasets[i].label){%><%%=datasets[i].label%><%%}%></li><%%}%></ul>",
     multiTooltipTemplate: "<%%= datasetLabel %> - <%%= '$' + value.formatMoney(2) %>"
 }
 var data2 = {
