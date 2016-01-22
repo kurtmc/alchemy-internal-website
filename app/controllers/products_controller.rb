@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'csv'
 require 'uri'
+require 'fileutils'
 class ProductsController < ApplicationController
     before_filter :authenticate_user!
 
@@ -8,7 +9,7 @@ class ProductsController < ApplicationController
 
     def index
         # This is how to handle different request types
-        @products = Product.all
+        @products = Product.all.order :product_id
         respond_to do |format|
             format.html # index.html.erb
             format.xml  { render xml: @products}
@@ -17,11 +18,11 @@ class ProductsController < ApplicationController
     end
 
     def show
-        @product = find_product(params[:id])
+        @product = Product.find(params[:id])
     end
 
     def edit
-        @product = find_product(params[:id])
+        @product = Product.find(params[:id])
     end
 
     def handle_upload(uploaded_io, file_type)
@@ -40,16 +41,16 @@ class ProductsController < ApplicationController
             return
         end
 
-        path = "alchemy-info-tables/res/Product_Information"
-        path = path + "/#{@product.directory}"
+        product_documents_path = @product.absolute_documents_path
+        FileUtils.mkdir_p product_documents_path
 
         # First delete old file
         unless old_filename.nil?
-            File.delete(Rails.root.join(path, old_filename))
+            FileUtils.rm_f(product_documents_path.join(old_filename))
         end
 
         # Write new file
-        write_uploaded_file(path, uploaded_io)
+        write_uploaded_file(product_documents_path, uploaded_io)
 
         regen_tables
 
@@ -58,7 +59,7 @@ class ProductsController < ApplicationController
     end
 
     def update
-        @product = find_product(params[:id])
+        @product = Product.find(params[:id])
 
 
         @@document_types.each { |type|
@@ -73,7 +74,7 @@ class ProductsController < ApplicationController
 
     def download_document
         type = params[:document_type]
-        prod = find_product(params[:id])
+        prod = Product.find(params[:id])
         info_path = 'alchemy-info-tables/res/Product_Information/' + prod.directory
         unless prod[type].nil?
             download_pdf(info_path, prod[type])
@@ -81,16 +82,8 @@ class ProductsController < ApplicationController
     end
 
     private
-
     def download_pdf(directory, filename)
         send_file(Rails.root.join(directory, filename), filename: filename, type: "application/pdf")
-    end
-
-    def find_product(product_id)
-        id = URI.unescape(params[:id])
-        product = Product.find_by product_id: id
-        product.update_fields
-        return product
     end
 
     def write_uploaded_file(path, uploaded_io)
@@ -106,9 +99,4 @@ class ProductsController < ApplicationController
         cmd += 'git commit -m "Data Sheet Update" 2>&1'
         `#{cmd}`
     end
-
-    def get_products
-        return Product.all
-    end
-
 end
