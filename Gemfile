@@ -49,3 +49,5 @@ gem 'passenger'
 gem 'chart-js-rails'
 gem 'activeadmin', github: 'activeadmin'
 gem 'devise'
+
+gem 'whenever', :require => false
