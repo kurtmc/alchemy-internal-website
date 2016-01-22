@@ -9,7 +9,7 @@ class ProductsController < ApplicationController
 
     def index
         # This is how to handle different request types
-        @products = Product.all
+        @products = Product.all.order :product_id
         respond_to do |format|
             format.html # index.html.erb
             format.xml  { render xml: @products}
