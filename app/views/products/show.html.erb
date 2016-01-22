@@ -35,7 +35,7 @@
         <p>
         <strong>SDS:</strong>
         <% unless @product.sds.nil? %>
-          <%= link_to "#{@product.sds}", :controller => "products", :action => "download_document", :id => @product.get_product_id, :document_type => "sds" %>
+          <%= link_to "#{@product.sds}", :controller => "products", :action => "download_document", :id => @product.id, :document_type => "sds" %>
         <% else %>
           No SDS file
         <% end %>
@@ -51,7 +51,7 @@
         </p>
         <% if params[:edit] == 'true' %>
           <div class="container">
-            <%= form_for :product, method: :patch, url: product_path(@product.get_product_id), html: { :class => 'form-inline' } do |p| %>
+            <%= form_for :product, method: :patch, url: product_path(@product.id), html: { :class => 'form-inline' } do |p| %>
               <%= p.file_field :sds_file, {class: 'form-control'} %>
               <%= p.submit "Replace SDS", {class: 'btn btn-danger'} %>
             <% end %>
@@ -61,14 +61,14 @@
         <p>
         <strong>PDS:</strong>
         <% unless @product.pds.nil? %>
-          <%= link_to "#{@product.pds}", :controller => "products", :action => "download_document", :id => @product.get_product_id, :document_type => "pds" %>
+          <%= link_to "#{@product.pds}", :controller => "products", :action => "download_document", :id => @product.id, :document_type => "pds" %>
         <% else %>
           No PDS file
         <% end %>
         </p>
         <% if params[:edit] == 'true' %>
           <div class="container">
-            <%= form_for :product, method: :patch, url: product_path(@product.get_product_id), :html => {:class => 'form-inline'} do |p| %>
+            <%= form_for :product, method: :patch, url: product_path(@product.id), :html => {:class => 'form-inline'} do |p| %>
               <%= p.file_field :pds_file, {class: 'form-control'} %>
               <%= p.submit "Replace PDS", {class: 'btn btn-danger'} %>
             <% end %>
