@@ -7,5 +7,65 @@ class VendorsController < ApplicationController
     def show
         @vendor = Vendor.find_by vendor_id: params[:id]
         @vendor.update_fields
+        @stats = get_sales_stats(@vendor.vendor_id)
+        @data_sets = Array.new
+        @data_sets << ChartData.new("Sales", @stats["Sales"], 'rgba(0, 255, 0, 0.8)')
+        @data_sets << ChartData.new("Cost", @stats["Cost"], 'rgba(0, 255, 0, 0.8)')
+        @data_sets << ChartData.new("Margin", @stats["Margin"], 'rgba(0, 255, 0, 0.8)')
+        puts "FINISHED SHOW!!!!!!"
+    end
+
+    def get_sales_stats(vendor_id, date = nil)
+		column = 'sales."Shipment Date"'
+		start_date = SqlUtils.beginning_financial_year(date)
+		end_date = SqlUtils.ending_financial_year(date)
+        sql = "
+        SELECT
+
+        stats.No_ AS \"Product ID\",
+        SUM(stats.Volume) AS \"Volume\",
+        SUM(stats.Sales) AS \"Sales\",
+        SUM(stats.Cost) AS \"Cost\"
+
+        FROM
+        (
+        SELECT
+
+        sales.No_,
+        sales.Quantity as \"Volume\",
+        sales.Quantity * sales.\"Unit Price\" AS \"Sales\",
+        sales.Quantity * sales.\"Unit Cost (LCY)\" AS \"Cost\"
+
+        FROM
+
+        NAVLIVE.dbo.\"Alchemy Agencies Ltd$Sales Line Archive\" AS sales
+
+        WHERE
+
+        sales.No_ IN (
+            SELECT No_
+            FROM NAVLIVE.dbo.\"Alchemy Agencies Ltd$Item\" as item
+            WHERE item.\"Vendor No_\" = #{SqlUtils.escape(vendor_id)}
+        )
+		and #{SqlUtils.date_range(column, start_date, end_date)}
+
+        ) stats
+
+        GROUP BY
+
+        stats.No_
+        "
+		records = SqlUtils.execute_sql(sql)
+        result = Hash.new
+        result["Volume"] = 0
+        result["Sales"] = 0
+        result["Cost"] = 0
+        records.each { |record|
+            result["Volume"] += record["Volume"]
+            result["Sales"] += record["Sales"]
+            result["Cost"] += record["Cost"]
+        }
+        result["Margin"] = result["Sales"] - result["Cost"]
+        return result
     end
 end
