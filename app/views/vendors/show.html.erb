@@ -5,6 +5,7 @@
   <div class="list-group">
     <%= link_to 'Vendors', vendors_path, {class: 'btn btn-primary'}  %>
     <%= render :partial => "edit_button" %>
+    <%= render :partial => "toggle_button", :locals => {:option => 'global', :toggle_on => 'Show Global', :toggle_off => 'Hide Global'} %>
   </div>
   <%= image_tag(@image_filename, :alt => "Company Logo", width: 300) %>
   <% if params[:edit] == 'true' %>

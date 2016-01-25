@@ -9,7 +9,7 @@ class VendorsController < ApplicationController
         @vendor.update_fields
         stats = Array.new
         4.downto(0) { |i|
-            stats << get_sales_stats(@vendor.vendor_id, Time.now - i.year)
+            stats << get_sales_stats(@vendor.vendor_id, Time.now - i.year, params[:global] == 'true')
         }
 
         data_sets = Array.new
@@ -56,10 +56,33 @@ class VendorsController < ApplicationController
         return nil
     end
 
-    def get_sales_stats(vendor_id, date = nil)
+    def get_sales_stats(vendor_id, date = nil, global = false)
 		column = 'sales."Shipment Date"'
 		start_date = SqlUtils.beginning_financial_year(date)
 		end_date = SqlUtils.ending_financial_year(date)
+        if global
+            where_clase = "
+                WHERE
+                item.\"Global Dimension 1 Code\" =(
+                SELECT
+                \"Global Dimension 1 Code\" AS \"Global Vendor\"
+                FROM
+                (
+                    SELECT
+                    DISTINCT a.\"Vendor No_\",
+                    a.\"Global Dimension 1 Code\"
+                    FROM
+                    NAVLIVE.dbo.\"Alchemy Agencies Ltd$Item\" AS A
+                    WHERE
+                    a.\"Global Dimension 1 Code\" <> ''
+                ) global_vendor
+                WHERE
+                global_vendor.\"Vendor No_\" = #{SqlUtils.escape(vendor_id)}
+                )
+            "
+        else
+            where_clause = "WHERE item.\"Vendor No_\" = #{SqlUtils.escape(vendor_id)}"
+        end
         sql = "
         SELECT
 
@@ -70,7 +93,7 @@ class VendorsController < ApplicationController
 
         FROM
         (
-        SELECT
+        SELECT DISTINCT
 
         sales.No_,
         sales.Quantity as \"Volume\",
@@ -86,7 +109,7 @@ class VendorsController < ApplicationController
         sales.No_ IN (
             SELECT No_
             FROM NAVLIVE.dbo.\"Alchemy Agencies Ltd$Item\" as item
-            WHERE item.\"Vendor No_\" = #{SqlUtils.escape(vendor_id)}
+            #{where_clause}
         )
 		and #{SqlUtils.date_range(column, start_date, end_date)}
 
