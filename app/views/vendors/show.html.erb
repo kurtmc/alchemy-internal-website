@@ -1,77 +1,53 @@
 <div class="container theme-showcase" role="main">
-    <div class="page-header">
-        <h1><%= @vendor.vendor_name %></h1>
-    </div>
-    <div class="list-group">
-        <%= link_to 'Vendors', vendors_path, {class: 'btn btn-primary'}  %>
-    </div>
-    Place holder. TODO add vendor image and buttons to update it.
-    <br>
-    <br>
-    <br>
-    <br>
+  <div class="page-header">
+    <h1><%= @vendor.vendor_name %></h1>
+  </div>
+  <div class="list-group">
+    <%= link_to 'Vendors', vendors_path, {class: 'btn btn-primary'}  %>
+  </div>
+  Place holder. TODO add vendor image and buttons to update it.
+  <br>
+  <br>
+  <br>
+  <br>
   <div class="page-header">
     <h1>Sales</h1>
   </div>
-  <canvas id="myChart" width="800" height="400"></canvas>
-  <div id="js-legend" class="chart-legend"></div>
+  <canvas id="sales-dollars" width="800" height="400"></canvas>
+  <div id="sales-dollars-legend" class="chart-legend"></div>
+  <canvas id="volume" width="800" height="400"></canvas>
+  <div id="volume-legend" class="chart-legend"></div>
   <script>
-function updateDataset(legendLi, chart, label) {
-  var store = chart.store;
-  var exists = false;
-  for (var i = 0; i < store.length; i++) {
-    if (store[i][0] === label) {
-      exists = true;
-      chart.datasets.push(store.splice(i, 1)[0][1]);
-      legendLi.fadeTo("slow", 1);
-    }
+  // Sales, Cost, Margin
+  var options = {
+    legendTemplate : <%= raw(ChartData.legend_template_js('salesDollars')) %>,
+    multiTooltipTemplate: <%= raw(ChartData.tool_tip_template_js) %>
   }
-  if (!exists) {
-    for (var i = 0; i < chart.datasets.length; i++) {
-      if (chart.datasets[i].label === label) {
-        chart.store.push([label, chart.datasets.splice(i, 1)[0]]);
-        legendLi.fadeTo("slow", 0.33);
-      }
-    }
-  }
-  chart.update();
-}
-
-Number.prototype.formatMoney = function(c, d, t){
-  var n = this, 
-  c = isNaN(c = Math.abs(c)) ? 2 : c, 
-  d = d == undefined ? "." : d, 
-  t = t == undefined ? "," : t, 
-  s = n < 0 ? "-" : "", 
-  i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", 
-  j = (j = i.length) > 3 ? j % 3 : 0;
-  return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
-};
-
-
-
-Chart.defaults.global.responsive = true;
-var options = {
-    legendTemplate : "<ul class=\"<%%=name.toLowerCase()%>-legend list-group\" style=\"list-style-type: none;\"><%% for (var i=0; i<datasets.length; i++){%><li class=\"legend-item list-group-item\" onclick=\"updateDataset($(this), window.myBarChart, '<%%=datasets[i].label%>')\"><span style=\"background-color:<%%=datasets[i].strokeColor%>\">&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;<%%if(datasets[i].label){%><%%=datasets[i].label%><%%}%></li><%%}%></ul>",
-    multiTooltipTemplate: "<%%= datasetLabel %> - <%%= '$' + value.formatMoney(2) %>"
-}
-var data = {
-  labels: <%= @labels %>,
-  datasets: [
-    <% @data_sets.each_with_index do |data, i| %>
-      <% unless i == 0 %>
-        ,
-      <% end %>
-      <%= raw(data.data_js) %>
-    <% end %>
-  ]
+  var data = {
+    labels: <%= @labels %>,
+    datasets: <%= raw(@data_sets_js) %>
   };
 
-// Get the context of the canvas element we want to select
-var ctx = document.getElementById("myChart").getContext("2d");
-window.myBarChart = new Chart(ctx).Bar(data, options);
-document.getElementById('js-legend').innerHTML = myBarChart.generateLegend();
-window.myBarChart.store = new Array();
+  var ctx = document.getElementById("sales-dollars").getContext("2d");
+  window.salesDollars = new Chart(ctx).Bar(data, options);
+  document.getElementById('sales-dollars-legend').innerHTML = salesDollars.generateLegend();
+  window.salesDollars.store = new Array();
+
+  // Volume
+  var options2 = {
+    legendTemplate : <%= raw(ChartData.legend_template_js('volume')) %>,
+    multiTooltipTemplate: <%= raw(ChartData.tool_tip_template_js) %>
+  }
+  var data2 = {
+    labels: <%= @labels %>,
+    datasets: <%= raw(@volumes_js) %>
+  };
+
+  // Get the context of the canvas element we want to select
+  var ctx = document.getElementById("volume").getContext("2d");
+  window.volume = new Chart(ctx).Bar(data2, options2);
+  document.getElementById('volume-legend').innerHTML = volume.generateLegend();
+  window.volume.store = new Array();
   </script>
 
 

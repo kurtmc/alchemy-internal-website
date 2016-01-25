@@ -45,4 +45,23 @@ class ChartData
     def colour
         return @colour
     end
+
+    def self.data_sets_js(data_sets)
+        result = '['
+        data_sets.each_with_index do |data, i|
+            unless i.zero?
+                result += ','
+            end
+            result += data.data_js
+        end
+        result += ']'
+    end
+
+    def self.legend_template_js(chart_name)
+        return "\"<ul class=\\\"<%=name.toLowerCase()%>-legend list-group\\\" style=\\\"list-style-type: none;\\\"><% for (var i=0; i<datasets.length; i++){%><li class=\\\"legend-item list-group-item\\\" onclick=\\\"updateDataset($(this), window.#{chart_name}, '<%=datasets[i].label%>')\\\"><span style=\\\"background-color:<%=datasets[i].strokeColor%>\\\">&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;<%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>\""
+    end
+
+    def self.tool_tip_template_js
+        return "\"<%= datasetLabel %> - <%= '$' + value.formatMoney(2) %>\""
+    end
 end

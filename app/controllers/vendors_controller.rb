@@ -11,15 +11,27 @@ class VendorsController < ApplicationController
         4.downto(0) { |i|
             stats << get_sales_stats(@vendor.vendor_id, Time.now - i.year)
         }
-        @data_sets = Array.new
+
+        data_sets = Array.new
         ["Sales", "Cost", "Margin"].each { |stat_name|
             data = Array.new
             stats.each { |stat|
                 data << stat[stat_name]
             }
-            @data_sets << ChartData.new(stat_name, data)
+            data_sets << ChartData.new(stat_name, data)
         }
-        colourize_data_sets!(@data_sets)
+        colourize_data_sets!(data_sets)
+
+        @data_sets_js = ChartData.data_sets_js(data_sets)
+
+        volumes = Array.new
+        data = Array.new
+        stats.each { |stat|
+            data << stat["Volume"]
+        }
+        volumes << ChartData.new("Volume", data, "hsla(234, 100%, 50%, 0.8)")
+        @volumes_js = ChartData.data_sets_js(volumes)
+
         @labels = Array.new
         4.downto(0) { |i|
             @labels << Time.now.year - i
