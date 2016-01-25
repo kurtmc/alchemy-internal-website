@@ -1,0 +1,28 @@
+<div class="table-responsive">
+  <table class="order-table table">
+    <thead>
+      <th>ID</th>
+      <th>Description</th>
+      <% if show_expired_only %>
+        <th>SDS expiry</th>
+      <% end %>
+    </thead>
+
+    <% expired_count = 0 %>
+    <% products.each do |product| %>
+      <% if product.sds_expiry.past? %>
+        <% show_expired_only && expired_count += 1 %>
+        <tr>
+          <td><%= link_to "#{product.product_id}", product_path(product.id) %></td>
+          <td><%= product.description %></td>
+          <% if show_expired_only %>
+            <td><%= product.get_sds_expiry_formatted %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+</div>
+<% if show_expired_only %>
+  <p><strong>Number of expired SDS's:</strong> <%= expired_count %>
+<% end %>

@@ -23,34 +23,7 @@ end
   <div class="container">
     <input type="search" id="product-search" class="form-control" data-table="order-table" placeholder="Filter">
   </div>
-  <div class="table-responsive">
-    <table class="order-table table">
-      <thead>
-        <th>ID</th>
-        <th>Description</th>
-        <% if params[:expired_sds] == 'true' %>
-          <th>SDS expiry</th>
-        <% end %>
-      </thead>
-
-      <% expired_count = 0 %>
-      <% @products.each do |product| %>
-        <% if display(product) == true %>
-          <% expired_count += 1 %>
-          <tr>
-            <td><%= link_to "#{product.product_id}", product_path(product.id) %></td>
-            <td><%= product.description %></td>
-            <% if params[:expired_sds] == 'true' %>
-              <td><%= product.get_sds_expiry_formatted %></td>
-            <% end %>
-          </tr>
-        <% end %>
-      <% end %>
-    </table>
-  </div>
-  <% if params[:expired_sds] %>
-    <p><strong>Number of expired SDS's:</strong> <%= expired_count %>
-<% end %>
+  <%= render :partial => "product_list", :locals => {:products => @products, :show_expired_only => params[:expired_sds] == 'true'} %>
 <div class="container">
   <%= link_to "Back Home", root_path, {class: 'btn btn-primary'} %>
 </div>
