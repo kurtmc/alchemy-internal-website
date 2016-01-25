@@ -37,6 +37,7 @@ class VendorsController < ApplicationController
 
         @sales_html, @sales_js = ChartData.full_html_for(data_sets, 'sales', labels)
         @volumes_html, @volumes_js = ChartData.full_html_for(volumes, 'volumes', labels)
+        @products = Product.where vendor_id: @vendor.vendor_id
     end
 
     def get_sales_stats(vendor_id, date = nil)

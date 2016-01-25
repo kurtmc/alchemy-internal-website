@@ -13,13 +13,13 @@
   <div class="page-header">
     <h1>Sales</h1>
   </div>
-<%= raw(@sales_html) %>
-<%= raw(@volumes_html) %>
+  <%= raw(@sales_html) %>
+  <%= raw(@volumes_html) %>
   <script>
 <%= raw(@sales_js) %>
 <%= raw(@volumes_js) %>
   </script>
-
-
-
+  <div class="container">
+    <%= render :partial => "product_list", :locals => {:products => @products, :show_expired_only => false} %>
+  </div>
 </div>
