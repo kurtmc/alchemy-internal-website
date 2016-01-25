@@ -1,15 +1,54 @@
 <div class="container theme-showcase" role="main">
-    <div class="page-header">
-        <h1><%= @vendor.vendor_name %></h1>
-    </div>
-    <div class="list-group">
-        <%= link_to 'Vendors', vendors_path, {class: 'btn btn-primary'}  %>
-    </div>
-    Place holder. TODO add vendor image and buttons to update it.
-    <br>
-    <br>
-    <br>
-    <br>
+  <div class="page-header">
+    <h1><%= @vendor.vendor_name %></h1>
+  </div>
+  <div class="list-group">
+    <%= link_to 'Vendors', vendors_path, {class: 'btn btn-primary'}  %>
+  </div>
+  Place holder. TODO add vendor image and buttons to update it.
+  <br>
+  <br>
+  <br>
+  <br>
+  <div class="page-header">
+    <h1>Sales</h1>
+  </div>
+  <canvas id="sales-dollars" width="800" height="400"></canvas>
+  <div id="sales-dollars-legend" class="chart-legend"></div>
+  <canvas id="volume" width="800" height="400"></canvas>
+  <div id="volume-legend" class="chart-legend"></div>
+  <script>
+  // Sales, Cost, Margin
+  var options = {
+    legendTemplate : <%= raw(ChartData.legend_template_js('salesDollars')) %>,
+    multiTooltipTemplate: <%= raw(ChartData.tool_tip_template_js) %>
+  }
+  var data = {
+    labels: <%= @labels %>,
+    datasets: <%= raw(@data_sets_js) %>
+  };
+
+  var ctx = document.getElementById("sales-dollars").getContext("2d");
+  window.salesDollars = new Chart(ctx).Bar(data, options);
+  document.getElementById('sales-dollars-legend').innerHTML = salesDollars.generateLegend();
+  window.salesDollars.store = new Array();
+
+  // Volume
+  var options2 = {
+    legendTemplate : <%= raw(ChartData.legend_template_js('volume')) %>,
+    multiTooltipTemplate: <%= raw(ChartData.tool_tip_template_js) %>
+  }
+  var data2 = {
+    labels: <%= @labels %>,
+    datasets: <%= raw(@volumes_js) %>
+  };
+
+  // Get the context of the canvas element we want to select
+  var ctx = document.getElementById("volume").getContext("2d");
+  window.volume = new Chart(ctx).Bar(data2, options2);
+  document.getElementById('volume-legend').innerHTML = volume.generateLegend();
+  window.volume.store = new Array();
+  </script>
 
 
 

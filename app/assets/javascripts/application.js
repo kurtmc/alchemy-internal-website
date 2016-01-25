@@ -16,3 +16,4 @@
 //= require turbolinks
 //= require bootstrap.min
 //= require Chart
+//= require chart_utils

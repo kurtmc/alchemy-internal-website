@@ -74,13 +74,10 @@
           <th>Item ID</th>
           <th colspan="2"  style="text-align:center;">Volume</th>
           <th colspan="2"  style="text-align:center;">Sales</th>
-          <th colspan="2"  style="text-align:center;">Cost</th>
           <th colspan="2"  style="text-align:center;">Margin</th>
         </thead>
         <thead>
           <th></th>
-          <th>YTD</th>
-          <th>PY</th>
           <th>YTD</th>
           <th>PY</th>
           <th>YTD</th>
@@ -94,14 +91,12 @@
             <% ytd = @sales_stats["Product ID"][key]['ytd'] %>
             <% py = @sales_stats["Product ID"][key]['py'] %>
             <td><%= key %></td>
-            <td><%= ytd.nil? ? '-' : ytd['Volume'] %></td>
-            <td><%= py.nil? ? '-' : py['Volume'] %></td>
-            <td><%= ytd.nil? ? '-' : ytd['Sales'] %></td>
-            <td><%= py.nil? ? '-' : py['Sales'] %></td>
-            <td><%= ytd.nil? ? '-' : ytd['Cost'] %></td>
-            <td><%= py.nil? ? '-' : py['Cost'] %></td>
-            <td><%= ytd.nil? ? '-' : ytd['Margin'] %></td>
-            <td><%= py.nil? ? '-' : py['Margin'] %></td>
+            <td><%= ytd.nil? ? '-' : number_with_delimiter(ytd['Volume'].round) %></td>
+            <td><%= py.nil? ? '-' : number_with_delimiter(py['Volume'].round) %></td>
+            <td><%= ytd.nil? ? '-' : number_with_delimiter(ytd['Sales'].round) %></td>
+            <td><%= py.nil? ? '-' : number_with_delimiter(py['Sales'].round) %></td>
+            <td><%= ytd.nil? ? '-' : number_with_delimiter(ytd['Margin'].round) %></td>
+            <td><%= py.nil? ? '-' : number_with_delimiter(py['Margin'].round) %></td>
           </tr>
         <% end %>
       </table>
