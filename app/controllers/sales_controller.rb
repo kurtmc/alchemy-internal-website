@@ -91,15 +91,22 @@ WHERE
         cost = get_data(sql, cost_columns)
         sql = get_sql(profit_columns)
         profit = get_data(sql, profit_columns)
-        @sales = Chart.new('Sales', "[#{sales.join(",")}]", 'rgba(0, 255, 0, 0.8)')
-        @cost = Chart.new('Cost', "[#{cost.join(",")}]", 'rgba(255, 0, 0, 0.8)')
-        @profit = Chart.new('Profit', "[#{profit.join(",")}]", 'rgba(0, 0, 255, 0.8)')
-        @data_sets = [@sales, @cost, @profit]
+        overall = Array.new
+        overall << ChartData.new('Sales', sales, 'rgba(0, 255, 0, 0.8)')
+        overall << ChartData.new('Cost', cost, 'rgba(255, 0, 0, 0.8)')
+        overall << ChartData.new('Profit', profit, 'rgba(0, 0, 255, 0.8)')
+        @data_sets_js = ChartData.data_sets_js(overall)
         
         sql = get_sql_individual(sales_columns)
         @individual = get_data_multiple(sql, sales_columns, "Name")
 
         sql = get_sql_comparison(['Sales'], 'sugar.')
         @comparison = get_data_multiple(sql, ['Sales'], "Name")
+
+        @labels = Array.new
+        5.downto(0) { |i|
+            @labels << Time.now.year - i
+        }
+        @labels = "[#{@labels.map { |l| "#{l}" }.join(",")}]"
     end
 end
