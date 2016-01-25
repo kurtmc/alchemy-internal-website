@@ -27,7 +27,7 @@ class VendorsController < ApplicationController
         stats.each { |stat|
             data << stat["Volume"]
         }
-        volumes << ChartData.new("Volume", data, "hsla(234, 100%, 50%, 0.8)")
+        data_sets << ChartData.new("Volume", data, "hsla(234, 100%, 50%, 0.8)")
 
         labels = Array.new
         4.downto(0) { |i|
@@ -36,7 +36,6 @@ class VendorsController < ApplicationController
         labels = "[#{labels.map { |l| "#{l}" }.join(",")}]"
 
         @sales_html, @sales_js = ChartData.full_html_for(data_sets, 'sales', labels)
-        @volumes_html, @volumes_js = ChartData.full_html_for(volumes, 'volumes', labels)
         @products = Product.where vendor_id: @vendor.vendor_id
     end
 
