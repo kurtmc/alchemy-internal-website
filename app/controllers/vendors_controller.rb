@@ -4,7 +4,7 @@ class VendorsController < ApplicationController
         @vendors = Vendor.all
     end
 
-    def show
+    def set_fields
         @vendor = Vendor.find_by vendor_id: params[:id]
         @vendor.update_fields
         stats = Array.new
@@ -40,6 +40,20 @@ class VendorsController < ApplicationController
 
         @sales_html, @sales_js = ChartData.full_html_for(data_sets, 'sales', labels)
         @products = Product.where vendor_id: @vendor.vendor_id
+
+        @image_filename = get_image_path
+    end
+
+    def show
+        set_fields
+    end
+
+    def get_image_path
+        images = Dir.glob(Rails.root.join('public', 'images', "#{@vendor.vendor_id}.*"))
+        if images.length > 0
+            return File.basename(images[0])
+        end
+        return nil
     end
 
     def get_sales_stats(vendor_id, date = nil)
@@ -104,5 +118,28 @@ class VendorsController < ApplicationController
             data_sets[i].colour.replace "hsla(#{num}, 100%, 50%, 0.8)"
             num += 255/len
         end
+    end
+
+    def handle_upload(uploaded_io)
+        original = uploaded_io.original_filename
+        new_filename = "#{@vendor.vendor_id}#{File.extname(original)}"
+
+        # Write new file
+        path = Rails.root.join('public', 'images')
+
+        File.open(path.join(new_filename), 'wb') do |file|
+            file.write(uploaded_io.read)
+        end
+    end
+
+    def update
+        set_fields
+
+        unless params[:vendor_logo]['logo_file'].nil?
+            uploaded_io = params[:vendor_logo]['logo_file']
+            handle_upload(uploaded_io)
+        end
+
+        render 'show'
     end
 end
