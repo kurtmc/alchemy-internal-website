@@ -7,12 +7,12 @@ class VendorsController < ApplicationController
     def show
         @vendor = Vendor.find_by vendor_id: params[:id]
         @vendor.update_fields
-        @stats = get_sales_stats(@vendor.vendor_id)
+        stats = get_sales_stats(@vendor.vendor_id)
         @data_sets = Array.new
-        @data_sets << ChartData.new("Sales", @stats["Sales"], 'rgba(0, 255, 0, 0.8)')
-        @data_sets << ChartData.new("Cost", @stats["Cost"], 'rgba(0, 255, 0, 0.8)')
-        @data_sets << ChartData.new("Margin", @stats["Margin"], 'rgba(0, 255, 0, 0.8)')
-        puts "FINISHED SHOW!!!!!!"
+        ["Sales", "Cost", "Margin"].each { |stat|
+            @data_sets << ChartData.new(stat, stats[stat])
+        }
+        colourize_data_sets!(@data_sets)
     end
 
     def get_sales_stats(vendor_id, date = nil)
@@ -67,5 +67,15 @@ class VendorsController < ApplicationController
         }
         result["Margin"] = result["Sales"] - result["Cost"]
         return result
+    end
+
+    def colourize_data_sets!(data_sets)
+        len = data_sets.length
+        num = 0;
+        
+        for i in 0...len
+            data_sets[i].colour.replace "hsla(#{num}, 100%, 50%, 0.8)"
+            num += 255/len
+        end
     end
 end

@@ -1,5 +1,5 @@
 class ChartData
-    def initialize(name, data, colour)
+    def initialize(name, data, colour = '#ffffff')
         @name = name
         @data = data
         @colour = colour
