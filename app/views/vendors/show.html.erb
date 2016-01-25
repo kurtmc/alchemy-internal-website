@@ -56,7 +56,7 @@ var options = {
     multiTooltipTemplate: "<%%= datasetLabel %> - <%%= '$' + value.formatMoney(2) %>"
 }
 var data = {
-  labels: [2016],
+  labels: <%= @labels %>,
   datasets: [
     <% @data_sets.each_with_index do |data, i| %>
       <% unless i == 0 %>

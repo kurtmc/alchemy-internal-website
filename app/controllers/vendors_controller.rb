@@ -7,12 +7,24 @@ class VendorsController < ApplicationController
     def show
         @vendor = Vendor.find_by vendor_id: params[:id]
         @vendor.update_fields
-        stats = get_sales_stats(@vendor.vendor_id)
+        stats = Array.new
+        4.downto(0) { |i|
+            stats << get_sales_stats(@vendor.vendor_id, Time.now - i.year)
+        }
         @data_sets = Array.new
-        ["Sales", "Cost", "Margin"].each { |stat|
-            @data_sets << ChartData.new(stat, stats[stat])
+        ["Sales", "Cost", "Margin"].each { |stat_name|
+            data = Array.new
+            stats.each { |stat|
+                data << stat[stat_name]
+            }
+            @data_sets << ChartData.new(stat_name, data)
         }
         colourize_data_sets!(@data_sets)
+        @labels = Array.new
+        4.downto(0) { |i|
+            @labels << Time.now.year - i
+        }
+        @labels = "[#{@labels.map { |l| "#{l}" }.join(",")}]"
     end
 
     def get_sales_stats(vendor_id, date = nil)
