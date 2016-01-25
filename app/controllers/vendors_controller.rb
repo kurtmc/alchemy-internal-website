@@ -22,21 +22,21 @@ class VendorsController < ApplicationController
         }
         colourize_data_sets!(data_sets)
 
-        @data_sets_js = ChartData.data_sets_js(data_sets)
-
         volumes = Array.new
         data = Array.new
         stats.each { |stat|
             data << stat["Volume"]
         }
         volumes << ChartData.new("Volume", data, "hsla(234, 100%, 50%, 0.8)")
-        @volumes_js = ChartData.data_sets_js(volumes)
 
-        @labels = Array.new
+        labels = Array.new
         4.downto(0) { |i|
-            @labels << Time.now.year - i
+            labels << Time.now.year - i
         }
-        @labels = "[#{@labels.map { |l| "#{l}" }.join(",")}]"
+        labels = "[#{labels.map { |l| "#{l}" }.join(",")}]"
+
+        @sales_html, @sales_js = ChartData.full_html_for(data_sets, 'sales', labels)
+        @volumes_html, @volumes_js = ChartData.full_html_for(volumes, 'volumes', labels)
     end
 
     def get_sales_stats(vendor_id, date = nil)
