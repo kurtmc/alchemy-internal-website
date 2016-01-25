@@ -63,8 +63,6 @@ WHERE
         return data
     end
 
-    Chart = Struct.new(:name, :data, :colour)
-
     def get_data_multiple(sql, columns, name_column)
         records = SqlUtils.execute_sql(sql)
         data = Array.new
@@ -74,7 +72,7 @@ WHERE
             columns.each { |col|
                 dataset << record[col]
             }
-            data << Chart.new(record[name_column], "[#{dataset.join(",")}]", "hsla(#{count},100%,50%,0.8)")
+            data << ChartData.new(record[name_column], dataset, "hsla(#{count},100%,50%,0.8)")
             count += 25 + rand(0...10)
         }
         return data
@@ -95,18 +93,21 @@ WHERE
         overall << ChartData.new('Sales', sales, 'rgba(0, 255, 0, 0.8)')
         overall << ChartData.new('Cost', cost, 'rgba(255, 0, 0, 0.8)')
         overall << ChartData.new('Profit', profit, 'rgba(0, 0, 255, 0.8)')
-        @data_sets_js = ChartData.data_sets_js(overall)
+
+        labels = Array.new
+        5.downto(0) { |i|
+            labels << Time.now.year - i
+        }
+        labels = "[#{labels.map { |l| "#{l}" }.join(",")}]"
+        
+        @overall_html, @overall_js = ChartData.full_html_for(overall, 'overall', labels)
         
         sql = get_sql_individual(sales_columns)
-        @individual = get_data_multiple(sql, sales_columns, "Name")
+        individual = get_data_multiple(sql, sales_columns, "Name")
+        @individual_html, @individual_js = ChartData.full_html_for(individual, 'individual', labels)
 
         sql = get_sql_comparison(['Sales'], 'sugar.')
-        @comparison = get_data_multiple(sql, ['Sales'], "Name")
-
-        @labels = Array.new
-        5.downto(0) { |i|
-            @labels << Time.now.year - i
-        }
-        @labels = "[#{@labels.map { |l| "#{l}" }.join(",")}]"
+        comparison = get_data_multiple(sql, ['Sales'], "Name")
+        @comparison_html, @comparison_js = ChartData.full_html_for(comparison, 'comparison', '["Current"]')
     end
 end

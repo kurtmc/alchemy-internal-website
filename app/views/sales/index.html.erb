@@ -2,8 +2,9 @@
   <div class="page-header">
     <h1>Sales</h1>
   </div>
-  <canvas id="sales" width="800" height="400"></canvas>
-  <div id="sales-legend" class="chart-legend"></div>
+  <%= raw(@overall_html) %>
+  <%= raw(@individual_html) %>
+  <%= raw(@comparison_html) %>
 
   <canvas id="individualChart" width="800" height="400"></canvas>
   <div id="individual-legend" class="chart-legend"></div>
@@ -11,77 +12,8 @@
   <canvas id="comparisonChart" width="800" height="400"></canvas>
   <div id="comparison-legend" class="chart-legend"></div>
   <script>
-var options = {
-  legendTemplate : <%= raw(ChartData.legend_template_js('sales')) %>,
-  multiTooltipTemplate: <%= raw(ChartData.tool_tip_template_js) %>
-  }
-var data = {
-  labels: <%= @labels %>,
-  datasets: <%= raw(@data_sets_js) %>
-  };
-
-var ctx = document.getElementById("sales").getContext("2d");
-window.sales = new Chart(ctx).Bar(data, options);
-document.getElementById('sales-legend').innerHTML = sales.generateLegend();
-window.sales.store = new Array();
-
-var options2 = {
-  legendTemplate : "<ul class=\"<%%=name.toLowerCase()%>-legend list-group\" style=\"list-style-type: none;\"><%% for (var i=0; i<datasets.length; i++){%><li class=\"legend-item list-group-item\" onclick=\"updateDataset($(this), window.individualChart, '<%%=datasets[i].label%>')\"><span style=\"background-color:<%%=datasets[i].strokeColor%>\">&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;<%%if(datasets[i].label){%><%%=datasets[i].label%><%%}%></li><%%}%></ul>",
-    multiTooltipTemplate: "<%%= datasetLabel %> - <%%= '$' + value.formatMoney(2) %>"
-}
-var data2 = {
-  labels: [2011, 2012, 2013, 2014, 2015, 2016],
-  datasets: [
-    <% @individual.each_with_index do |data, i| %>
-        <% unless i == 0 %>
-          ,
-  <% end %>
-  {
-    label: "<%= data.name %>",
-    fillColor: "<%= data.colour %>",
-    strokeColor: "<%= data.colour %>",
-    pointColor: "<%= data.colour %>",
-    pointStrokeColor: "#fff",
-    pointHighlightFill: "#fff",
-    pointHighlightStroke: "<%= data.colour %>",
-    data: <%= data.data %>
-}
-    <% end %>
-  ]
-  };
-
-// Get the context of the canvas element we want to select
-var ctx = document.getElementById("individualChart").getContext("2d");
-window.individualChart = new Chart(ctx).Bar(data2, options2);
-window.individualChart.store = new Array();
-document.getElementById('individual-legend').innerHTML = window.individualChart.generateLegend();
-
-var data3 = {
-  labels: ["Current Sales"],
-  datasets: [
-    <% @comparison.each_with_index do |data, i| %>
-        <% unless i == 0 %>
-          ,
-  <% end %>
-  {
-    label: "<%= data.name %>",
-    fillColor: "<%= data.colour %>",
-    strokeColor: "<%= data.colour %>",
-    pointColor: "<%= data.colour %>",
-    pointStrokeColor: "#fff",
-    pointHighlightFill: "#fff",
-    pointHighlightStroke: "<%= data.colour %>",
-    data: <%= data.data %>
-}
-    <% end %>
-  ]
-  };
-
-// Get the context of the canvas element we want to select
-var ctx = document.getElementById("comparisonChart").getContext("2d");
-var myComparisonChart = new Chart(ctx).Bar(data3, options);
-document.getElementById('comparison-legend').innerHTML = myComparisonChart.generateLegend();
-
-
+<%= raw(@overall_js) %>
+<%= raw(@individual_js) %>
+<%= raw(@comparison_js) %>
   </script>
 </div>

@@ -6,7 +6,7 @@ class ChartData
     end
 
     def name=(name)
-          @name = name
+        @name = name
     end
 
     def name
@@ -63,5 +63,29 @@ class ChartData
 
     def self.tool_tip_template_js
         return "\"<%= datasetLabel %> - <%= '$' + value.formatMoney(2) %>\""
+    end
+
+    def self.full_html_for(data_sets, id, labels)
+        html_tags =
+            "<canvas id=\"#{id}\" width=\"800\" height=\"400\"></canvas>
+            <div id=\"#{id}-legend\" class=\"chart-legend\"></div>"
+
+        js = "
+var options_#{id} = {
+  legendTemplate : #{self.legend_template_js("#{id}_chart")},
+  multiTooltipTemplate: #{self.tool_tip_template_js}
+}
+var data_#{id} = {
+  labels: #{labels},
+  datasets: #{self.data_sets_js(data_sets)}
+  };
+
+var ctx = document.getElementById(\"#{id}\").getContext(\"2d\");
+window.#{id}_chart = new Chart(ctx).Bar(data_#{id}, options_#{id});
+document.getElementById('#{id}-legend').innerHTML = window.#{id}_chart.generateLegend();
+window.#{id}_chart.store = new Array();
+        "
+
+        return html_tags, js
     end
 end
