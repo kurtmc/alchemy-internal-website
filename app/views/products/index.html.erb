@@ -21,8 +21,6 @@ end
   </div>
   <br>
   <div class="container">
-    <input type="search" id="product-search" class="form-control" data-table="order-table" placeholder="Filter">
-  </div>
   <%= render :partial => "product_list", :locals => {:products => @products, :show_expired_only => params[:expired_sds] == 'true'} %>
 <div class="container">
   <%= link_to "Back Home", root_path, {class: 'btn btn-primary'} %>

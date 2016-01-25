@@ -1,3 +1,5 @@
+<input type="search" id="product-search" class="form-control" data-table="order-table" placeholder="Filter">
+</div>
 <div class="table-responsive">
   <table class="order-table table">
     <thead>
@@ -10,8 +12,8 @@
 
     <% expired_count = 0 %>
     <% products.each do |product| %>
-      <% if product.sds_expiry.past? %>
-        <% show_expired_only && expired_count += 1 %>
+      <% if product.sds_expiry.past? || show_expired_only == false %>
+        <% expired_count += 1 %>
         <tr>
           <td><%= link_to "#{product.product_id}", product_path(product.id) %></td>
           <td><%= product.description %></td>
