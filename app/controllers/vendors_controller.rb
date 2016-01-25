@@ -20,7 +20,6 @@ class VendorsController < ApplicationController
             }
             data_sets << ChartData.new(stat_name, data)
         }
-        colourize_data_sets!(data_sets)
 
         volumes = Array.new
         data = Array.new
@@ -28,6 +27,10 @@ class VendorsController < ApplicationController
             data << stat["Volume"]
         }
         data_sets << ChartData.new("Volume", data, "hsla(234, 100%, 50%, 0.8)")
+        data_sets[0].colour = '#A1862E'
+        data_sets[1].colour = '#000000'
+        data_sets[2].colour = '#939597'
+        data_sets[3].colour = '#FFCB04'
 
         labels = Array.new
         4.downto(0) { |i|

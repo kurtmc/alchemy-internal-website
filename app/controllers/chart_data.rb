@@ -39,7 +39,7 @@ class ChartData
     end
 
     def colour=(colour)
-        return @colour
+        @colour = colour
     end
 
     def colour
