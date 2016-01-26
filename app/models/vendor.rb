@@ -11,8 +11,11 @@ class Vendor < ActiveRecord::Base
     end
 
     def self.new_vendor(record)
-        vendor = Vendor.new
-        vendor.vendor_id = record["No_"]
+        vendor = Vendor.find_by vendor_id: record["No_"]
+        if vendor.nil?
+            vendor = Vendor.new
+            vendor.vendor_id = record["No_"]
+        end
         vendor.vendor_name = record["Name"]
         return vendor
     end

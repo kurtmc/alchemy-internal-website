@@ -1,20 +1,20 @@
-
 class Customer < ActiveRecord::Base
     belongs_to :salesperson
     has_many :prices
     include SqlUtils
 
     def self.load_all
-        Customer.delete_all
         SalesPerson.all.each { |person|
             sql = "SELECT *
           FROM NAVLIVE.dbo.\"Alchemy Agencies Ltd$Customer\"
           WHERE \"Salesperson Code\" = #{SqlUtils.escape(person.salesperson_code)}"
             records = SqlUtils.execute_sql(sql)
-            puts records.first.inspect
             records.each { |customer_record|
-                customer = Customer.new
-                customer.customer_id = customer_record["No_"]
+                customer = Customer.find_by customer_id: customer_record["No_"]
+                if customer.nil?
+                    customer = Customer.new
+                    customer.customer_id = customer_record["No_"]
+                end
                 customer.update_fields
                 customer.save
             }

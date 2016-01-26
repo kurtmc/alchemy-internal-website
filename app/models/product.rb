@@ -133,17 +133,6 @@ class Product < ActiveRecord::Base
 		product.save
     end
 
-    def self.load_all
-        csv_path = Rails.root.join('alchemy-info-tables', 'gen', 'NZ_ID_SDS_PDS_VENDOR_NAME.csv')
-        prods = Array.new
-        CSV.foreach(csv_path, :headers => true) do |csv_obj|
-            prods << new_product(csv_obj)
-        end
-        # save the products
-        Product.delete_all
-        prods.each(&:save)
-    end
-
     def self.load_specific(product_id)
         csv_path = Rails.root.join('alchemy-info-tables', 'gen', 'NZ_ID_SDS_PDS_VENDOR_NAME.csv')
         prods = Array.new
@@ -155,7 +144,7 @@ class Product < ActiveRecord::Base
         end
     end
 
-    def self.load_all_from_nav
+    def self.load_all
         sql = "
 			SELECT
 				item.*,
