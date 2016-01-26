@@ -113,17 +113,17 @@ class ProductsController < ApplicationController
     def download_document
         prod = Product.find(params[:id])
         type = params[:document_type]
+        product_path = @@info_path.join(prod.directory)
 
         if type == 'misc'
             name = params[:document_name]
-            send_file(@@info_path.join(prod.directory, name), filename: name)
+            send_file(product_path.join(name), filename: name)
             return
         end
 
 
-        info_path = 'alchemy-info-tables/res/Product_Information/' + prod.directory
         unless prod[type].nil?
-            download_pdf(info_path, prod[type])
+            download_pdf(product_path, prod[type])
         end
     end
 
