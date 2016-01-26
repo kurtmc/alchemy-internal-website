@@ -61,9 +61,9 @@ class VendorsController < ApplicationController
 		start_date = SqlUtils.beginning_financial_year(date)
 		end_date = SqlUtils.ending_financial_year(date)
         if global
-            where_clase = "
+            where_clause = "
                 WHERE
-                item.\"Global Dimension 1 Code\" =(
+                item.\"Global Dimension 1 Code\"  IN (
                 SELECT
                 \"Global Dimension 1 Code\" AS \"Global Vendor\"
                 FROM
