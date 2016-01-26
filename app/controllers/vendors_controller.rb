@@ -5,7 +5,7 @@ class VendorsController < ApplicationController
     end
 
     def set_fields
-        @vendor = Vendor.find_by vendor_id: params[:id]
+        @vendor = Vendor.find(params[:id])
         @vendor.update_fields
         stats = Array.new
         4.downto(0) { |i|

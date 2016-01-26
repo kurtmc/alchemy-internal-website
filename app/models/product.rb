@@ -188,4 +188,9 @@ class Product < ActiveRecord::Base
         }
     end
 
+    def get_vendor_id
+        vendor = Vendor.find_by vendor_id: self.vendor_id
+        return vendor.id
+    end
+
 end

@@ -22,7 +22,7 @@
         <p><strong>Name:</strong> <%= @product.description %></p>
         <p><strong>Pack size:</strong> <%= @product.description2 %></p>
         <% if @product.vendor_id != nil %>
-          <p><strong>Vendor:</strong> <%= link_to "#{@product.vendor_name}", vendor_path(@product.vendor_id) %></p>
+          <p><strong>Vendor:</strong> <%= link_to "#{@product.vendor_name}", vendor_path(@product.get_vendor_id) %></p>
         <% end %>
         <p><strong>Base Unit of Measure:</strong> <%= @product.unit_measure %></p>
         <p><strong>Shelf Life:</strong> <%= @product.shelf_life  %></p>
