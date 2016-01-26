@@ -6,12 +6,20 @@ application up and running.
 Things you may want to cover:
 
 * Ruby version
+rvm install 2.1
+rvm use 2.1
+rvm ruby-2.1.5 do rvm gemset create rails41
+rvm gemset use rails41
+gem install rails -v 4.1
+bundle install
 
 * System dependencies
+pdflatex
 
 * Configuration
 
 * Database creation
+uses sql server in alchemy office and sqlite as cache
 
 * Database initialization
 
@@ -20,6 +28,8 @@ Things you may want to cover:
 * Services (job queues, cache servers, search engines, etc.)
 
 * Deployment instructions
+Running the commands in Updating.txt on the deployment machine will get
+things going
 
 * ...
 
