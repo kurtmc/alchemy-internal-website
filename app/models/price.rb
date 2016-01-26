@@ -43,7 +43,7 @@ WHERE a.\"Sales Code\" = #{SqlUtils.escape(customer_id)}"
     end
 
     def get_product_id
-        return self.item_id.gsub('/',"%2F").gsub('%', "%25")
+        return Product.find_by product_id: self.item_id
     end
 
 end

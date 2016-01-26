@@ -1,11 +1,11 @@
 class CustomersController < ApplicationController
     before_filter :authenticate_user!
     def index
-        @customers = Customer.all
+        @customers = Customer.all.order :customer_id
     end
 
     def show
-        @customer = Customer.find_by customer_id: params[:id]
+        @customer = Customer.find(params[:id])
         @customer.update_fields
 		ytd = get_sales_stats(params[:id])
 		py = get_sales_stats(params[:id], Time.now - 1.year)
@@ -30,7 +30,8 @@ class CustomersController < ApplicationController
         @sales_stats = sales
     end
 
-    def get_sales_stats(customer_id, date = nil)
+    def get_sales_stats(id, date = nil)
+        customer_id = Customer.find(id).customer_id
 		column = 'sales."Shipment Date"'
 		start_date = SqlUtils.beginning_financial_year(date)
 		end_date = SqlUtils.ending_financial_year(date)
