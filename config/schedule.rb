@@ -19,5 +19,11 @@
 
 # Learn more: http://github.com/javan/whenever
 every 3.hours do
-    runner "Product.load_all_from_nav"
+    runner "Product.load_all"
+end
+
+every 1.days do
+    runner "Vendor.load_all"
+    runner "SalesPerson.load_all"
+    runner "Customer.load_all"
 end
