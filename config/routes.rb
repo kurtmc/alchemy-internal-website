@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :pdfs, :ashland, :sds
   resources :products, :constraints => { :id => /[0-9A-Za-z\-\.\%_\s\:\+<&\(\)]+/ }
   get 'products/:id/download_pds' => 'products#download_document'
+  get 'products/:id/remove_document' => 'products#remove_document'
   resources :customers
   resources :tools
   resources :vendors

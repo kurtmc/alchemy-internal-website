@@ -74,16 +74,31 @@
             <% end %>
           </div>
         <% end %>
+        <p>
+        <strong>Misc files:</strong>
+        </p>
+        <% @misc_files.each do |file| %>
+          <div class="list-group">
+            <% if params[:edit] == 'true' %>
+              <%= link_to 'Delete', {:controller => "products", :action => "remove_document", :document_name => file}, {:class => 'btn btn-danger'} %>
+            <% end %>
+            <%= link_to "#{file}", :controller => "products", :action => "download_document", :id => @product.id, :document_type => "misc", :document_name => file %>
+          </div>
+        <% end %>
+        <% if params[:edit] == 'true' %>
+          <div class="container">
+            <%= form_for :product, method: :patch, url: product_path(@product.id), :html => {:class => 'form-inline'} do |p| %>
+              <%= p.file_field :misc_file, {class: 'form-control'} %>
+              <%= p.submit "Add misc file", {class: 'btn btn-danger'} %>
+            <% end %>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
 
 
 
-  <% if params[:edit] == 'true' %>
-    <%= link_to 'Finished editing', params.merge(:edit => false), {:class => 'btn btn-primary'} %>
-  <% else %>
-    <%= link_to 'Edit', params.merge(:edit => true), {:class => 'btn btn-primary'} %>
-  <% end %>
+  <%= render :partial => "edit_button" %>
   <%= link_to 'Products', products_path, {class: 'btn btn-primary'}  %>
 </div>
