@@ -25,18 +25,5 @@ module PdfAppender
         #config.active_record.raise_in_transactional_callbacks = true # Only for rails 4.2+
 
         config.autoload_paths += %W(#{config.root}/lib)
-
-
-        config.after_initialize do
-            # Cache Navision database in a new thread
-            #Thread.new do
-                #Product.load_all
-                #SalesPerson.load_all
-                #Customer.load_all
-                #Vendor.load_all
-                #ActiveRecord::Base.connection.close
-            #end
-            puts "Server start"
-        end
     end
 end
