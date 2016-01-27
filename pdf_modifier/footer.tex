@@ -1,0 +1,35 @@
+\documentclass{report}
+\usepackage[a4paper, margin=0cm%%LANDSCAPE%%]{geometry}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{array}
+ 
+\begin{document}
+\pagenumbering{gobble}
+\begin{center}
+	\includegraphics[height=%%SCALE%%\textheight]{%%FILENAME%%}
+\end{center}
+\textcolor[RGB]{162,135,47}{
+\noindent\makebox[\linewidth]{\rule{0.9\paperwidth}{0.3cm}}
+}
+\newcolumntype{V}{>{\centering\arraybackslash} m{.15\linewidth} }
+{\tiny
+\begin{center}
+\begin{tabular}{V l}
+\def\svgwidth{3cm}
+\input{logo.pdf_tex}
+
+&
+
+\begin{tabular}{l l l l l}
+\textbf{Alchemy Agencies Ltd} & & \textbf{Alchemy Agencies Pty Ltd} & \\
+Level 2/20 Centre Street & T: +64 9 377 0613             & Level 15, Eclipse Tower  & T: +61 2 8896 6161 \\
+Freemans Bay             & F: +64 9 377 0670             & 50 Station Street       & F: +61 2 8896 6165 \\
+Auckland 1010            & E: info@alchemyagencies.co.nz & Parramatta NSW 2150     & E: info@alchemyagencies.com \\
+New Zealand              & www.alchemyagencies.co.nz     & Australia               & www.alchemyagencies.com \\
+\end{tabular} \\
+\end{tabular}
+\end{center}
+}
+
+\end{document}
