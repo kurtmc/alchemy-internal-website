@@ -33,6 +33,9 @@
       <div class="col-sm-4">
         <h3>Documents</h3>
         <p>
+        <strong>SDS Required:</strong> <%= @product.sds_required %>
+        </p>
+        <p>
         <strong>SDS:</strong>
         <% unless @product.sds.nil? %>
           <%= link_to "#{@product.sds}", :controller => "products", :action => "download_document", :id => @product.id, :document_type => "sds" %>

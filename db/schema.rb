@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160121015113) do
+ActiveRecord::Schema.define(version: 20160127011504) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 20160121015113) do
     t.decimal  "quantity_packing_slip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "sds_required"
   end
 
   create_table "sales_people", force: true do |t|

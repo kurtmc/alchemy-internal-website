@@ -124,6 +124,7 @@ class Product < ActiveRecord::Base
         product.description = record['Description']
         product.description2 = record['Description']
         product.sds_expiry = record['SDS Expiry Date']
+        product.sds_required = record['SDS Required']
         product.unit_measure = record['Base Unit of Measure']
         product.shelf_life = record['Shelf No_']
         product.inventory = record['Inventory']
