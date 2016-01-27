@@ -2,8 +2,14 @@
   <div class="page-header">
     <%= image_tag("logo.svg", :alt => "Company Logo", width: 300) %>
   </div>
-  <%= form_for :user, method: :patch, html: { :class => 'form-inline' } do |p| %>
-    <%= p.password_field :password, {class: 'form-control'} %>
+  <% unless @message.nil? %>
+    <p style="color:red"><%= @message %></p>
+  <% end %>
+  <%= form_for :user, create: :patch do |p| %>
+    <div class="form-group">
+    New password: <%= p.password_field :password, {class: 'form-control'} %>
+    Confirm password: <%= p.password_field :confirm_password, {class: 'form-control'} %>
     <%= p.submit "Change Password", {class: 'btn btn-danger'} %>
+    </div>
   <% end %>
 </div>
