@@ -1,7 +1,7 @@
 class VendorsController < ApplicationController
     before_filter :authenticate_user!
     def index
-        @vendors = Vendor.all
+        @vendors = Vendor.all.order :vendor_id
     end
 
     def set_fields
