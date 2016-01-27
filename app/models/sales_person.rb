@@ -14,7 +14,9 @@ class SalesPerson < ActiveRecord::Base
                 person.salesperson_code = person_record["Code"]
             end
             person.name = person_record["Name"]
-            person.save
+            if person.changed?
+                person.save
+            end
         }
     end
 

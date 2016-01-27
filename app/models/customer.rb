@@ -16,7 +16,9 @@ class Customer < ActiveRecord::Base
                     customer.customer_id = customer_record["No_"]
                 end
                 customer.update_fields
-                customer.save
+                if customer.changed?
+                    customer.save
+                end
             }
         }
     end

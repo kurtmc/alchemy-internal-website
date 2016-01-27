@@ -130,8 +130,10 @@ class Product < ActiveRecord::Base
         product.inventory = record['Inventory']
 		product.quantity_purchase_order = record['Quantity Purchase Order']
 		product.quantity_packing_slip = record['Quantity Packing Slip']
-
-		product.save
+        
+        if product.changed?
+		    product.save
+        end
     end
 
     def self.load_specific(product_id)

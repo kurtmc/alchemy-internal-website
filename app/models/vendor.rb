@@ -6,7 +6,9 @@ class Vendor < ActiveRecord::Base
         records = SqlUtils.execute_sql(sql)
         records.each { |record|
             vendor = new_vendor(record)
-            vendor.save
+            if vendor.changed?
+                vendor.save
+            end
         }
     end
 
