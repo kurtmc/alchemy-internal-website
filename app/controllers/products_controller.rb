@@ -117,7 +117,7 @@ class ProductsController < ApplicationController
 
         if type == 'misc'
             name = params[:document_name]
-            send_file(product_path.join(name), filename: name)
+            send_file(product_path.join(name), filename: name, :disposition => 'inline')
             return
         end
 
@@ -137,7 +137,7 @@ class ProductsController < ApplicationController
 
     private
     def download_pdf(directory, filename)
-        send_file(Rails.root.join(directory, filename), filename: filename, type: "application/pdf")
+        send_file(Rails.root.join(directory, filename), filename: filename, type: "application/pdf", :disposition => 'inline')
     end
 
     def write_uploaded_file(path, uploaded_io)
