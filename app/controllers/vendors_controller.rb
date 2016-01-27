@@ -6,7 +6,6 @@ class VendorsController < ApplicationController
 
     def set_fields
         @vendor = Vendor.find(params[:id])
-        @vendor.update_fields
         stats = Array.new
         4.downto(0) { |i|
             stats << get_sales_stats(@vendor.vendor_id, Time.now - i.year, params[:global] == 'true')
