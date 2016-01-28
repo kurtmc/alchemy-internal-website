@@ -3,6 +3,11 @@
     <h1><%= @agency.name %></h1>
   </div>
   <div class="list-group">
+    <% @agency.vendors.each do |vendor| %>
+      <%= link_to "#{vendor.vendor_name}", vendor_path(vendor.id), {class: 'list-group-item'} %>
+    <% end %>
+  </div>
+  <div class="list-group">
     <%= link_to 'Agencies', agencies_path, {class: 'btn btn-primary'}  %>
     <%= render :partial => "edit_button" %>
     <%= render :partial => "toggle_button", :locals => {:option => 'global', :toggle_on => 'Show Global', :toggle_off => 'Hide Global'} %>
