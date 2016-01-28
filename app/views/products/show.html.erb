@@ -20,6 +20,7 @@
         <h3>Product Information</h3>
         <p><strong>ID:</strong> <%= @product.product_id %></p>
         <p><strong>Name:</strong> <%= @product.description %></p>
+        <p><strong>Description:</strong> <%= @product.new_description %></p>
         <p><strong>Pack size:</strong> <%= @product.description2 %></p>
         <% if @product.vendor_id != nil %>
           <p><strong>Vendor:</strong> <%= link_to "#{@product.vendor_name}", vendor_path(@product.get_vendor_id) %></p>
