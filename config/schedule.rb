@@ -26,4 +26,5 @@ every 1.days do
     runner "Vendor.load_all"
     runner "SalesPerson.load_all"
     runner "Customer.load_all"
+    runner "Agencies.load_all"
 end
