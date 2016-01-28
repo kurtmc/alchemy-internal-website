@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160127011504) do
+ActiveRecord::Schema.define(version: 20160127235347) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -27,6 +27,13 @@ ActiveRecord::Schema.define(version: 20160127011504) do
   add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
   add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace"
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
+
+  create_table "agencies", force: true do |t|
+    t.string   "agency_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "customers", force: true do |t|
     t.string   "customer_id"
@@ -44,6 +51,11 @@ ActiveRecord::Schema.define(version: 20160127011504) do
   end
 
   add_index "customers", ["salesperson_id"], name: "index_customers_on_salesperson_id"
+
+  create_table "navision_records", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "navisions", force: true do |t|
     t.datetime "created_at"
@@ -117,6 +129,9 @@ ActiveRecord::Schema.define(version: 20160127011504) do
     t.string   "vendor_name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "agency_id"
   end
+
+  add_index "vendors", ["agency_id"], name: "index_vendors_on_agency_id"
 
 end

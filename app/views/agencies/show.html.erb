@@ -1,0 +1,30 @@
+<div class="container theme-showcase" role="main">
+  <div class="page-header">
+    <h1><%= @agency.name %></h1>
+  </div>
+  <div class="list-group">
+    <%= link_to 'Agencies', agencies_path, {class: 'btn btn-primary'}  %>
+    <%= render :partial => "edit_button" %>
+    <%= render :partial => "toggle_button", :locals => {:option => 'global', :toggle_on => 'Show Global', :toggle_off => 'Hide Global'} %>
+  </div>
+  <%= image_tag(@image_filename, :alt => "Company Logo", width: 300) %>
+  <% if params[:edit] == 'true' %>
+    <div class="container">
+      <%= form_for :agency_logo, method: :patch, url: agency_path(@agency.agency_id), html: { :class => 'form-inline' } do |p| %>
+        <%= p.file_field :logo_file, {class: 'form-control'} %>
+        <%= p.submit "Replace Logo", {class: 'btn btn-danger'} %>
+      <% end %>
+    </div>
+  <% end %>
+  <br>
+  <br>
+  <br>
+  <br>
+  <%= raw(@sales_html) %>
+  <script>
+<%= raw(@sales_js) %>
+  </script>
+  <div class="container">
+    <%= render :partial => "product_list", :locals => {:products => @products, :show_expired_only => false} %>
+  </div>
+</div>
