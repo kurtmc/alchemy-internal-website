@@ -173,6 +173,7 @@ class Product < ActiveRecord::Base
 				ON item.No_ = purchase.No_
 				LEFT JOIN NAVLIVE.dbo.\"Alchemy Agencies Ltd$Sales Line\" as sales
 				ON item.No_ = sales.No_
+                WHERE item.No_ NOT LIKE 'ZZ%'
         "
         records = SqlUtils.execute_sql(sql)
         records.each { |record|
