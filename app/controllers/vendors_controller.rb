@@ -1,5 +1,4 @@
 class VendorsController < ApplicationController
-    before_filter :authenticate_user!
     def index
         @vendors = Vendor.all.order :vendor_id
     end
