@@ -122,7 +122,7 @@ class Product < ActiveRecord::Base
         product.vendor_id = record['Vendor No_']
         product.vendor_name = record['Vendor Name']
         product.description = record['Description']
-        product.description2 = record['Description']
+        product.description2 = record['Description 2']
         product.sds_expiry = record['SDS Expiry Date']
         product.sds_required = record['SDS Required']
         product.unit_measure = record['Base Unit of Measure']

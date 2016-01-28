@@ -11,7 +11,19 @@ class Api::ProductsController < ActionController::Base
     def index
         @products = Product.all.order :product_id
         respond_to do |format|
-            format.json { render json: @products}
+            format.json {
+                if params[:csv] == 'true'
+                    csv_string = CSV.generate do |csv|
+                        csv << Product.attribute_names
+                        Product.all.each do |product|
+                            csv << product.attributes.values
+                        end
+                    end
+                    render text: csv_string
+                else
+                    render json: @products
+                end
+            }
         end
     end
 
