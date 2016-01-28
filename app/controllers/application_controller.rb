@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
     before_filter :authenticate_user!
+    before_filter :authenticate_web_user!
     # Prevent CSRF attacks by raising an exception.
     # For APIs, you may want to use :null_session instead.
     protect_from_forgery with: :exception
@@ -8,15 +9,22 @@ class ApplicationController < ActionController::Base
     def authenticate_admin_user!
         if current_user.nil?
             raise SecurityError
-            return
         end
         unless current_user.admin == true
             raise SecurityError
-            return
+        end
+    end
+
+    # Authenticate website users
+    def authenticate_web_user!
+        unless current_user.nil?
+            if current_user.api_user?
+                render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
+            end
         end
     end
 
     rescue_from SecurityError do |exception|
-        redirect_to root_url
+        render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
     end
 end
