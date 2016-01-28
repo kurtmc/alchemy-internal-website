@@ -23,6 +23,7 @@ ActiveAdmin.register User do
             f.input :password_confirmation
             f.input :admin 
             f.input :api_user
+            f.label 'API User is only for developers'
         end
         f.actions
     end
