@@ -13,13 +13,7 @@ class Api::ProductsController < ActionController::Base
         respond_to do |format|
             format.json {
                 if params[:csv] == 'true'
-                    csv_string = CSV.generate do |csv|
-                        csv << Product.attribute_names
-                        Product.all.each do |product|
-                            csv << product.attributes.values
-                        end
-                    end
-                    render text: csv_string
+                    render text: get_products_csv
                 else
                     render json: @products
                 end
@@ -30,6 +24,28 @@ class Api::ProductsController < ActionController::Base
     def show
         respond_to do |format|
             format.json { render json: Product.find(params[:id])}
+        end
+    end
+
+    def get_products_csv
+        mapping = Hash.new
+        mapping['id'] = 'id'
+        mapping['product_id'] = 'product_id'
+        mapping['directory'] = 'directory'
+        mapping['sds'] = 'sds'
+        mapping['pds'] = 'pds'
+        mapping['vendor_id'] = 'vendor_id'
+        mapping['vendor_name'] = 'vendor_name'
+        mapping['description'] = 'product_name'
+        mapping['description2'] = 'pack_size'
+        mapping['new_description'] = 'description'
+        
+        csv_string = CSV.generate do |csv|
+            csv << mapping.values
+            all_products = Product.select(mapping.keys)
+            all_products.each do |product|
+                csv << product.attributes.values
+            end
         end
     end
 end
