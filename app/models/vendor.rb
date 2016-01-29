@@ -15,6 +15,7 @@ class Vendor < ActiveRecord::Base
         NAVLIVE.dbo.\"Alchemy Agencies Ltd$Item\" AS item
         ) GLOBAL
         ON vendor.\"No_\" = global.\"Vendor No_\"
+        WHERE vendor.No_ NOT LIKE 'ZZ%'
         "
     end
 
