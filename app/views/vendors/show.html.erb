@@ -7,7 +7,11 @@
     <%= render :partial => "edit_button" %>
     <%= render :partial => "toggle_button", :locals => {:option => 'global', :toggle_on => 'Show Global', :toggle_off => 'Hide Global'} %>
   </div>
+  <br>
+  <br>
+  <br>
   <%= image_tag(@image_filename, :alt => "Company Logo", width: 300) %>
+  <%= image_tag("logo.svg", :alt => "Alchemy Logo", width: 300, :class => "pull-right") %>
   <% if params[:edit] == 'true' %>
     <div class="container">
       <%= form_for :vendor_logo, method: :patch, url: vendor_path(@vendor.vendor_id), html: { :class => 'form-inline' } do |p| %>
