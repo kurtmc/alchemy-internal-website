@@ -1,0 +1,16 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @customer_user.email %>
+</p>
+
+<p>
+  <strong>Password:</strong>
+  <%= @customer_user.password %>
+</p>
+
+<%= render :partial => "product_list", :locals => {:products => @customer_user.products, :show_expired_only => params[:expired_sds] == 'true'} %>
+
+<%= link_to 'Edit', edit_customer_user_path(@customer_user) %> |
+<%= link_to 'Back', customer_users_path %>

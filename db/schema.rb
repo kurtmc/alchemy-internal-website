@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160128225230) do
+ActiveRecord::Schema.define(version: 20160201202334) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -31,6 +31,13 @@ ActiveRecord::Schema.define(version: 20160128225230) do
   create_table "agencies", force: true do |t|
     t.string   "agency_id"
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "customer_users", force: true do |t|
+    t.string   "email"
+    t.string   "password"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -97,7 +104,10 @@ ActiveRecord::Schema.define(version: 20160128225230) do
     t.datetime "updated_at"
     t.boolean  "sds_required"
     t.string   "new_description"
+    t.integer  "customer_user_id"
   end
+
+  add_index "products", ["customer_user_id"], name: "index_products_on_customer_user_id"
 
   create_table "sales_people", force: true do |t|
     t.string   "salesperson_code"
