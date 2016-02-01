@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   resources :change_password
   namespace :api do
     resources :products
+    resources :vendors
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
