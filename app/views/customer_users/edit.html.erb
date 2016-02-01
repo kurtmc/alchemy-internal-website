@@ -1,34 +1,21 @@
-<h1>Editing customer_user</h1>
+<div class="container">
+  <div class="page-header">
+    <h1>Editing customer_user</h1>
+  </div>
 
-<%= form_for :customer_user, url: customer_user_path(@customer_user), method: :patch, :html => {:class => 'form-inline'} do |f| %>
-  <%= f.label :email %><br>
-  <%= f.text_field :email %>
-  <%= f.label :password %><br>
-  <%= f.text_field :password %>
-	<%= f.select(:products, @products.collect {|p| [p.product_id, p.id] }, { :prompt => "Please select"},
-                                   { :multiple => true, :size => 5 }
-                                 ) %>
-  <%= f.submit "Update User", {class: 'btn btn-primary'} %>
-<% end %>
+  <%= form_for :customer_user, url: customer_user_path(@customer_user), method: :patch, :html => {:class => 'form-inline'} do |f| %>
+    <%= f.label :email %><br>
+    <%= f.text_field :email, :class => 'form-control' %>
+    <br>
+    <%= f.label :password %><br>
+    <%= f.text_field :password, :class => 'form-control' %>
+    <br>
+    <%= f.label :products %><br>
+    <%= f.select(:products, @products.collect {|p| [p.product_id, p.id] }, { :prompt => "Please select"},
+                 { :multiple => true, :size => 20, :class => 'form-control' }) %>
+              <%= f.submit "Update User", {class: 'btn btn-primary'} %>
+            <% end %>
 
-<%= link_to 'Show', @customer_user %> |
-<%= link_to 'Back', customer_users_path %>
-<div class="table-responsive">
-  <table class="order-table table">
-    <thead>
-      <th>ID</th>
-      <th>Description</th>
-    </thead>
-
-    <% @products.each do |product| %>
-      <tr>
-        <td>
-          <%= link_to "#{product.product_id}", product_path(product.id) %>
-        </td>
-        <td>
-          <%= product.description %>
-        </td>
-      </tr>
-    <% end %>
-  </table>
+            <%= link_to 'Show', @customer_user %> |
+            <%= link_to 'Back', customer_users_path %>
 </div>
