@@ -1,7 +1,7 @@
 require 'uri'
 
 class Product < ActiveRecord::Base
-    has_and_belongs_to_many :customer_user
+    has_and_belongs_to_many :customer_users
     include SqlUtils
 
     def self.documents_path
