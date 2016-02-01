@@ -7,7 +7,8 @@ class Customer < ActiveRecord::Base
         SalesPerson.all.each { |person|
             sql = "SELECT *
           FROM NAVLIVE.dbo.\"Alchemy Agencies Ltd$Customer\"
-          WHERE \"Salesperson Code\" = #{SqlUtils.escape(person.salesperson_code)}"
+          WHERE \"Salesperson Code\" = #{SqlUtils.escape(person.salesperson_code)}
+          AND No_ NOT LIKE 'ZZ%'"
             records = SqlUtils.execute_sql(sql)
             records.each { |customer_record|
                 customer = Customer.find_by customer_id: customer_record["No_"]

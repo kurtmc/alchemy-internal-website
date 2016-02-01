@@ -25,5 +25,21 @@ module PdfAppender
         #config.active_record.raise_in_transactional_callbacks = true # Only for rails 4.2+
 
         config.autoload_paths += %W(#{config.root}/lib)
+
+        # Email configuration options
+        config.action_mailer.default_url_options = { 
+            :host => 'alchemyagencies.co.nz'
+        }
+        config.action_mailer.delivery_method = :smtp
+        config.action_mailer.smtp_settings = {
+            address: "mail.example.com",
+            port: 110, #I'm not sure if the port need to be 25 or 110... it depends of which port your Exchange listens, usually 25, but there are strong recommendations to use 110, letting port 25 free for smtp communication between smtp servers only.
+            domain: "my.domainame.com",
+            authentication: :ntlm,
+            enable_starttls_auto: true,
+            user_name: "my_username",
+            password: "my_password"
+        }
+
     end
 end
