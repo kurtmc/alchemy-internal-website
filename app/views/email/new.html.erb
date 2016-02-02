@@ -12,7 +12,7 @@
     <%= p.label :to %>
     <%= p.text_field :to, :class => 'form-control' %>
     <%= p.label :subject %>
-    <%= p.text_field :subject, :class => 'form-control' %>
+    <%= p.text_field :subject, :value => "SDS for #{@product.description}", :class => 'form-control' %>
     <%= p.label :body %>
     <%= p.text_area :body, rows: 10, :class => 'form-control' %>
     <br>
