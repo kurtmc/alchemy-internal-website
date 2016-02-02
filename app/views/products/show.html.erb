@@ -39,7 +39,7 @@
         <p>
         <strong>SDS:</strong>
         <% unless @product.sds.nil? %>
-          <%= link_to "#{@product.sds}", {:controller => "products", :action => "download_document", :id => @product.id, :document_type => "sds"}, :target => 'blank' %>
+          <%= link_to "#{@product.sds}", {:controller => "products", :action => "download_document", :id => @product.id, :document_type => "sds"} %>
           <%= link_to image_tag('mail.svg', :width => 25, :border => 0), new_email_path(:file => 'sds', :product_id => @product.id) %>
         <% else %>
           No SDS file
@@ -66,7 +66,7 @@
         <p>
         <strong>PDS:</strong>
         <% unless @product.pds.nil? %>
-          <%= link_to "#{@product.pds}", {:controller => "products", :action => "download_document", :id => @product.id, :document_type => "pds"}, :target => 'blank' %>
+          <%= link_to "#{@product.pds}", {:controller => "products", :action => "download_document", :id => @product.id, :document_type => "pds"} %>
         <% else %>
           No PDS file
         <% end %>
@@ -87,7 +87,7 @@
             <% if params[:edit] == 'true' %>
               <%= link_to 'Delete', {:controller => "products", :action => "remove_document", :document_name => file}, {:class => 'btn btn-danger'} %>
             <% end %>
-            <%= link_to "#{file}", {:controller => "products", :action => "download_document", :id => @product.id, :document_type => "misc", :document_name => file}, :target => 'blank' %>
+            <%= link_to "#{file}", {:controller => "products", :action => "download_document", :id => @product.id, :document_type => "misc", :document_name => file} %>
           </div>
         <% end %>
         <% if params[:edit] == 'true' %>
