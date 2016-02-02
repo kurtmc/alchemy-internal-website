@@ -1,25 +1,24 @@
 class SalesPerson < ActiveRecord::Base
     has_many :customers
+
+    extend NavisionRecord
+
     include SqlUtils
 
-    def self.load_all
-        sql = "SELECT *
+    def self.get_sql
+        return "SELECT *
         FROM NAVLIVE.dbo.\"Alchemy Agencies Ltd$Salesperson_Purchaser\""
-        records = SqlUtils.execute_sql(sql)
-        sales_persons = Array.new
-        records.each { |person_record|
-            person = SalesPerson.find_by salesperson_code: person_record["Code"]
-            if person.nil?
-                person = SalesPerson.new
-                person.salesperson_code = person_record["Code"]
-            end
-            person.name = person_record["Name"]
-            if person.changed?
-                person.save
-            end
-        }
     end
 
-    def update_fields
+
+    def self.new_active_record(record)
+        person = SalesPerson.find_by salesperson_code: record["Code"]
+        if person.nil?
+            person = SalesPerson.new
+            person.salesperson_code = record["Code"]
+        end
+        person.name = record["Name"]
+        return person
     end
+
 end
