@@ -1,3 +1,5 @@
+#!/bin/bash
+
 git pull
 rvm use ruby-2.1.7
 bundle install --deployment --without development test
