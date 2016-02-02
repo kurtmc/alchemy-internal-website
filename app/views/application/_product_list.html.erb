@@ -10,10 +10,8 @@
       <% end %>
     </thead>
 
-    <% expired_count = 0 %>
     <% products.each do |product| %>
       <% if product.sds_expiry.past? || show_expired_only == false %>
-        <% expired_count += 1 %>
         <tr>
           <td><%= link_to "#{product.product_id}", product_path(product.id) %></td>
           <td><%= product.description %></td>
@@ -25,6 +23,3 @@
     <% end %>
   </table>
 </div>
-<% if show_expired_only %>
-  <p><strong>Number of expired SDS's:</strong> <%= expired_count %>
-<% end %>

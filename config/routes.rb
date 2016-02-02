@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   resources :vendors
   resources :sales
   resources :change_password
+  resources :email
   namespace :api do
     resources :products
     resources :vendors
