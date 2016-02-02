@@ -93,7 +93,7 @@ WHERE
         overall = Array.new
         overall << ChartData.new('Sales', sales, colours[0])
         overall << ChartData.new('Cost', cost, colours[1])
-        overall << ChartData.new('Profit', profit, colours[2])
+        overall << ChartData.new('Margin', profit, colours[2])
 
         labels = Array.new
         5.downto(0) { |i|
