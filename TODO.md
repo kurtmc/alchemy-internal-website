@@ -15,7 +15,3 @@ calculate some values to make comparisons.
 - Implemented sending documents via email
 - Add button for updating all the tables, admin only
 - Product - Show page: have a next button/buttons based on product manager
-- API:
-	* Vendor images (link vendor image and vendor id)
-	* Customer User and relates to products
-- Implement Customer User managerment
