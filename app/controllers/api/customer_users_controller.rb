@@ -11,7 +11,12 @@ class Api::CustomerUsersController < Api::ApiController
                         render text: get_customer_users_csv
                     end
                 else
-                    render json: @customer_users
+                    if params[:product_relation] == 'true'
+                        sql = 'select * from customer_users_products'
+                        render json: ActiveRecord::Base.connection.execute(sql)
+                    else
+                        render json: @customer_users
+                    end
                 end
             }
         end
