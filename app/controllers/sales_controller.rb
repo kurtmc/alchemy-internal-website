@@ -103,12 +103,12 @@ WHERE
         
         @overall_html, @overall_js = ChartData.full_html_for(overall, 'overall', labels)
         
-        sql = get_sql_individual(sales_columns)
-        individual = get_data_multiple(sql, sales_columns, "Name")
+        sql = get_sql_individual(profit_columns)
+        individual = get_data_multiple(sql, profit_columns, "Name")
         @individual_html, @individual_js = ChartData.full_html_for(individual, 'individual', labels)
 
-        sql = get_sql_comparison(['Sales'], 'sugar.')
-        comparison = get_data_multiple(sql, ['Sales'], "Name")
+        sql = get_sql_comparison(['Profit'], 'sugar.')
+        comparison = get_data_multiple(sql, ['Profit'], "Name")
         @comparison_html, @comparison_js = ChartData.full_html_for(comparison, 'comparison', '["Current"]')
     end
 end
