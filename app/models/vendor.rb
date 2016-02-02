@@ -1,5 +1,6 @@
 class Vendor < ActiveRecord::Base
     belongs_to :agency
+    has_many :products
 
     extend NavisionRecord
 

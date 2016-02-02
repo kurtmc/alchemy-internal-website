@@ -2,6 +2,7 @@ require 'uri'
 
 class Product < ActiveRecord::Base
     has_and_belongs_to_many :customer_users
+    belongs_to :vendor
 
     extend NavisionRecord
 
@@ -43,8 +44,7 @@ class Product < ActiveRecord::Base
             end
         }
 
-        product.vendor_id = record['Vendor No_']
-        product.vendor_name = record['Vendor Name']
+        product.vendor = Vendor.find_by vendor_id: record['Vendor No_']
         product.description = record['Description']
         product.description2 = record['Description 2']
         product.new_description = record['New Description']
