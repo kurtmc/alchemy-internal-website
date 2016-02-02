@@ -1,15 +1,18 @@
 <div class="container theme-showcase" role="main">
-    <div class="page-header">
-        <h1>Send new email</h1>
-    </div>
-    <%= form_for :email, url: email_index_path, :html => {:class => 'form'} do |p| %>
-        <%= p.label :to %>
-        <%= p.text_field :to, :class => 'form-control' %>
-        <%= p.label :subject %>
-        <%= p.text_field :subject, :class => 'form-control' %>
-        <%= p.label :body %>
-        <%= p.text_area :body, rows: 10, :class => 'form-control' %>
-        <br>
-        <%= p.submit "Send email", {class: 'btn btn-primary'} %>
-    <% end %>
+  <div class="page-header">
+    <h1>Send new email</h1>
+  </div>
+  <p id="notice"><%= notice %></p>
+  <%= form_for :email, url: email_index_path, :html => {:class => 'form'} do |p| %>
+    <%= hidden_field_tag 'file', params[:file] %>
+    <%= hidden_field_tag 'product_id', params[:product_id] %>
+    <%= p.label :to %>
+    <%= p.text_field :to, :class => 'form-control' %>
+    <%= p.label :subject %>
+    <%= p.text_field :subject, :class => 'form-control' %>
+    <%= p.label :body %>
+    <%= p.text_area :body, rows: 10, :class => 'form-control' %>
+    <br>
+    <%= p.submit "Send email", {class: 'btn btn-primary'} %>
+  <% end %>
 </div>

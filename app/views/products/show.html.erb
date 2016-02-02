@@ -40,6 +40,7 @@
         <strong>SDS:</strong>
         <% unless @product.sds.nil? %>
           <%= link_to "#{@product.sds}", {:controller => "products", :action => "download_document", :id => @product.id, :document_type => "sds"}, :target => 'blank' %>
+          <%= link_to 'Attach SDS to email', new_email_path(:file => 'sds', :product_id => @product.id) %>
         <% else %>
           No SDS file
         <% end %>
