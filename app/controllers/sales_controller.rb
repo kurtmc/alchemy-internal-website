@@ -89,10 +89,11 @@ WHERE
         cost = get_data(sql, cost_columns)
         sql = get_sql(profit_columns)
         profit = get_data(sql, profit_columns)
+        colours = ['#A1862E', '#000000', '#939597', '#FFCB04']
         overall = Array.new
-        overall << ChartData.new('Sales', sales, 'rgba(0, 255, 0, 0.8)')
-        overall << ChartData.new('Cost', cost, 'rgba(255, 0, 0, 0.8)')
-        overall << ChartData.new('Profit', profit, 'rgba(0, 0, 255, 0.8)')
+        overall << ChartData.new('Sales', sales, colours[0])
+        overall << ChartData.new('Cost', cost, colours[1])
+        overall << ChartData.new('Profit', profit, colours[2])
 
         labels = Array.new
         5.downto(0) { |i|
