@@ -7,7 +7,7 @@ class Api::VendorsController < Api::ApiController
                 if params[:csv] == 'true'
                     render text: get_vendors_csv
                 else
-                    render json: @vendors
+                    render json: get_vendors_json
                 end
             }
         end
@@ -22,7 +22,10 @@ class Api::VendorsController < Api::ApiController
     def get_image_path(vendor_id)
         images = Dir.glob(Rails.root.join('public', 'images', "#{vendor_id}.*"))
         if images.length > 0
-            return File.basename(images[0])
+            name = File.basename(images[0])
+            unless name == '.'
+                return name
+            end
         end
         return nil
     end
@@ -43,5 +46,13 @@ class Api::VendorsController < Api::ApiController
                 csv << row
             end
         end
+    end
+
+    def get_vendors_json
+        vendors = Vendor.all.as_json
+        vendors.each do |v|
+            v[:image_filename] = get_image_path(v[:vendor_id])
+        end
+        return vendors
     end
 end
