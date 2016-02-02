@@ -15,3 +15,4 @@ calculate some values to make comparisons.
 - Implemented sending documents via email
 - Add button for updating all the tables, admin only
 - Product - Show page: have a next button/buttons based on product manager
+- Add automatic generated passwords for customer logins
