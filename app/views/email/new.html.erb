@@ -2,6 +2,9 @@
   <div class="page-header">
     <h1>Send new email</h1>
   </div>
+  <% unless @product.nil? %>
+    <p>Attached: SDS for <strong><%= @product.description %></strong></p>
+  <% end %>
   <p id="notice"><%= notice %></p>
   <%= form_for :email, url: email_index_path, :html => {:class => 'form'} do |p| %>
     <%= hidden_field_tag 'file', params[:file] %>

@@ -1,6 +1,7 @@
 class EmailController < ApplicationController
 
     def new
+        @product = Product.find(params[:product_id])
         render 'new'
     end
 
@@ -9,8 +10,6 @@ class EmailController < ApplicationController
         to = params[:email][:to]
         subject = params[:email][:subject]
         body = params[:email][:body]
-        puts 'params =================================='
-        puts params.inspect
         unless params[:product_id].nil?
             p = Product.find(params[:product_id])
             mail = AlchemyMailer.send_with_attachment(from, to, subject, body, p.sds, p.absolute_documents_path.join(p.sds))
