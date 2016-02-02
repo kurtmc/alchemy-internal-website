@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160201215217) do
+ActiveRecord::Schema.define(version: 20160202232432) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -57,12 +57,12 @@ ActiveRecord::Schema.define(version: 20160201215217) do
     t.decimal  "last_31_to_60"
     t.decimal  "last_31_90"
     t.decimal  "last_90_plus"
-    t.integer  "salesperson_id"
+    t.integer  "sales_person_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "customers", ["salesperson_id"], name: "index_customers_on_salesperson_id"
+  add_index "customers", ["sales_person_id"], name: "index_customers_on_sales_person_id"
 
   create_table "navision_records", force: true do |t|
     t.datetime "created_at"

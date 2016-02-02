@@ -1,7 +1,34 @@
 class Customer < ActiveRecord::Base
-    belongs_to :salesperson
+    belongs_to :sales_person
     has_many :prices
     include SqlUtils
+
+    extend NavisionRecord
+
+    def self.get_sql
+        return "SELECT *
+                FROM NAVLIVE.dbo.\"Alchemy Agencies Ltd$Customer\"
+                WHERE No_ NOT LIKE 'ZZ%'"
+    end
+
+    def self.new_active_record(record)
+        customer = Customer.find_by customer_id: record["No_"]
+        if customer.nil?
+            customer = Customer.new
+            customer.customer_id = record["No_"]
+        end
+        customer.name = record["Name"]
+        customer.balance = get_balance
+        customer.credit_limit = record["Credit Limit (LCY)"]
+        customer.current = get_current
+        customer.last_1_to_30 = get_range(0, 30)
+        customer.last_31_to_60 = get_range(31, 60)
+        customer.last_31_90 = get_range(61, 90)
+        customer.last_90_plus = get_range(90, 9999)
+        person = SalesPerson.find_by salesperson_code: record["Salesperson Code"]
+        customer.salesperson_id = person.id
+        return customer
+    end
 
     def self.load_all
         SalesPerson.all.each { |person|
@@ -9,18 +36,9 @@ class Customer < ActiveRecord::Base
           FROM NAVLIVE.dbo.\"Alchemy Agencies Ltd$Customer\"
           WHERE \"Salesperson Code\" = #{SqlUtils.escape(person.salesperson_code)}
           AND No_ NOT LIKE 'ZZ%'"
-            records = SqlUtils.execute_sql(sql)
-            records.each { |customer_record|
-                customer = Customer.find_by customer_id: customer_record["No_"]
-                if customer.nil?
-                    customer = Customer.new
-                    customer.customer_id = customer_record["No_"]
-                end
-                customer.update_fields
-                if customer.changed?
-                    customer.save
-                end
-            }
+          records = SqlUtils.execute_sql(sql)
+          records.each { |customer_record|
+          }
         }
     end
 
@@ -29,16 +47,6 @@ class Customer < ActiveRecord::Base
       FROM NAVLIVE.dbo.\"Alchemy Agencies Ltd$Customer\"
       WHERE No_ = #{SqlUtils.escape(self.customer_id)}"
         records = SqlUtils.execute_sql(sql).first
-        self.name = records["Name"]
-        self.balance = get_balance
-        self.credit_limit = records["Credit Limit (LCY)"]
-        self.current = get_current
-        self.last_1_to_30 = get_range(0, 30)
-        self.last_31_to_60 = get_range(31, 60)
-        self.last_31_90 = get_range(61, 90)
-        self.last_90_plus = get_range(90, 9999)
-        person = SalesPerson.find_by salesperson_code: records["Salesperson Code"]
-        self.salesperson_id = person.id
         self.save
     end
 
