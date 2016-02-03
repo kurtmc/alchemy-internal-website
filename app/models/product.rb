@@ -3,6 +3,7 @@ require 'uri'
 class Product < ActiveRecord::Base
     has_and_belongs_to_many :customer_users
     belongs_to :vendor
+    belongs_to :document
 
     extend NavisionRecord
 

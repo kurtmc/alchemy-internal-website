@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160203232542) do
+ActiveRecord::Schema.define(version: 20160203234340) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -134,9 +134,11 @@ ActiveRecord::Schema.define(version: 20160203232542) do
     t.boolean  "sds_required"
     t.string   "new_description"
     t.integer  "customer_user_id"
+    t.integer  "document_id"
   end
 
   add_index "products", ["customer_user_id"], name: "index_products_on_customer_user_id"
+  add_index "products", ["document_id"], name: "index_products_on_document_id"
 
   create_table "sales_people", force: true do |t|
     t.string   "salesperson_code"
