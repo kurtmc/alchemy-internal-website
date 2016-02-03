@@ -10,7 +10,7 @@
     <%= f.text_field :password, :class => 'form-control' %><br>
     <%= f.label :products %><br>
     <%= f.select(:products, @products.collect {|p| [p.product_id, p.id] },  { :prompt => "Please select", :selected => @customer_user.products.map { |p| p.id }},
-                 { :multiple => true, :size => 20, :class => 'form-control' }) %>
+                 { :multiple => true, :size => 20, :class => 'chosen-select' }) %>
     <%= f.submit "Update User", {class: 'btn btn-primary'} %>
   <% end %>
   <br>

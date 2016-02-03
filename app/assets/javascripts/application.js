@@ -18,3 +18,4 @@
 //= require Chart
 //= require chart_utils
 //= require navbar
+//= require chosen-jquery

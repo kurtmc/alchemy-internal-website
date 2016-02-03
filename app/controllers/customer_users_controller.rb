@@ -18,6 +18,7 @@ class CustomerUsersController < InheritedResources::Base
         @customer_user = CustomerUser.find(params[:id])
         @customer_user.email = params[:customer_user][:email]
         @customer_user.password = params[:customer_user][:password]
+        @customer_user.products.delete_all
         params[:customer_user][:products].each { |p|
             unless p == ''
                 product = Product.find(p)
