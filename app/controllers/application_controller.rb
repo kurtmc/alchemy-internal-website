@@ -27,4 +27,22 @@ class ApplicationController < ActionController::Base
     rescue_from SecurityError do |exception|
         render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
     end
+
+    # Reload all tables
+    def self.load_all_tables
+        Product.load_all
+        Vendor.load_all
+        SalesPerson.load_all
+        Customer.load_all
+        Agency.load_all
+    end
+
+    # Delete all tables
+    def self.delete_all_tables
+        Product.delete_all
+        Vendor.delete_all
+        SalesPerson.delete_all
+        Customer.delete_all
+        Agency.delete_all
+    end
 end
