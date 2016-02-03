@@ -1,5 +1,6 @@
 <div class="container">
   <p id="notice"><%= notice %></p>
+  <p> Send credentials to customer <%= link_to image_tag('mail.svg', :width => 25, :border => 0), new_email_path(:to => @customer_user.email, :subject => 'Credentials for Alchemy Agencies Website', :body => @body) %></p>
 
   <p>
   <strong>Email:</strong>

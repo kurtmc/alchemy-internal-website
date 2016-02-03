@@ -3,6 +3,7 @@ class EmailController < ApplicationController
     def new
         @to = params[:to]
         @subject = params[:subject]
+        @body = params[:body]
         @attachment_name = params[:attachment_name]
         @attachment_path = params[:attachment_path]
         render 'new'
