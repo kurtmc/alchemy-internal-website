@@ -9,7 +9,8 @@ class ChangePasswordController < ApplicationController
         if same && password_length
             current_user.password = password
             current_user.save
-            @message = "Password successfully changed!"
+            @message = "Password successfully changed!
+            Now press the home button and login again with your new password."
             render :index
         else
             unless same
