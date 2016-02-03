@@ -14,7 +14,7 @@ class EmailController < ApplicationController
         to = params[:email][:to]
         subject = params[:email][:subject]
         body = params[:email][:body]
-        unless params[:attachment_name].nil?
+        unless params[:attachment_path].blank?
             mail = AlchemyMailer.send_with_attachment(from, to, subject, body, params[:attachment_name], params[:attachment_path])
         else
             mail = AlchemyMailer.send_full_email(from, to, subject, body)
