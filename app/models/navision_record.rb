@@ -9,10 +9,14 @@ module NavisionRecord
     end
 
     def load_all
-        sql = get_sql('NZ')
+        country_code = 'NZ'
+        sql = get_sql(country_code)
         records = SqlUtils.execute_sql(sql)
         records.each { |record|
             active_record = new_active_record(record)
+            if active_record.has_attribute?(:country_code)
+                active_record.country_code = country_code
+            end
             if active_record.changed?
                 active_record.save
             end
