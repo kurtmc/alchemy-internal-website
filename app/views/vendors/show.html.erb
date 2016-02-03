@@ -27,6 +27,6 @@
 <%= raw(@sales_js) %>
   </script>
   <div class="container">
-    <%= render :partial => "product_list", :locals => {:products => @products, :show_expired_only => false} %>
+    <%= render :partial => "product_list", :locals => {:products => @vendor.products, :show_expired_only => false} %>
   </div>
 </div>

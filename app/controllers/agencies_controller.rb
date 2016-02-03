@@ -7,13 +7,12 @@ class AgenciesController < ApplicationController
     def show
         @agency = Agency.find(params[:id])
         vendors = @agency.vendors
-        vendor_ids = Array.new
-        unless vendors.nil?
-            vendors.each { |v|
-                vendor_ids << v.vendor_id
+        @products = Array.new
+        vendors.each { |v|
+            v.products.each { |p|
+                @products << p
             }
-        end
-        @products = Product.where(vendor_id: vendor_ids).order :product_id
+        }
         set_fields
     end
 

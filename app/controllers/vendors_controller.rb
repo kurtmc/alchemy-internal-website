@@ -37,7 +37,6 @@ class VendorsController < ApplicationController
         labels = "[#{labels.map { |l| "#{l}" }.join(",")}]"
 
         @sales_html, @sales_js = ChartData.full_html_for(data_sets, 'sales', labels)
-        @products = Product.where vendor_id: @vendor.vendor_id
 
         @image_filename = get_image_path
     end
