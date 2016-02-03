@@ -1,0 +1,24 @@
+- Global and Vendor are many to many
+- Nicks list is missing ADDOCAT PP
+
+-- Global <=> Vendor is many to many
+SELECT
+    DISTINCT a."Global Dimension 1 Code",
+    a."Vendor No_"
+FROM
+    NAVLIVE.dbo."Alchemy Agencies Ltd$Item" AS A
+WHERE
+    a."Vendor No_" = 'LANXESS AU'
+
+    
+    
+-- ADDOCAT PP missing from list
+SELECT
+    a.No_,
+    a."Global Dimension 1 Code",
+    a."Vendor No_"
+FROM
+    NAVLIVE.dbo."Alchemy Agencies Ltd$Item" AS A
+WHERE
+    a.No_ = 'ADDOCAT PP'
+
