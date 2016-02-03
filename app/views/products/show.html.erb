@@ -28,8 +28,8 @@
         <p><strong>Base Unit of Measure:</strong> <%= @product.unit_measure %></p>
         <p><strong>Shelf Life:</strong> <%= @product.shelf_life  %></p>
         <p><strong>Inventory:</strong> <%= @product.inventory %></p>
-        <p><strong>On Order:</strong> <%= @product.quantity_purchase_order %></p>
-        <p><strong>On Packing Slip:</strong> <%= @product.quantity_packing_slip %></p>
+        <p><strong>On Order:</strong> <%= @product.quantity_purchase_order.to_f %></p>
+        <p><strong>On Packing Slip:</strong> <%= @product.quantity_packing_slip.to_f %></p>
       </div>
       <div class="col-sm-4">
         <h3>Documents</h3>
