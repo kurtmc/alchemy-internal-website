@@ -29,3 +29,6 @@ database.yml
 config/secrets.yml
 public/assets
 vendor/bundle
+
+# Ignore changes to the documents
+alchemy-info-tables
