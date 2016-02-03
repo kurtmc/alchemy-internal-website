@@ -6,7 +6,7 @@
     <%= link_to 'Customers', customers_path, {class: 'btn btn-primary'}  %>
   </div>
   <h3>Credit Information</h3>
-  <p><strong>Sales Person:</strong> <%= SalesPerson.find(@customer.salesperson_id).name %></p>
+  <p><strong>Sales Person:</strong> <%= @customer.sales_person.name %></p>
   <div class="container">
     <div class="row">
       <div class="col-sm-4">

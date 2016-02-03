@@ -1,5 +1,5 @@
 class Vendor < ActiveRecord::Base
-    belongs_to :agency
+    has_and_belongs_to_many :agencies
     has_many :products
 
     extend NavisionRecord
@@ -31,7 +31,9 @@ class Vendor < ActiveRecord::Base
         # Add self to agency
         agency = Agency.find_by agency_id: record["Global Dimension 1 Code"]
         unless agency.nil?
-            agency.vendors << vendor
+            unless agency.vendors.include?(vendor)
+                agency.vendors << vendor
+            end
             agency.save
         end
 

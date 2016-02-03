@@ -6,7 +6,6 @@ class CustomersController < ApplicationController
 
     def show
         @customer = Customer.find(params[:id])
-        @customer.update_fields
 		ytd = get_sales_stats(params[:id])
 		py = get_sales_stats(params[:id], Time.now - 1.year)
         sales = Hash.new

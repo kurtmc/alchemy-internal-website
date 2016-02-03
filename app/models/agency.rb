@@ -1,5 +1,5 @@
 class Agency < ActiveRecord::Base
-    has_many :vendors
+    has_and_belongs_to_many :vendors
 
     extend NavisionRecord
 
@@ -22,6 +22,7 @@ class Agency < ActiveRecord::Base
             agency.agency_id = record['Dimension']
         end
         agency.name = record["Dimension"]
+
         return agency
     end
 end
