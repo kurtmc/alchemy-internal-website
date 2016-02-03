@@ -4,16 +4,16 @@ class Vendor < ActiveRecord::Base
 
     extend NavisionRecord
 
-    def self.get_sql
+    def self.get_sql(code)
         return "
         SELECT *
         FROM
-        NAVLIVE.dbo.\"Alchemy Agencies Ltd$Vendor\" AS vendor JOIN(
+        #{self.table('Vendor', code)} AS vendor JOIN(
         SELECT
         DISTINCT item.\"Vendor No_\",
         item.\"Global Dimension 1 Code\"
         FROM
-        NAVLIVE.dbo.\"Alchemy Agencies Ltd$Item\" AS item
+        #{self.table('Item', code)} AS item
         ) GLOBAL
         ON vendor.\"No_\" = global.\"Vendor No_\"
         WHERE vendor.No_ NOT LIKE 'ZZ%'

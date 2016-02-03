@@ -59,7 +59,7 @@ class Product < ActiveRecord::Base
         return product
     end
 
-    def self.get_sql
+    def self.get_sql(code)
         return "
 			SELECT
 				item.*,
@@ -68,22 +68,22 @@ class Product < ActiveRecord::Base
 				purchase.Quantity AS \"Quantity Purchase Order\",
 				sales.Quantity AS \"Quantity Packing Slip\"
 			FROM
-				#{self.table('Item', 'NZ')} AS item
-				LEFT JOIN #{self.table('Vendor', 'NZ')} AS vendor
+				#{self.table('Item', code)} AS item
+				LEFT JOIN #{self.table('Vendor', code)} AS vendor
 				ON item.\"Vendor No_\" = vendor.No_
 				LEFT JOIN (
 					SELECT
 						\"Item No_\",
 						SUM(\"Quantity\") AS \"Inventory\"
 					FROM
-						#{self.table('Item Ledger Entry', 'NZ')}
+						#{self.table('Item Ledger Entry', code)}
 					GROUP BY
 						\"Item No_\"
 				) inventory
 				ON inventory.\"Item No_\" = item.No_
-				LEFT JOIN #{self.table('Purchase Line', 'NZ')} as purchase
+				LEFT JOIN #{self.table('Purchase Line', code)} as purchase
 				ON item.No_ = purchase.No_
-				LEFT JOIN #{self.table('Sales Line', 'NZ')} as sales
+				LEFT JOIN #{self.table('Sales Line', code)} as sales
 				ON item.No_ = sales.No_
                 WHERE item.No_ NOT LIKE 'ZZ%'
         "

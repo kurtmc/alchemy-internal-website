@@ -1,15 +1,15 @@
 module NavisionRecord
 
-    def get_sql
-        raise NotImplementedError.new "get_template"
+    def get_sql(code)
+        raise NotImplementedError.new "get_sql"
     end
 
     def new_active_record(record)
-        raise NotImplementedError.new "get_template"
+        raise NotImplementedError.new "new_active_record"
     end
 
     def load_all
-        sql = get_sql
+        sql = get_sql('NZ')
         records = SqlUtils.execute_sql(sql)
         records.each { |record|
             active_record = new_active_record(record)
