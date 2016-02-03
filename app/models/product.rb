@@ -68,22 +68,22 @@ class Product < ActiveRecord::Base
 				purchase.Quantity AS \"Quantity Purchase Order\",
 				sales.Quantity AS \"Quantity Packing Slip\"
 			FROM
-				NAVLIVE.dbo.\"Alchemy Agencies Ltd$Item\" AS item
-				LEFT JOIN NAVLIVE.dbo.\"Alchemy Agencies Pty Ltd$Vendor\" AS vendor
+				#{self.table('Item', 'NZ')} AS item
+				LEFT JOIN #{self.table('Vendor', 'NZ')} AS vendor
 				ON item.\"Vendor No_\" = vendor.No_
 				LEFT JOIN (
 					SELECT
 						\"Item No_\",
 						SUM(\"Quantity\") AS \"Inventory\"
 					FROM
-						NAVLIVE.dbo.\"Alchemy Agencies Ltd$Item Ledger Entry\"
+						#{self.table('Item Ledger Entry', 'NZ')}
 					GROUP BY
 						\"Item No_\"
 				) inventory
 				ON inventory.\"Item No_\" = item.No_
-				LEFT JOIN NAVLIVE.dbo.\"Alchemy Agencies Ltd$Purchase Line\" as purchase
+				LEFT JOIN #{self.table('Purchase Line', 'NZ')} as purchase
 				ON item.No_ = purchase.No_
-				LEFT JOIN NAVLIVE.dbo.\"Alchemy Agencies Ltd$Sales Line\" as sales
+				LEFT JOIN #{self.table('Sales Line', 'NZ')} as sales
 				ON item.No_ = sales.No_
                 WHERE item.No_ NOT LIKE 'ZZ%'
         "

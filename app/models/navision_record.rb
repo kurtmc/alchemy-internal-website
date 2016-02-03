@@ -19,4 +19,17 @@ module NavisionRecord
         }
     end
 
+    def database(country_code)
+        if country_code == 'AU'
+            database = "NAVLIVE.dbo.\"Alchemy Agencies Pty Ltd$"
+        elsif country_code == 'NZ'
+            database = "NAVLIVE.dbo.\"Alchemy Agencies Ltd$"
+        end
+        return database
+    end
+
+    def table(name, country_code)
+        return "#{self.database(country_code)}#{name}\""
+    end
+
 end
