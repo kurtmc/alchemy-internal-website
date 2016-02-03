@@ -13,6 +13,8 @@ class AgenciesController < ApplicationController
                 @products << p
             }
         }
+        @products = @products.sort_by {|p| p.product_id}
+
         set_fields
     end
 
