@@ -89,11 +89,4 @@ class Product < ActiveRecord::Base
         "
     end
 
-    # TODO actually link the product and vendor models
-    # Also remove the useage of this in view/products/show.html.erb
-    def get_vendor_id
-        vendor = Vendor.find_by vendor_id: self.vendor_id
-        return vendor.id
-    end
-
 end
