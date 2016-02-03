@@ -23,7 +23,7 @@ class Product < ActiveRecord::Base
         return self.sds_expiry.strftime("%Y-%m-%d")
     end
 
-    def self.new_active_record(record)
+    def self.new_active_record(record, code)
         # Find old product or create new
         product = Product.find_by(product_id: record['No_'])
         if product.nil?

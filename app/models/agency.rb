@@ -15,7 +15,7 @@ class Agency < ActiveRecord::Base
         "
     end
 
-    def self.new_active_record(record)
+    def self.new_active_record(record, code)
         agency = Agency.find_by agency_id: record['Dimension']
         if agency.nil?
             agency = Agency.new

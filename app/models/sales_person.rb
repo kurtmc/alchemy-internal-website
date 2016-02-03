@@ -11,7 +11,7 @@ class SalesPerson < ActiveRecord::Base
     end
 
 
-    def self.new_active_record(record)
+    def self.new_active_record(record, code)
         person = SalesPerson.find_by salesperson_code: record["Code"]
         if person.nil?
             person = SalesPerson.new

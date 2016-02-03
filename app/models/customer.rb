@@ -11,20 +11,20 @@ class Customer < ActiveRecord::Base
                 WHERE No_ NOT LIKE 'ZZ%'"
     end
 
-    def self.new_active_record(record)
+    def self.new_active_record(record, code)
         customer = Customer.find_by customer_id: record["No_"]
         if customer.nil?
             customer = Customer.new
             customer.customer_id = record["No_"]
         end
         customer.name = record["Name"]
-        customer.balance = customer.get_balance
+        customer.balance = customer.get_balance(code)
         customer.credit_limit = record["Credit Limit (LCY)"]
-        customer.current = customer.get_current
-        customer.last_1_to_30 = customer.get_range(0, 30)
-        customer.last_31_to_60 = customer.get_range(31, 60)
-        customer.last_31_90 = customer.get_range(61, 90)
-        customer.last_90_plus = customer.get_range(90, 9999)
+        customer.current = customer.get_current(code)
+        customer.last_1_to_30 = customer.get_range(0, 30, code)
+        customer.last_31_to_60 = customer.get_range(31, 60, code)
+        customer.last_31_90 = customer.get_range(61, 90, code)
+        customer.last_90_plus = customer.get_range(90, 9999, code)
         person = SalesPerson.find_by salesperson_code: record["Salesperson Code"]
         customer.sales_person = person
         return customer
@@ -35,18 +35,18 @@ class Customer < ActiveRecord::Base
         return prices
     end
 
-    def get_balance
+    def get_balance(code)
         sql = "SELECT SUM(a.\"Amount (LCY)\") as \"Amount\"
-        FROM NAVLIVE.dbo.\"Alchemy Agencies Ltd$Detailed Cust_ Ledg_ Entry\" as a
+        FROM #{Customer.table('Detailed Cust_ Ledg_ Entry', code)} as a
         where a.\"Customer No_\" = #{SqlUtils.escape(self.customer_id)}"
         records = SqlUtils.execute_sql(sql)
         return records.first["Amount"]
     end
 
-    def get_range(start_days, end_days)
+    def get_range(start_days, end_days, code)
         generic_sql = "
         SELECT SUM(a.\"Amount (LCY)\") as \"Amount\"
-        FROM NAVLIVE.dbo.\"Alchemy Agencies Ltd$Detailed Cust_ Ledg_ Entry\" as a
+        FROM #{Customer.table('Detailed Cust_ Ledg_ Entry', code)} as a
         where a.\"Customer No_\" = #{SqlUtils.escape(self.customer_id)}
         and a.\"Expected Due Date\" < CAST(DATEADD (dd , -#{start_days}, GETDATE()) AS DATETIME)
         and a.\"Expected Due Date\" >= CAST(DATEADD (dd , -#{end_days} , GETDATE()) AS DATETIME)"
@@ -54,9 +54,9 @@ class Customer < ActiveRecord::Base
         return records.first["Amount"]
     end
 
-    def get_current
+    def get_current(code)
         sql = "SELECT SUM(a.\"Amount (LCY)\") as \"Amount\"
-        FROM NAVLIVE.dbo.\"Alchemy Agencies Ltd$Detailed Cust_ Ledg_ Entry\" as a
+        FROM #{Customer.table('Detailed Cust_ Ledg_ Entry', code)} as a
         where a.\"Customer No_\" = #{SqlUtils.escape(self.customer_id)}
         and a.\"Expected Due Date\" > CAST(GETDATE() AS DATETIME)"
         records = SqlUtils.execute_sql(sql)

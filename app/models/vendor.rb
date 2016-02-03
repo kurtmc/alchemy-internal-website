@@ -20,7 +20,7 @@ class Vendor < ActiveRecord::Base
         "
     end
 
-    def self.new_active_record(record)
+    def self.new_active_record(record, code)
         vendor = Vendor.find_by vendor_id: record['No_']
         if vendor.nil?
             vendor = Vendor.new

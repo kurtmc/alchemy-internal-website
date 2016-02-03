@@ -4,7 +4,7 @@ module NavisionRecord
         raise NotImplementedError.new "get_sql"
     end
 
-    def new_active_record(record)
+    def new_active_record(record, code)
         raise NotImplementedError.new "new_active_record"
     end
 
@@ -13,7 +13,7 @@ module NavisionRecord
         sql = get_sql(country_code)
         records = SqlUtils.execute_sql(sql)
         records.each { |record|
-            active_record = new_active_record(record)
+            active_record = new_active_record(record, country_code)
             if active_record.has_attribute?(:country_code)
                 active_record.country_code = country_code
             end
