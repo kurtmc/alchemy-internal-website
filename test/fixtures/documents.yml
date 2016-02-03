@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  document_type_id: 
+  absolute_directory: MyString
+  filename: MyString
+  expiration: 2016-02-04
+  product_id: 
+
+two:
+  document_type_id: 
+  absolute_directory: MyString
+  filename: MyString
+  expiration: 2016-02-04
+  product_id: 
