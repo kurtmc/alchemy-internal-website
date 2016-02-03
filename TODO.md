@@ -14,3 +14,5 @@ calculate some values to make comparisons.
 - Add PIF as standard document type, use the Item type column to see if it is needed
 - Add button for updating all the tables, admin only
 - Product - Show page: have a next button/buttons based on product manager
+- MISC files, ability to label misc files with a description from a drop down. You can also add descriptions to the drop down.
+- Put expiries on every document, default the expiry date to 5 years since upload.
