@@ -3,12 +3,12 @@ class Agency < ActiveRecord::Base
 
     extend NavisionRecord
 
-    def self.get_sql
+    def self.get_sql(code)
         return "
             SELECT
             DISTINCT item.\"Global Dimension 1 Code\" as \"Dimension\"
             FROM
-            NAVLIVE.dbo.\"Alchemy Agencies Ltd$Item\" AS item
+            #{self.table('Item', code)} AS item
             WHERE
             item.\"Global Dimension 1 Code\" <> ''
             AND NOT item.\"Global Dimension 1 Code\" LIKE 'ZZ%'

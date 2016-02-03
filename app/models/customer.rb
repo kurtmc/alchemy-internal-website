@@ -5,9 +5,9 @@ class Customer < ActiveRecord::Base
 
     extend NavisionRecord
 
-    def self.get_sql
+    def self.get_sql(code)
         return "SELECT *
-                FROM NAVLIVE.dbo.\"Alchemy Agencies Ltd$Customer\"
+                FROM #{self.table('Customer', code)}
                 WHERE No_ NOT LIKE 'ZZ%'"
     end
 

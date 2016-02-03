@@ -5,9 +5,9 @@ class SalesPerson < ActiveRecord::Base
 
     include SqlUtils
 
-    def self.get_sql
+    def self.get_sql(code)
         return "SELECT *
-        FROM NAVLIVE.dbo.\"Alchemy Agencies Ltd$Salesperson_Purchaser\""
+        FROM #{self.table('Salesperson_Purchaser', code)}"
     end
 
 
