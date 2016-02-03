@@ -22,7 +22,7 @@
         <p><strong>Name:</strong> <%= @product.description %></p>
         <p><strong>Description:</strong> <%= @product.new_description %></p>
         <p><strong>Pack size:</strong> <%= @product.description2 %></p>
-        <% if @product.vendor_id != nil %>
+        <% unless @product.vendor.nil? %>
           <p><strong>Vendor:</strong> <%= link_to "#{@product.vendor.vendor_name}", vendor_path(@product.vendor) %></p>
         <% end %>
         <p><strong>Base Unit of Measure:</strong> <%= @product.unit_measure %></p>
@@ -35,69 +35,69 @@
         <h3>Documents</h3>
         <p>
         <strong>SDS Required:</strong> <%= @product.sds_required %>
-        </p>
-        <p>
-        <strong>SDS:</strong>
-        <% unless @product.sds.nil? %>
-          <%= link_to "#{@product.sds}", {:controller => "products", :action => "download_document", :id => @product.id, :document_type => "sds"} %>
-          <%= link_to image_tag('mail.svg', :width => 25, :border => 0), new_email_path(:file => 'sds', :product_id => @product.id) %>
-        <% else %>
-          No SDS file
-        <% end %>
-        </p>
+      </p>
+      <p>
+      <strong>SDS:</strong>
+      <% unless @product.sds.nil? %>
+        <%= link_to "#{@product.sds}", {:controller => "products", :action => "download_document", :id => @product.id, :document_type => "sds"} %>
+        <%= link_to image_tag('mail.svg', :width => 25, :border => 0), new_email_path(:file => 'sds', :product_id => @product.id) %>
+      <% else %>
+        No SDS file
+      <% end %>
+      </p>
 
-        <p>
-        <% if @product.sds_expiry.past? %>
-          <strong style='color: red'>SDS HAS EXPIRED:</strong>
-        <% else %>
-          <strong>SDS expiry:</strong>
-        <% end %>
-        <%= @product.get_sds_expiry_formatted %>
-        </p>
-        <% if params[:edit] == 'true' %>
-          <div class="container">
-            <%= form_for :product, method: :patch, url: product_path(@product.id), html: { :class => 'form-inline' } do |p| %>
-              <%= p.file_field :sds_file, {class: 'form-control'} %>
-              <%= p.submit "Replace SDS", {class: 'btn btn-danger'} %>
-            <% end %>
-          </div>
-        <% end %>
-        </br>
-        <p>
-        <strong>PDS:</strong>
-        <% unless @product.pds.nil? %>
-          <%= link_to "#{@product.pds}", {:controller => "products", :action => "download_document", :id => @product.id, :document_type => "pds"} %>
-        <% else %>
-          No PDS file
-        <% end %>
-        </p>
-        <% if params[:edit] == 'true' %>
-          <div class="container">
-            <%= form_for :product, method: :patch, url: product_path(@product.id), :html => {:class => 'form-inline'} do |p| %>
-              <%= p.file_field :pds_file, {class: 'form-control'} %>
-              <%= p.submit "Replace PDS", {class: 'btn btn-danger'} %>
-            <% end %>
-          </div>
-        <% end %>
-        <p>
-        <strong>Misc files:</strong>
-        </p>
-        <% @misc_files.each do |file| %>
-          <div class="list-group">
-            <% if params[:edit] == 'true' %>
-              <%= link_to 'Delete', {:controller => "products", :action => "remove_document", :document_name => file}, {:class => 'btn btn-danger'} %>
-            <% end %>
-            <%= link_to "#{file}", {:controller => "products", :action => "download_document", :id => @product.id, :document_type => "misc", :document_name => file} %>
-          </div>
-        <% end %>
-        <% if params[:edit] == 'true' %>
-          <div class="container">
-            <%= form_for :product, method: :patch, url: product_path(@product.id), :html => {:class => 'form-inline'} do |p| %>
-              <%= p.file_field :misc_file, {class: 'form-control'} %>
-              <%= p.submit "Add misc file", {class: 'btn btn-danger'} %>
-            <% end %>
-          </div>
-        <% end %>
+      <p>
+      <% if @product.sds_expiry.past? %>
+        <strong style='color: red'>SDS HAS EXPIRED:</strong>
+      <% else %>
+        <strong>SDS expiry:</strong>
+      <% end %>
+      <%= @product.get_sds_expiry_formatted %>
+      </p>
+      <% if params[:edit] == 'true' %>
+        <div class="container">
+          <%= form_for :product, method: :patch, url: product_path(@product.id), html: { :class => 'form-inline' } do |p| %>
+            <%= p.file_field :sds_file, {class: 'form-control'} %>
+            <%= p.submit "Replace SDS", {class: 'btn btn-danger'} %>
+          <% end %>
+        </div>
+      <% end %>
+      </br>
+      <p>
+      <strong>PDS:</strong>
+      <% unless @product.pds.nil? %>
+        <%= link_to "#{@product.pds}", {:controller => "products", :action => "download_document", :id => @product.id, :document_type => "pds"} %>
+      <% else %>
+        No PDS file
+      <% end %>
+      </p>
+      <% if params[:edit] == 'true' %>
+        <div class="container">
+          <%= form_for :product, method: :patch, url: product_path(@product.id), :html => {:class => 'form-inline'} do |p| %>
+            <%= p.file_field :pds_file, {class: 'form-control'} %>
+            <%= p.submit "Replace PDS", {class: 'btn btn-danger'} %>
+          <% end %>
+        </div>
+      <% end %>
+      <p>
+      <strong>Misc files:</strong>
+      </p>
+      <% @misc_files.each do |file| %>
+        <div class="list-group">
+          <% if params[:edit] == 'true' %>
+            <%= link_to 'Delete', {:controller => "products", :action => "remove_document", :document_name => file}, {:class => 'btn btn-danger'} %>
+          <% end %>
+          <%= link_to "#{file}", {:controller => "products", :action => "download_document", :id => @product.id, :document_type => "misc", :document_name => file} %>
+        </div>
+      <% end %>
+      <% if params[:edit] == 'true' %>
+        <div class="container">
+          <%= form_for :product, method: :patch, url: product_path(@product.id), :html => {:class => 'form-inline'} do |p| %>
+            <%= p.file_field :misc_file, {class: 'form-control'} %>
+            <%= p.submit "Add misc file", {class: 'btn btn-danger'} %>
+          <% end %>
+        </div>
+      <% end %>
       </div>
     </div>
   </div>
