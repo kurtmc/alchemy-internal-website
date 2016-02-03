@@ -12,7 +12,5 @@ calculate some values to make comparisons.
 - Customer: add chart (Volume, Sales, Margin)
 - All appropriate charts, add note "Alchemy Calendar/Financial year"
 - Add PIF as standard document type, use the Item type column to see if it is needed
-- Implemented sending documents via email
 - Add button for updating all the tables, admin only
 - Product - Show page: have a next button/buttons based on product manager
-- Add automatic generated passwords for customer logins
