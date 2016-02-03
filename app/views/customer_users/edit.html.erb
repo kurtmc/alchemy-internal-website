@@ -1,9 +1,9 @@
 <div class="container">
   <div class="page-header">
-    <h1>Editing customer_user</h1>
+    <h1>Editing Customer User</h1>
   </div>
 
-  <%= form_for :customer_user, url: customer_user_path(@customer_user), method: :patch, :html => {:class => 'form-inline'} do |f| %>
+  <%= form_for :customer_user, url: customer_user_path(@customer_user), method: :patch, :html => {:class => 'form'} do |f| %>
     <%= f.submit "Update User", {class: 'btn btn-primary'} %>
     <br>
     <br>
@@ -13,7 +13,7 @@
     <%= f.text_field :password, :class => 'form-control' %><br>
     <%= f.label :products %><br>
     <%= f.select(:products, @products.collect {|p| [p.product_id, p.id] },  { :prompt => "Please select", :selected => @customer_user.products.map { |p| p.id }},
-                 { :multiple => true, :size => 20, :class => 'chosen-select' }) %>
+                 { :multiple => true, :size => 20, :class => 'form-control chosen-select' }) %>
   <% end %>
   <br>
   <br>

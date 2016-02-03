@@ -1,17 +1,22 @@
 <div class="container">
   <div class="page-header">
-    <h1>New customer_user</h1>
+    <h1>New Customer User</h1>
   </div>
 
-  <%= form_for :customer_user, :html => {:class => 'form-inline'} do |f| %>
+  <%= form_for :customer_user, :html => {:class => 'form'} do |f| %>
     <%= f.submit "Create User", {class: 'btn btn-primary'} %>
     <br>
     <br>
-    <%= f.label :email %><br>
-    <%= f.text_field :email, :class => 'form-control' %><br>
-    <%= f.label :password %><br>
-    <%= f.text_field :password, :class => 'form-control' %><br>
-    <%= f.label :products %><br>
+    <%= f.label :email %>
+    <br>
+    <%= f.text_field :email, :class => 'form-control' %>
+    <br>
+    <%= f.label :password %>
+    <br>
+    <%= f.text_field :password, :class => 'form-control', :value => @random_password %>
+    <br>
+    <%= f.label :products %>
+    <br>
     <%= f.select(:products, @products.collect {|p| [p.product_id, p.id] }, { :prompt => "Please select"}, { :multiple => true, :size => 20, :class => 'form-control chosen-select' }) %>
   <% end %>
 

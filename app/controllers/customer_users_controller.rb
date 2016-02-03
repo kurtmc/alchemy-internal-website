@@ -2,6 +2,8 @@ class CustomerUsersController < InheritedResources::Base
 
     def new
         @products = Product.all
+        o = [('a'..'z'), ('A'..'Z')].map { |i| i.to_a }.flatten
+        @random_password = (0...12).map { o[rand(o.length)] }.join
     end
 
     def edit

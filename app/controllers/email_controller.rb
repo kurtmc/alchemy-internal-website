@@ -1,19 +1,20 @@
 class EmailController < ApplicationController
 
     def new
-        @product = Product.find(params[:product_id])
+        @to = params[:to]
+        @subject = params[:subject]
+        @attachment_name = params[:attachment_name]
+        @attachment_path = params[:attachment_path]
         render 'new'
     end
 
     def create
-        @product = Product.find(params[:product_id])
         from = current_user.email
         to = params[:email][:to]
         subject = params[:email][:subject]
         body = params[:email][:body]
-        unless params[:product_id].nil?
-            p = @product
-            mail = AlchemyMailer.send_with_attachment(from, to, subject, body, p.sds, p.absolute_documents_path.join(p.sds))
+        unless params[:attachment_name].nil?
+            mail = AlchemyMailer.send_with_attachment(from, to, subject, body, params[:attachment_name], params[:attachment_path])
         else
             mail = AlchemyMailer.send_full_email(from, to, subject, body)
         end

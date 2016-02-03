@@ -41,6 +41,8 @@ class ProductsController < ApplicationController
     def show
         @product = Product.find(params[:id])
         @misc_files = get_misc_files
+        @sds_filename = @product.sds
+        @sds_path = @product.absolute_documents_path.join(@product.sds)
     end
 
     def edit
