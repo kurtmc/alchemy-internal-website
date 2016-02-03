@@ -5,17 +5,16 @@
 
   <%= form_for :customer_user, url: customer_user_path(@customer_user), method: :patch, :html => {:class => 'form-inline'} do |f| %>
     <%= f.label :email %><br>
-    <%= f.text_field :email, :class => 'form-control' %>
-    <br>
+    <%= f.text_field :email, :class => 'form-control' %><br>
     <%= f.label :password %><br>
-    <%= f.text_field :password, :class => 'form-control' %>
-    <br>
+    <%= f.text_field :password, :class => 'form-control' %><br>
     <%= f.label :products %><br>
-    <%= f.select(:products, @products.collect {|p| [p.product_id, p.id] }, { :prompt => "Please select"},
+    <%= f.select(:products, @products.collect {|p| [p.product_id, p.id] },  { :prompt => "Please select", :selected => @customer_user.products.map { |p| p.id }},
                  { :multiple => true, :size => 20, :class => 'form-control' }) %>
-              <%= f.submit "Update User", {class: 'btn btn-primary'} %>
-            <% end %>
-
-            <%= link_to 'Show', @customer_user %> |
-            <%= link_to 'Back', customer_users_path %>
+    <%= f.submit "Update User", {class: 'btn btn-primary'} %>
+  <% end %>
+  <br>
+  <br>
+  <%= link_to 'Show', @customer_user %> |
+  <%= link_to 'Back', customer_users_path %>
 </div>

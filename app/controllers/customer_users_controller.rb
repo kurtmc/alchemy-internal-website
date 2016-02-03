@@ -1,5 +1,9 @@
 class CustomerUsersController < InheritedResources::Base
 
+    def new
+        @products = Product.all
+    end
+
     def edit
         @products = Product.all
         @customer_user = CustomerUser.find(params[:id])
