@@ -35,13 +35,48 @@ class Product < ActiveRecord::Base
         # Hackery so that we can map product_id to direcories in the filesystem
         product.directory = record['No_'].gsub('/',"_") 
 
-        docs = Dir.glob(self.documents_path.join(product.directory, '*'))
+        absolute_path = self.documents_path.join(product.directory)
+
+        docs = Dir.glob(absolute_path.join('*'))
         docs = docs.map { |x| File.basename(x) }
         docs.each { |doc|
             if doc.start_with?('SDS - ')
-                product.sds = doc
+                type = DocumentType.find_by type_code: 'SDS'
+                if type.nil?
+                    type = DocumentType.new
+                    type.type_code = 'SDS'
+                    type.type_description = 'Safety Data Sheet'
+                end
             elsif doc.start_with?('PDS - ')
-                product.pds = doc
+                type = DocumentType.find_by type_code: 'PDS'
+                if type.nil?
+                    type = DocumentType.new
+                    type.type_code = 'PDS'
+                    type.type_description = 'Product Data Sheet'
+                end
+            end
+
+            document = Document.find_by(absolute_directory: absolute_path.to_s, filename: doc.to_s)
+            if document.nil?
+                document = Document.new
+            end
+
+            # Hackery to get SDS expiry dates from Navision
+            if document.document_type.type_code == 'SDS'
+                unless record['SDS Expiry Date'].nil?
+                    if document.expiration.nil? || document.expiration < record['SDS Expiry Date']
+                        document.expiration = record['SDS Expiry Date']
+                    end
+                end
+            end
+
+            document.absolute_directory = absolute_path.to_s
+            document.filename = doc.to_s
+            document.document_type = type
+            document.save
+
+            unless product.documents.include?(document)
+                product.documents << document
             end
         }
 

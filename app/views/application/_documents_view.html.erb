@@ -12,9 +12,8 @@
         <% if document.expiration.nil? %>
           <td>No date</td>
         <% else %>
-          <td><%= I18n.l document.expiration, format: :short %></td>
+          <td><%= I18n.l document.expiration %></td>
         <% end %>
-        
       </tr>
     <% end %>
   </table>
