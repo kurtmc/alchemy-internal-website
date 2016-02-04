@@ -23,38 +23,7 @@ class AgenciesController < ChartController
     end
 
     def set_fields
-        stats = Array.new
-        4.downto(0) { |i|
-            stats << get_stats(Time.now - i.year)
-        }
-
-        data_sets = Array.new
-        ["Sales", "Cost", "Margin"].each { |stat_name|
-            data = Array.new
-            stats.each { |stat|
-                data << stat[stat_name]
-            }
-            data_sets << ChartData.new(stat_name, data)
-        }
-
-        volumes = Array.new
-        data = Array.new
-        stats.each { |stat|
-            data << stat["Volume"]
-        }
-        data_sets << ChartData.new("Volume", data, "hsla(234, 100%, 50%, 0.8)")
-        data_sets[0].colour = '#A1862E'
-        data_sets[1].colour = '#000000'
-        data_sets[2].colour = '#939597'
-        data_sets[3].colour = '#FFCB04'
-
-        labels = Array.new
-        4.downto(0) { |i|
-            labels << Time.now.year - i
-        }
-        labels = "[#{labels.map { |l| "#{l}" }.join(",")}]"
-
-        @sales_html, @sales_js = ChartData.full_html_for(data_sets, 'sales', labels)
+        @sales_html, @sales_js = get_charts
         @image_filename = get_image_path
     end
 
