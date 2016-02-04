@@ -14,8 +14,10 @@
 //= require jquery.turbolinks
 //= require jquery_ujs
 //= require turbolinks
-//= require bootstrap.min
+//= require bootstrap
 //= require Chart
 //= require chart_utils
 //= require navbar
 //= require chosen-jquery
+//= require bootstrap-wysihtml5
+//= require bootstrap-wysihtml5/locales

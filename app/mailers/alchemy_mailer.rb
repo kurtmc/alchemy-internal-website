@@ -6,7 +6,7 @@ class AlchemyMailer < ActionMailer::Base
     end
 
     def send_full_email(from, to, subject, body)
-        mail(from: from, to: to, subject: subject, body: body)
+        mail(from: from, to: to, subject: subject, body: body, content_type:  "text/html")
     end
 
     def send_with_attachment(from, to, subject, body, attachment_name, attachment_path)

@@ -14,7 +14,7 @@
     <%= p.label :subject %>
     <%= p.text_field :subject, :value => @subject, :class => 'form-control' %>
     <%= p.label :body %>
-    <%= p.text_area :body, rows: 10, :class => 'form-control', :value => @body %>
+    <%= p.text_area :body, rows: 10, :class => 'wysihtml5 form-control', :value => @body, as: :wysihtml5  %>
     <br>
     <%= p.submit "Send email", {class: 'btn btn-primary'} %>
   <% end %>

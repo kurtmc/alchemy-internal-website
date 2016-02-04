@@ -38,5 +38,7 @@ module PdfAppender
             openssl_verify_mode: 'none'
         }
 
+        config.assets.paths << "#{Rails}/vendor/assets/fonts"
+
     end
 end
