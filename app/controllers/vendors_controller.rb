@@ -1,4 +1,4 @@
-class VendorsController < ApplicationController
+class VendorsController < ChartController
     def index
         @vendors = Vendor.all.order :vendor_id
     end
@@ -57,85 +57,21 @@ class VendorsController < ApplicationController
 		column = 't."Posting Date"'
 		start_date = SqlUtils.beginning_financial_year(date)
 		end_date = SqlUtils.ending_financial_year(date)
-        where_clause = "WHERE item.\"Vendor No_\" = #{SqlUtils.escape(vendor_id)}"
         sql = "
         SELECT
             SUM(s.Quantity) AS \"Volume\",
             SUM(s.\"Sales Amount (Actual)\") AS \"Sales\",
-            SUM(s.\"Cost Amount (Actual)\") AS \"Cost\"
+            SUM(s.\"Cost Amount (Actual)\") AS \"Cost\" 
+		FROM (
+		SELECT *
         FROM (
-SELECT
-	t.No_,
-    t.\"Item No_\",
-    t.\"Salesperson Code\",
-    t.\"Invoiced Quantity\",
-    t.\"Vendor No_\",
-    t.Quantity,
-    t.\"Sales Amount (Actual)\",
-    t.\"Cost Amount (Actual)\",
-    t.\"Posting Date\"
-FROM
-    (
-        SELECT
-            \"Alchemy Agencies Ltd$Customer\" . No_,
-            \"Alchemy Agencies Ltd$Customer\" . \"Salesperson Code\",
-            \"Alchemy Agencies Ltd$Item\" . Description,
-            \"Alchemy Agencies Ltd$Item Ledger Entry\" . \"Unit of Measure Code\",
-            \"Alchemy Agencies Ltd$Item Ledger Entry\" . \"Entry Type\",
-            \"Alchemy Agencies Ltd$Item Ledger Entry\" . \"External Document No_\",
-            \"Alchemy Agencies Ltd$Item Ledger Entry\" . \"Invoiced Quantity\",
-            \"Alchemy Agencies Ltd$Item Ledger Entry\" . \"Item Category Code\",
-            \"Alchemy Agencies Ltd$Item Ledger Entry\" . \"Product Group Code\",
-            \"Alchemy Agencies Ltd$Item Ledger Entry\" . \"Item No_\",
-            \"Alchemy Agencies Ltd$Item\" . \"Vendor No_\",
-            \"Alchemy Agencies Ltd$Item\" . \"Global Dimension 1 Code\",
-            \"Alchemy Agencies Ltd$Item\" . \"Global Dimension 2 Code\",
-            \"Alchemy Agencies Ltd$Item Ledger Entry\" . \"Location Code\",
-            \"Alchemy Agencies Ltd$Item Ledger Entry\" . \"Document Date\",
-            \"Alchemy Agencies Ltd$Item Ledger Entry\" . \"Posting Date\",
-            \"Alchemy Agencies Ltd$Item Ledger Entry\" . Quantity,
-            \"Alchemy Agencies Ltd$Value Entry\" . \"Item Ledger Entry Quantity\",
-            \"Alchemy Agencies Ltd$Item Ledger Entry\" . \"Source No_\",
-            \"Alchemy Agencies Ltd$Item Ledger Entry\" . \"Source Type\",
-            \"Alchemy Agencies Ltd$Value Entry\" . \"Sales Amount (Actual)\",
-            \"Alchemy Agencies Ltd$Value Entry\" . \"Sales Amount (Expected)\",
-            \"Alchemy Agencies Ltd$Value Entry\" . \"Cost Amount (Actual)\",
-            \"Alchemy Agencies Ltd$Value Entry\" . \"Cost Amount (Expected)\",
-            \"Alchemy Agencies Ltd$Value Entry\" . \"Cost Posted to G_L\",
-            NAVLIVE.dbo.\"Alchemy Agencies Ltd$Default Dimension\" . [Dimension VALUE Code] AS \"Product Dimension\"
-        FROM
-            NAVLIVE.dbo.\"Alchemy Agencies Ltd$Item Ledger Entry\" \"Alchemy Agencies Ltd$Item Ledger Entry\" JOIN NAVLIVE.dbo.\"Alchemy Agencies Ltd$Customer\" \"Alchemy Agencies Ltd$Customer\"
-                ON \"Alchemy Agencies Ltd$Customer\" . No_ = \"Alchemy Agencies Ltd$Item Ledger Entry\" . \"Source No_\" JOIN NAVLIVE.dbo.\"Alchemy Agencies Ltd$Item\" \"Alchemy Agencies Ltd$Item\"
-                ON \"Alchemy Agencies Ltd$Item\" . No_ = \"Alchemy Agencies Ltd$Item Ledger Entry\" . \"Item No_\" JOIN NAVLIVE.dbo.\"Alchemy Agencies Ltd$Value Entry\" \"Alchemy Agencies Ltd$Value Entry\"
-                ON \"Alchemy Agencies Ltd$Item Ledger Entry\" . \"Entry No_\" = \"Alchemy Agencies Ltd$Value Entry\" . \"Item Ledger Entry No_\" LEFT JOIN NAVLIVE.dbo.\"Alchemy Agencies Ltd$Default Dimension\"
-                ON \"Alchemy Agencies Ltd$Default Dimension\" . \"Table ID\" = 27
-            AND \"Alchemy Agencies Ltd$Default Dimension\" . \"No_\" = \"Alchemy Agencies Ltd$Item\" . No_
-            AND \"Alchemy Agencies Ltd$Default Dimension\" . \"Dimension Code\" = 'PRODUCT GROUP'
-        WHERE
-            \"Alchemy Agencies Ltd$Item\" . No_ = \"Alchemy Agencies Ltd$Item Ledger Entry\" . \"Item No_\"
-            AND \"Alchemy Agencies Ltd$Customer\" . No_ = \"Alchemy Agencies Ltd$Item Ledger Entry\" . \"Source No_\"
-            AND \"Alchemy Agencies Ltd$Item Ledger Entry\" . \"Entry No_\" = \"Alchemy Agencies Ltd$Value Entry\" . \"Item Ledger Entry No_\"
-            AND(
-                (
-                    \"Alchemy Agencies Ltd$Item Ledger Entry\" . \"Source Type\" = 1
-                )
-                AND(
-                    \"Alchemy Agencies Ltd$Item Ledger Entry\" . \"Entry Type\" = 1
-                )
-            )
-    ) t
-    WHERE
+			#{main_query}
+		) t
+    	WHERE
         t.\"Vendor No_\" = #{SqlUtils.escape(@vendor.vendor_id)}
         and #{SqlUtils.date_range(column, start_date, end_date)}
-        ) s"
+		) s"
 		records = SqlUtils.execute_sql(sql)
-        puts '========================'
-        puts '========================'
-        puts '========================'
-        puts sql
-        puts '========================'
-        puts '========================'
-        puts '========================'
         result = Hash.new
         result["Volume"] = 0
         result["Sales"] = 0
