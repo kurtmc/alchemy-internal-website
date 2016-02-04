@@ -7,7 +7,7 @@ class VendorsController < ChartController
         @vendor = Vendor.find(params[:id])
         stats = Array.new
         4.downto(0) { |i|
-            stats << get_sales_stats(@vendor.vendor_id, Time.now - i.year, params[:global] == 'true')
+            stats << get_stats(Time.now - i.year)
         }
 
         data_sets = Array.new
@@ -53,38 +53,8 @@ class VendorsController < ChartController
         return nil
     end
 
-    def get_sales_stats(vendor_id, date = nil, global = false)
-		column = 't."Posting Date"'
-		start_date = SqlUtils.beginning_financial_year(date)
-		end_date = SqlUtils.ending_financial_year(date)
-        sql = "
-        SELECT
-            SUM(s.Quantity) AS \"Volume\",
-            SUM(s.\"Sales Amount (Actual)\") AS \"Sales\",
-            SUM(s.\"Cost Amount (Actual)\") AS \"Cost\" 
-		FROM (
-		SELECT *
-        FROM (
-			#{main_query}
-		) t
-    	WHERE
-        t.\"Vendor No_\" = #{SqlUtils.escape(@vendor.vendor_id)}
-        and #{SqlUtils.date_range(column, start_date, end_date)}
-		) s"
-		records = SqlUtils.execute_sql(sql)
-        result = Hash.new
-        result["Volume"] = 0
-        result["Sales"] = 0
-        result["Cost"] = 0
-        records.each { |record|
-            result["Volume"] += record["Volume"].to_f
-            result["Sales"] += record["Sales"].to_f
-            result["Cost"] += record["Cost"].to_f
-        }
-        result["Margin"] = result["Sales"] + result["Cost"]
-        result["Cost"] = -1 * result["Cost"]
-        result["Volume"] = -1 * result["Volume"]
-        return result
+    def where_clause
+        return "t.\"Vendor No_\" = #{SqlUtils.escape(@vendor.vendor_id)}"
     end
 
     def colourize_data_sets!(data_sets)

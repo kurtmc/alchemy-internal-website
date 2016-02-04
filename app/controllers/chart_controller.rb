@@ -55,4 +55,42 @@ WHERE
         )
     )"
     end
+
+    def where_clause
+        raise NotImplementedError.new "where_clause"
+    end
+
+    def get_stats(date = nil)
+        column = 't."Posting Date"'
+        start_date = SqlUtils.beginning_financial_year(date)
+        end_date = SqlUtils.ending_financial_year(date)
+        sql = "
+        SELECT
+            SUM(s.Quantity) AS \"Volume\",
+            SUM(s.\"Sales Amount (Actual)\") AS \"Sales\",
+            SUM(s.\"Cost Amount (Actual)\") AS \"Cost\" 
+		FROM (
+		SELECT *
+        FROM (
+			#{main_query}
+		) t
+    	WHERE
+        #{where_clause}
+        and #{SqlUtils.date_range(column, start_date, end_date)}
+		) s"
+        records = SqlUtils.execute_sql(sql)
+        result = Hash.new
+        result["Volume"] = 0
+        result["Sales"] = 0
+        result["Cost"] = 0
+        records.each { |record|
+            result["Volume"] += record["Volume"].to_f
+            result["Sales"] += record["Sales"].to_f
+            result["Cost"] += record["Cost"].to_f
+        }
+        result["Margin"] = result["Sales"] + result["Cost"]
+        result["Cost"] = -1 * result["Cost"]
+        result["Volume"] = -1 * result["Volume"]
+        return result
+    end
 end
