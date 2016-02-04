@@ -16,3 +16,4 @@ calculate some values to make comparisons.
 - Product - Show page: have a next button/buttons based on product manager
 - MISC files, ability to label misc files with a description from a drop down. You can also add descriptions to the drop down.
 - Put expiries on every document, default the expiry date to 5 years since upload.
+- Edit your own footer for emails.
