@@ -11,6 +11,6 @@ class AlchemyMailer < ActionMailer::Base
 
     def send_with_attachment(from, to, subject, body, attachment_name, attachment_path)
         attachments[attachment_name] = File.read(attachment_path)
-        mail(from: from, to: to, subject: subject, body: body)
+        mail(from: from, to: to, subject: subject, body: body, content_type:  "text/html")
     end
 end
