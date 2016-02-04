@@ -10,6 +10,7 @@ calculate some values to make comparisons.
 - Implement the concept of NZ and AUS records, and the ability to flip between then and combine them
 - All charts show only 5 years
 - Customer: add chart (Volume, Sales, Margin)
+	* Should be easy by extending ChartController
 - All appropriate charts, add note "Alchemy Calendar/Financial year"
 - Add PIF as standard document type, use the Item type column to see if it is needed
 - Add button for updating all the tables, admin only
