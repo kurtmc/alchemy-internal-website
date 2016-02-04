@@ -1,5 +1,5 @@
-class CustomersController < ApplicationController
-    before_filter :authenticate_user!
+class CustomersController < ChartController
+
     def index
         @customers = Customer.all.order :customer_id
     end
@@ -27,6 +27,7 @@ class CustomersController < ApplicationController
             }
         }
         @sales_stats = sales
+        set_fields
     end
 
     def get_sales_stats(id, date = nil)
@@ -62,5 +63,44 @@ GROUP BY
             end
 		}
         return records
+    end
+
+    def where_clause
+        return "t.No_ = #{SqlUtils.escape(@customer.customer_id)}"
+    end
+
+    def set_fields
+        stats = Array.new
+        4.downto(0) { |i|
+            stats << get_stats(Time.now - i.year)
+        }
+
+        data_sets = Array.new
+        ["Sales", "Cost", "Margin"].each { |stat_name|
+            data = Array.new
+            stats.each { |stat|
+                data << stat[stat_name]
+            }
+            data_sets << ChartData.new(stat_name, data)
+        }
+
+        volumes = Array.new
+        data = Array.new
+        stats.each { |stat|
+            data << stat["Volume"]
+        }
+        data_sets << ChartData.new("Volume", data, "hsla(234, 100%, 50%, 0.8)")
+        data_sets[0].colour = '#A1862E'
+        data_sets[1].colour = '#000000'
+        data_sets[2].colour = '#939597'
+        data_sets[3].colour = '#FFCB04'
+
+        labels = Array.new
+        4.downto(0) { |i|
+            labels << Time.now.year - i
+        }
+        labels = "[#{labels.map { |l| "#{l}" }.join(",")}]"
+
+        @sales_html, @sales_js = ChartData.full_html_for(data_sets, 'sales', labels)
     end
 end
