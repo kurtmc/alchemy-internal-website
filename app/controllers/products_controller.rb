@@ -114,6 +114,12 @@ class ProductsController < ApplicationController
         render 'show'
     end
 
+    def download_file
+        filename = params[:filename]
+        path = Pathname.new(params[:path])
+        send_file(path.join(filename), filename: filename, :disposition => 'inline')
+    end
+
     def download_document
         prod = Product.find(params[:id])
         type = params[:document_type]
