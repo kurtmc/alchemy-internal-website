@@ -14,6 +14,7 @@ calculate some values to make comparisons.
 - Add PIF as standard document type, use the Item type column to see if it is needed
 - Add button for updating all the tables, admin only
 - Product - Show page: have a next button/buttons based on product manager
+	* Product manager field has now been added to item in navision
 - MISC files, ability to label misc files with a description from a drop down. You can also add descriptions to the drop down.
 - Put expiries on every document, default the expiry date to 5 years since upload. Add ability to create new document types
 - Finish off rich text emailing. Added footer for each user and ability to modify it.
