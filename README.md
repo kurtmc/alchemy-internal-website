@@ -9,10 +9,12 @@ providing useful features to the Alchemy staff.
 	* Tool for translating CRM reports into vendor specific
 	  requirements
 - Products:
+	* Sales, Cost, Margin and Volume chart for the last 5 years
 	* Summerised view of individual products
 	* Allows uploading and downloading of documents associated with
 	  product
 - Customers:
+	* Sales, Cost, Margin and Volume chart for the last 5 years
 	* Summerised view of customers
 	* Includes customer credit information
 	* Lists product sell prices per customer
