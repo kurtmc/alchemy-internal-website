@@ -1,5 +1,5 @@
-class CustomersController < ApplicationController
-    before_filter :authenticate_user!
+class CustomersController < ChartController
+
     def index
         @customers = Customer.all.order :customer_id
     end
@@ -27,6 +27,7 @@ class CustomersController < ApplicationController
             }
         }
         @sales_stats = sales
+        set_fields
     end
 
     def get_sales_stats(id, date = nil)
@@ -62,5 +63,13 @@ GROUP BY
             end
 		}
         return records
+    end
+
+    def where_clause
+        return "t.No_ = #{SqlUtils.escape(@customer.customer_id)}"
+    end
+
+    def set_fields
+        @sales_html, @sales_js = get_charts
     end
 end

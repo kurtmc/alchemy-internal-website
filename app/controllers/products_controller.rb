@@ -2,7 +2,7 @@ require 'rubygems'
 require 'csv'
 require 'uri'
 require 'fileutils'
-class ProductsController < ApplicationController
+class ProductsController < ChartController
     before_filter :authenticate_user!
 
     @@document_types = ['sds', 'pds']
@@ -45,6 +45,12 @@ class ProductsController < ApplicationController
             @sds_filename = @product.sds
             @sds_path = @product.absolute_documents_path.join(@product.sds)
         end
+
+        @sales_html, @sales_js = get_charts
+    end
+
+    def where_clause
+        return "t.\"Item No_\" = #{SqlUtils.escape(@product.product_id)}"
     end
 
     def edit
