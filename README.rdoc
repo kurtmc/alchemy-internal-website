@@ -15,6 +15,8 @@ bundle install
 
 * System dependencies
 pdflatex
+poppler-utils
+texlive-latex
 
 * Configuration
 You will need a non-public repository called alchemy-info-tables for many of the features to work, the reason this repository is not public is because it contains many documents that are not easy to obtain, making them public would allow compeditors to use them to their advantage.

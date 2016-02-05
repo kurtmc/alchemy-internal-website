@@ -21,3 +21,4 @@ calculate some values to make comparisons.
 - Finish off rich text emailing. Added footer for each user and ability to modify it.
 - Look in notes.txt and fix up agencies charts.
 - Public facing website, button colours, different colour depending on type of document.
+- Add monthly to sales charts
