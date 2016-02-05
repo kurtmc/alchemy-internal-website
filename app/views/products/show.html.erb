@@ -44,4 +44,9 @@
 
   <%= render :partial => "edit_button" %>
   <%= link_to 'Products', products_path, {class: 'btn btn-primary'}  %>
+
+  <%= raw(@sales_html) %>
+  <script>
+<%= raw(@sales_js) %>
+  </script>
 </div>
