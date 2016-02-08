@@ -22,3 +22,5 @@ calculate some values to make comparisons.
 - Look in notes.txt and fix up agencies charts.
 - Public facing website, button colours, different colour depending on type of document.
 - Add monthly to sales charts
+- Add a 'blackboard' to the main page, any user can edit (maybe 3 way merge
+  instead of locking?)
