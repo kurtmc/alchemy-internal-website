@@ -19,3 +19,4 @@
 //= require chart_utils
 //= require navbar
 //= require chosen-jquery
+//= require jquery_nested_form

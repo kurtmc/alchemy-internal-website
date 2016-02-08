@@ -52,3 +52,4 @@ gem 'devise'
 
 gem 'whenever', :require => false
 gem 'chosen-rails'
+gem 'nested_form'

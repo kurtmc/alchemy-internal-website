@@ -19,25 +19,17 @@
   </table>
 </div>
 
-<%= form_for @product do |f|%>
-  <% f.object.documents.each do |document| %>
-    <%= f.fields_for document do |document_form| %>
-      <%= document_form.label :document, "Replace: #{document.document_type.type_description}" %>
-      <%= document_form.file_field :file %>
-      <%= document_form.label :expiration %>
-      <%= document_form.date_field :expiration %>
-    <% end %>
+<%= nested_form_for @product do |f| %>
+  <%= f.fields_for :documents do |document_form| %>
+    <% document = document_form.object %>
+    <% selected = document.document_type.nil? ? nil : document.document_type.id %>
+    <% label = document.filename.nil? ? 'New Document' : document.filename %>
+    <%= document_form.label :document_label, label %>
+    <%= document_form.collection_select :document_type, DocumentType.order(:type_code),:id,:type_description, include_blank: false, :selected => selected %>
+    <%= document_form.file_field :file %>
+    <%= document_form.label :expiration %>
+    <%= document_form.date_field :expiration %>
   <% end %>
+  <p><%= f.link_to_add "Add a document", :documents %></p>
   <%= f.submit 'Update documents' %>
-<% end %>
-
-<br><br>
-
-<%= form_for :product_document do |f|%>
-  <%= f.collection_select :documents, DocumentType.order(:type_code),:id,:type_description, include_blank: false %>
-  <%= f.label :file %>
-  <%= f.file_field :file %>
-  <%= f.label :expiration %>
-  <%= f.date_field :expiration %>
-  <%= f.submit 'Add new document' %>
 <% end %>

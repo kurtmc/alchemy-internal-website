@@ -46,7 +46,12 @@ class ProductsController < ChartController
             @sds_path = @product.absolute_documents_path.join(@product.sds)
         end
 
-        @sales_html, @sales_js = get_charts
+        begin
+            @sales_html, @sales_js = get_charts
+        rescue => ex
+            puts 'Could not load charts, this should never appear in production logs'
+            puts ex.message
+        end
     end
 
     def where_clause
@@ -92,6 +97,9 @@ class ProductsController < ChartController
     end
 
     def update
+        puts '======================================'
+        puts params.inspect
+        puts '======================================'
         @product = Product.find(params[:id])
 
 

@@ -4,6 +4,7 @@ class Product < ActiveRecord::Base
     has_and_belongs_to_many :customer_users
     belongs_to :vendor
     has_many :documents
+    accepts_nested_attributes_for :documents, :allow_destroy => true
 
     extend NavisionRecord
 
