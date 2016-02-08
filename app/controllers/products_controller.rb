@@ -96,10 +96,19 @@ class ProductsController < ChartController
         @product.save
     end
 
+    def update_documents
+        params[:product][:documents_attributes].each { |d|
+            puts d.inspect
+            doc_data = d[1]
+            if doc_data.include? 'id'
+                puts 'Yes there is an ID'
+            else
+                puts 'No there is no ID, we need to create a new one'
+            end
+        }
+    end
+
     def update
-        puts '======================================'
-        puts params.inspect
-        puts '======================================'
         @product = Product.find(params[:id])
 
 
@@ -124,6 +133,8 @@ class ProductsController < ChartController
         end
 
         @misc_files = get_misc_files
+
+        update_documents
 
         render 'show'
     end
