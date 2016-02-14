@@ -83,7 +83,7 @@ def index
         old_filename = @product[field.downcase]
 
         unless new_filename.start_with?(start)
-            @product.errors.add("#{field}_filename", "\"#{new_filename}\" does not begin with \"#{start}\"")
+            @product.errors.add("filename_error", "\"#{new_filename}\" does not begin with \"#{start}\"")
             return
         end
 
@@ -125,8 +125,13 @@ def index
             # Now upload the file
             unless doc_data[:file].nil?
                 uploaded_io = doc_data[:file]
-                upload_file(uploaded_io)
                 filename = uploaded_io.original_filename
+                start = "#{document.document_type.type_code} - "
+                unless filename.start_with?(start)
+                    @product.errors.add("filename_error", "\"#{filename}\" does not begin with \"#{start}\"")
+                    next
+                end
+                upload_file(uploaded_io)
                 path = @@info_path.join(@product.directory)
                 document.filename = filename.to_s
                 document.absolute_directory = path.to_s
