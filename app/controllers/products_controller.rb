@@ -7,8 +7,7 @@ class ProductsController < ChartController
 
     @@document_types = ['sds', 'pds']
     @@info_path = Rails.root.join('alchemy-info-tables', 'res', 'Product_Information')
-
-    def index
+def index
         @products = Product.all.order :product_id
     end
 
@@ -57,6 +56,21 @@ class ProductsController < ChartController
         @misc_files = get_misc_files
     end
 
+    def upload_file(uploaded_io)
+        new_filename = uploaded_io.original_filename
+
+        product_documents_path = @product.absolute_documents_path
+        FileUtils.mkdir_p product_documents_path
+
+        # Write new file
+        write_uploaded_file(product_documents_path, uploaded_io)
+
+        cmd = 'cd alchemy-info-tables; '
+        cmd += 'git add . 2>&1; '
+        cmd += 'git commit -m "Data Sheet Update" 2>&1'
+        `#{cmd}`
+    end
+
     def handle_upload(uploaded_io, file_type)
         unless @@document_types.include? file_type.downcase
             return
@@ -92,12 +106,34 @@ class ProductsController < ChartController
 
     def update_documents
         params[:product][:documents_attributes].each { |d|
-            puts d.inspect
             doc_data = d[1]
+
+            # If there is an id, it already exists
             if doc_data.include? 'id'
-                puts 'Yes there is an ID'
+                document = Document.find(doc_data[:id])
             else
-                puts 'No there is no ID, we need to create a new one'
+                document = Document.new
+            end
+            
+            # Update expiration, product and type
+            unless doc_data[:expiration].blank?
+                document.expiration = doc_data[:expiration]
+            end
+            document.product = @product
+            document.document_type = DocumentType.find(doc_data[:document_type])
+
+            # Now upload the file
+            unless doc_data[:file].nil?
+                uploaded_io = doc_data[:file]
+                upload_file(uploaded_io)
+                filename = uploaded_io.original_filename
+                path = @@info_path.join(@product.directory)
+                document.filename = filename.to_s
+                document.absolute_directory = path.to_s
+            end
+
+            if document.changed?
+                document.save
             end
         }
     end
