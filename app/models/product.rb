@@ -47,6 +47,7 @@ class Product < ActiveRecord::Base
                     type = DocumentType.new
                     type.type_code = 'SDS'
                     type.type_description = 'Safety Data Sheet'
+                    type.save
                 end
             elsif doc.start_with?('PDS - ')
                 type = DocumentType.find_by type_code: 'PDS'
@@ -54,6 +55,7 @@ class Product < ActiveRecord::Base
                     type = DocumentType.new
                     type.type_code = 'PDS'
                     type.type_description = 'Product Data Sheet'
+                    type.save
                 end
             end
 
@@ -61,6 +63,8 @@ class Product < ActiveRecord::Base
             if document.nil?
                 document = Document.new
             end
+
+            document.document_type = type
 
             # Hackery to get SDS expiry dates from Navision
             if document.document_type.type_code == 'SDS'
@@ -73,7 +77,6 @@ class Product < ActiveRecord::Base
 
             document.absolute_directory = absolute_path.to_s
             document.filename = doc.to_s
-            document.document_type = type
             document.save
 
             unless product.documents.include?(document)
