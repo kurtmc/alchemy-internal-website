@@ -9,13 +9,7 @@ class ProductsController < ChartController
     @@info_path = Rails.root.join('alchemy-info-tables', 'res', 'Product_Information')
 
     def index
-        # This is how to handle different request types
         @products = Product.all.order :product_id
-        respond_to do |format|
-            format.html # index.html.erb
-            format.xml  { render xml: @products}
-            format.json { render json: @products}
-        end
     end
 
     def get_misc_files
