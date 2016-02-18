@@ -3,15 +3,17 @@
 \usepackage{graphicx}
 \usepackage{color}
 \usepackage{array}
+\usepackage{tabu}
+\usepackage{helvet}
  
 \begin{document}
+\renewcommand{\familydefault}{\sfdefault}
+\sffamily
 \pagenumbering{gobble}
 \begin{center}
 	\includegraphics[height=%%SCALE%%\textheight]{%%FILENAME%%}
 \end{center}
-\textcolor[RGB]{162,135,47}{
-\noindent\makebox[\linewidth]{\rule{0.9\paperwidth}{0.3cm}}
-}
+
 \newcolumntype{V}{>{\centering\arraybackslash} m{.15\linewidth} }
 {\tiny
 \begin{center}
@@ -21,13 +23,15 @@
 
 &
 
-\begin{tabular}{l l l l l}
-\textbf{Alchemy Agencies Ltd} & & \textbf{Alchemy Agencies Pty Ltd} & \\
-Level 2/20 Centre Street & T: +64 9 377 0613             & Level 15, Eclipse Tower  & T: +61 2 8896 6161 \\
-Freemans Bay             & F: +64 9 377 0670             & 50 Station Street       & F: +61 2 8896 6165 \\
-Auckland 1010            & E: info@alchemyagencies.co.nz & Parramatta NSW 2150     & E: info@alchemyagencies.com \\
-New Zealand              & www.alchemyagencies.co.nz     & Australia               & www.alchemyagencies.com \\
-\end{tabular} \\
+\definecolor{orange}{RGB}{147,149,152}
+\taburulecolor |gray!50|{orange}
+\color{orange}
+\begin{tabu}{|[3pt] l l |[3pt] l l |[3pt]}
+Level 2/20 Centre Street & \textbf{T} +64 9 377 0613 & Level 15, Eclipse Tower & \textbf{T}  +61 2 8896 6161 \\
+Freemans Bay & \textbf{F}  +64 9 377 0670 & 60 Station Street & \textbf{F} +61 2 8896 6165 \\
+Auckland 1010 & \textbf{E} info@alchemyagencies.co.nz & Parramatta, NSW 2150 & \textbf{E} info@alchemyagencies.com \\
+New Zealand & www.alchemyagencies.co.nz & Australia & www.alchemyagencies.com \\
+\end{tabu} \\
 \end{tabular}
 \end{center}
 }
