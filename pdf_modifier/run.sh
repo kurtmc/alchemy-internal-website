@@ -57,6 +57,10 @@ mkdir -p $OUTPUT_DIR
 
 cp "$FILENAME" "$TMP_DIR/"
 
+# Remove encryption if possible
+qpdf --decrypt "$TMP_DIR/$BASENAME" "$TMP_DIR/decrypt.pdf"
+mv "$TMP_DIR/decrypt.pdf" "$TMP_DIR/$BASENAME"
+
 pdfseparate "$TMP_DIR/$BASENAME" "$TMP_DIR/tmp_%05d.pdf"
 
 
