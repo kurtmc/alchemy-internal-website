@@ -7,15 +7,8 @@ class ProductsController < ChartController
 
     @@document_types = ['sds', 'pds']
     @@info_path = Rails.root.join('alchemy-info-tables', 'res', 'Product_Information')
-
-    def index
-        # This is how to handle different request types
+def index
         @products = Product.all.order :product_id
-        respond_to do |format|
-            format.html # index.html.erb
-            format.xml  { render xml: @products}
-            format.json { render json: @products}
-        end
     end
 
     def get_misc_files
@@ -41,12 +34,13 @@ class ProductsController < ChartController
     def show
         @product = Product.find(params[:id])
         @misc_files = get_misc_files
-        unless @product.sds.nil?
-            @sds_filename = @product.sds
-            @sds_path = @product.absolute_documents_path.join(@product.sds)
-        end
 
-        @sales_html, @sales_js = get_charts
+        begin
+            @sales_html, @sales_js = get_charts
+        rescue => ex
+            puts 'Could not load charts, this should never appear in production logs'
+            puts ex.message
+        end
     end
 
     def where_clause
@@ -56,6 +50,21 @@ class ProductsController < ChartController
     def edit
         @product = Product.find(params[:id])
         @misc_files = get_misc_files
+    end
+
+    def upload_file(uploaded_io)
+        new_filename = uploaded_io.original_filename
+
+        product_documents_path = @product.absolute_documents_path
+        FileUtils.mkdir_p product_documents_path
+
+        # Write new file
+        write_uploaded_file(product_documents_path, uploaded_io)
+
+        cmd = 'cd alchemy-info-tables; '
+        cmd += 'git add . 2>&1; '
+        cmd += 'git commit -m "Data Sheet Update" 2>&1'
+        `#{cmd}`
     end
 
     def handle_upload(uploaded_io, file_type)
@@ -70,7 +79,7 @@ class ProductsController < ChartController
         old_filename = @product[field.downcase]
 
         unless new_filename.start_with?(start)
-            @product.errors.add("#{field}_filename", "\"#{new_filename}\" does not begin with \"#{start}\"")
+            @product.errors.add("filename_error", "\"#{new_filename}\" does not begin with \"#{start}\"")
             return
         end
 
@@ -89,6 +98,45 @@ class ProductsController < ChartController
 
         @product[field.downcase] = new_filename
         @product.save
+    end
+
+    def update_documents
+        params[:product][:documents_attributes].each { |d|
+            doc_data = d[1]
+
+            # If there is an id, it already exists
+            if doc_data.include? 'id'
+                document = Document.find(doc_data[:id])
+            else
+                document = Document.new
+            end
+            
+            # Update expiration, product and type
+            unless doc_data[:expiration].blank?
+                document.expiration = doc_data[:expiration]
+            end
+            document.product = @product
+            document.document_type = DocumentType.find(doc_data[:document_type])
+
+            # Now upload the file
+            unless doc_data[:file].nil?
+                uploaded_io = doc_data[:file]
+                filename = uploaded_io.original_filename
+                start = "#{document.document_type.type_code} - "
+                unless filename.start_with?(start)
+                    @product.errors.add("filename_error", "\"#{filename}\" does not begin with \"#{start}\"")
+                    next
+                end
+                upload_file(uploaded_io)
+                path = @@info_path.join(@product.directory)
+                document.filename = filename.to_s
+                document.absolute_directory = path.to_s
+            end
+
+            if document.changed?
+                document.save
+            end
+        }
     end
 
     def update
@@ -117,7 +165,15 @@ class ProductsController < ChartController
 
         @misc_files = get_misc_files
 
+        update_documents
+
         render 'show'
+    end
+
+    def download_file
+        filename = params[:filename]
+        path = Pathname.new(params[:path])
+        send_file(path.join(filename), filename: filename, :disposition => 'inline')
     end
 
     def download_document

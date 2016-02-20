@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160203011039) do
+ActiveRecord::Schema.define(version: 20160217051410) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -69,6 +69,26 @@ ActiveRecord::Schema.define(version: 20160203011039) do
 
   add_index "customers", ["sales_person_id"], name: "index_customers_on_sales_person_id"
 
+  create_table "document_types", force: true do |t|
+    t.string   "type_code"
+    t.string   "type_description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "documents", force: true do |t|
+    t.integer  "document_type_id"
+    t.string   "absolute_directory"
+    t.string   "filename"
+    t.date     "expiration"
+    t.integer  "product_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "documents", ["document_type_id"], name: "index_documents_on_document_type_id"
+  add_index "documents", ["product_id"], name: "index_documents_on_product_id"
+
   create_table "navision_records", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -98,8 +118,6 @@ ActiveRecord::Schema.define(version: 20160203011039) do
   create_table "products", force: true do |t|
     t.string   "product_id"
     t.string   "directory"
-    t.string   "sds"
-    t.string   "pds"
     t.integer  "vendor_id",               limit: 255
     t.string   "description"
     t.string   "description2"
@@ -114,9 +132,11 @@ ActiveRecord::Schema.define(version: 20160203011039) do
     t.boolean  "sds_required"
     t.string   "new_description"
     t.integer  "customer_user_id"
+    t.integer  "document_id"
   end
 
   add_index "products", ["customer_user_id"], name: "index_products_on_customer_user_id"
+  add_index "products", ["document_id"], name: "index_products_on_document_id"
 
   create_table "sales_people", force: true do |t|
     t.string   "salesperson_code"

@@ -21,3 +21,4 @@
 //= require chosen-jquery
 //= require bootstrap-wysihtml5
 //= require bootstrap-wysihtml5/locales
+//= require jquery_nested_form

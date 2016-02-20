@@ -3,35 +3,49 @@
 \usepackage{graphicx}
 \usepackage{color}
 \usepackage{array}
+\usepackage{tabu}
+\usepackage{helvet}
  
 \begin{document}
+\renewcommand{\familydefault}{\sfdefault}
+\sffamily
 \pagenumbering{gobble}
 
+
+% Basically used as a spacer
 \textcolor[RGB]{162,135,47}{
-\noindent\makebox[\linewidth]{\rule{0.9\paperwidth}{0.01cm}}
+\noindent\makebox[\linewidth]{\rule{0.9\paperwidth}{0cm}}
 }
+
 \newcolumntype{V}{>{\centering\arraybackslash} m{.15\linewidth} }
-{\tiny
+{\scriptsize
 \begin{center}
 \begin{tabular}{V l}
 \def\svgwidth{3cm}
 \input{logo.pdf_tex}
+www.alchemyagencies.co.nz
 
 &
 
-\begin{tabular}{l l l l l}
-\textbf{Alchemy Agencies Ltd} & & \textbf{EMERGENCY} & \\
-	Level 2/20 Centre Street & +64 9 377 0613 & 24 HOUR EMERGENCY   & 0800 734 607 \\
-	Freemans Bay             & www.alchemyagencies.co.nz & RESPONSE TELEPHONE (lxom) &  \\
-Auckland 1010            &  & NATIONAL POISONS CENTRE & 0800 POISON (0800 764 766) \\
-New Zealand              &      & EMAIL & safety@alchemyagencies.co.nz \\
-\end{tabular} \\
+\definecolor{orange}{RGB}{147,149,152}
+\taburulecolor |gray!50|{orange}
+\color{orange}
+\begin{tabu}{|[3pt] l l |[3pt] l l |[3pt]}
+	Level 2/20 Centre Street              & \textbf{NEW ZEALAND EMERGENCY}
+	& Level 15, Eclipse Tower & \textbf{AUSTRALIA EMERGENCY} \\
+Freemans Bay                          & 24 hr Emergency Response
+& 60 Station Street & 24 hr Emergency Response \\
+Auckland 1010                         & 0800 734 607
+& Parramatta, NSW 2150 & 1800 033 111 \\
+New Zealand                           &
+Australia & & \\
+\textbf{T} +64 9 377 0613             & National Poisons
+& \textbf{T} +61 2 8896 6161 & Poisons Information Australia \\
+\textbf{E} info@alchemyagencies.co.nz & 0800 POISON (0800 764 766)
+& \textbf{E}  info@alchemyagencies.com & 13 11 26 \\
+\end{tabu} \\
 \end{tabular}
 \end{center}
-}
-
-\textcolor[RGB]{162,135,47}{
-\noindent\makebox[\linewidth]{\rule{0.9\paperwidth}{0.01cm}}
 }
 
 \begin{center}

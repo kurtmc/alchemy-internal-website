@@ -1,0 +1,20 @@
+<div class="table-responsive">
+  <table class="order-table table">
+    <thead>
+      <th>Type</th>
+      <th>Filename</th>
+      <th>Expiration Date</th>
+    </thead>
+    <% @product.documents.each do |document| %>
+      <tr>
+        <td><%= document.document_type.type_description %></td>
+        <td><%= link_to "#{document.filename}", {:controller => "products", :action => "download_file", :id => @product.id, :filename => document.filename, :path => document.absolute_directory} %></td>
+        <% if document.expiration.nil? %>
+          <td>No date</td>
+        <% else %>
+          <td><%= I18n.l document.expiration %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+</div>

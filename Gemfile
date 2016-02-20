@@ -53,3 +53,4 @@ gem 'devise'
 gem 'whenever', :require => false
 gem 'chosen-rails'
 gem 'bootstrap-wysihtml5-rails'
+gem 'nested_form'
