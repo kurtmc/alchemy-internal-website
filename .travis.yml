@@ -1,11 +1,8 @@
 language: ruby
 rvm:
         - 2.1.7
-before_install:
-        - gem update --system
-        - gem --version
-        - cp database.yml.example config/database.yml
 
 before_install:
-        - gem update --system 2.1.11
+        - cp database.yml.example config/database.yml
+        - gem update --system
         - gem --version
