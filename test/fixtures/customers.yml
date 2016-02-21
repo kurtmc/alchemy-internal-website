@@ -10,7 +10,7 @@ one:
   last_31_to_60: 9.99
   last_31_90: 9.99
   last_90_plus: 9.99
-  salesperson_id: 
+  sales_person_id:
 
 two:
   customer_id: MyString
@@ -22,4 +22,4 @@ two:
   last_31_to_60: 9.99
   last_31_90: 9.99
   last_90_plus: 9.99
-  salesperson_id: 
+  sales_person_id:

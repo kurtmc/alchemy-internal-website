@@ -43,6 +43,10 @@ password: #{@customer_user.password}"
         @customer_user.email = params[:customer_user][:email]
         @customer_user.password = params[:customer_user][:password]
         @customer_user.products.delete_all
+        if params[:customer_user][:products].nil?
+            @customer_user.save
+            return
+        end
         params[:customer_user][:products].each { |p|
             unless p == ''
                 product = Product.find(p)
