@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/kurtmc/alchemy-internal-website.svg?branch=master)](https://travis-ci.org/kurtmc/alchemy-internal-website)
 Alchemy Internal Website
 ========================
 This project integrates with Alchemy's Microsoft Dynamics NAV database
