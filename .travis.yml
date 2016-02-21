@@ -4,5 +4,6 @@ rvm:
 
 before_install:
         - cp database.yml.example config/database.yml
+        - cp secrets.yml.example config/secrets.yml
         - gem update --system
         - gem --version
