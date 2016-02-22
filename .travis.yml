@@ -1,0 +1,9 @@
+language: ruby
+rvm:
+        - 2.1.7
+
+before_install:
+        - cp database.yml.example config/database.yml
+        - cp secrets.yml.example config/secrets.yml
+        - gem update --system
+        - gem --version

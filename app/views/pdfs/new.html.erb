@@ -1,11 +1,11 @@
 <div class="container theme-showcase" role="main">
     <div class="page-header">
-        <h1>Append footer to pdf</h1>
+        <h1>Add Alchemy header to PDF</h1>
     </div>
 
     <%= form_for :pdf, url: pdfs_path, :html => {:class => 'form-inline'} do |p| %>
         <%= p.file_field :pdf_files, :multiple => true, :class => 'form-control' %>
-        <%= p.submit "Append footer to PDF", {class: 'btn btn-primary'} %>
+        <%= p.submit "Submit", {class: 'btn btn-primary'} %>
         <br>
         Landscape? <%= p.check_box :landscape %>
     <% end %>

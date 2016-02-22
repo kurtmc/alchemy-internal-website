@@ -1,3 +1,5 @@
 class Navision < ActiveRecord::Base
-    establish_connection "navision"
+    unless Rails.env.test?
+        establish_connection "navision"
+    end
 end

@@ -1,7 +1,7 @@
 class SdsController < PdfModifyController
 
     def get_template
-        return 'header.tex'
+        return 'sds.tex'
     end
 
 end

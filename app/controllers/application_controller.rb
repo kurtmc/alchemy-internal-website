@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
-    before_filter :authenticate_user!
-    before_filter :authenticate_web_user!
+    unless Rails.env.test?
+        before_filter :authenticate_user!
+        before_filter :authenticate_web_user!
+    end
     # Prevent CSRF attacks by raising an exception.
     # For APIs, you may want to use :null_session instead.
     protect_from_forgery with: :exception
@@ -44,5 +46,12 @@ class ApplicationController < ActionController::Base
         SalesPerson.delete_all
         Customer.delete_all
         Agency.delete_all
+    end
+
+    def index
+        @is_admin = false
+        unless Rails.env.test?
+            @is_admin = current_user.admin
+        end
     end
 end

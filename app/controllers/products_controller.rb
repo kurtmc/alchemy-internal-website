@@ -3,7 +3,6 @@ require 'csv'
 require 'uri'
 require 'fileutils'
 class ProductsController < ChartController
-    before_filter :authenticate_user!
 
     @@document_types = ['sds', 'pds']
     @@info_path = Rails.root.join('alchemy-info-tables', 'res', 'Product_Information')

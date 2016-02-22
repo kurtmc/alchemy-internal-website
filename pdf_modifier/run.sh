@@ -1,17 +1,18 @@
 #!/bin/bash
+source "$( cd "${BASH_SOURCE[0]%/*}" && pwd )/bash-oo-framework/lib/oo-bootstrap.sh"
+import util/exception
 
 # Script to add a header or a footer to a PDF file
 # execute this script as follows:
-# $ ./run.sh "my document.pdf" -l -t header.tex
+# $ ./run.sh -l -t sds.tex "my document.pdf"
 # or
-# $ ./run.sh "my document.pdf" -t footer.tex
+# $ ./run.sh -t pds.tex "my document.pdf"
 
 # A POSIX variable
 OPTIND=1 # Reset in case getopts has been used previously in the shell.
 
 # Initialize our own variables:
 LANDSCAPE=0
-TEMPLATE="header.tex"
 
 while getopts "lt:" opt; do
 	case "$opt" in
@@ -63,14 +64,20 @@ mv "$TMP_DIR/decrypt.pdf" "$TMP_DIR/$BASENAME"
 
 pdfseparate "$TMP_DIR/$BASENAME" "$TMP_DIR/tmp_%05d.pdf"
 
-
-FIRST=$(ls $TMP_DIR | grep tmp_ | head -1)
-FIRST=$(echo $TMP_DIR/$FIRST | sed -e 's/[\/&]/\\&/g')
-
-cat $TEMPLATE | sed "s/%%FILENAME%%/$FIRST/" | sed "s/%%LANDSCAPE%%/$LANDSCAPE/" | sed "s/%%SCALE%%/$SCALE/" | pdflatex &>/dev/null && rm texput.log texput.aux
-
 rm "$TMP_DIR/$BASENAME"
-mv texput.pdf $TMP_DIR/tmp_00001.pdf
+
+for f in "$TMP_DIR/"*; do
+	cat header.tex |
+	sed "s/%%FILENAME%%/$(echo $f | sed -e 's/[\/&]/\\&/g')/" |
+	sed "s/%%LANDSCAPE%%/$LANDSCAPE/" |
+	sed "s/%%SCALE%%/$SCALE/" |
+	sed "s/%%TEMPLATE%%/$TEMPLATE/" |
+	pdflatex &>/dev/null && rm texput.log texput.aux
+	# Pipe output to /dev/null and delete .log and .aux
+
+	rm "$f"
+	mv texput.pdf "$f"
+done
 
 pdfunite $TMP_DIR/tmp_* "$TMP_DIR/$BASENAME.new"
 

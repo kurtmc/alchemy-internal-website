@@ -15,7 +15,10 @@ class AgenciesController < ChartController
         }
         @products = @products.sort_by {|p| p.product_id}
 
-        set_fields
+        
+        unless Rails.env.test?
+            set_fields
+        end
     end
 
     def where_clause

@@ -1,0 +1,3 @@
+[submodule "pdf_modifier/bash-oo-framework"]
+	path = pdf_modifier/bash-oo-framework
+	url = https://github.com/niieani/bash-oo-framework.git
