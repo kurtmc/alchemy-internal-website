@@ -1,7 +1,7 @@
 class PdfsController < PdfModifyController
 
     def get_template
-        return 'footer.tex'
+        return 'pds.tex'
     end
 
 end
