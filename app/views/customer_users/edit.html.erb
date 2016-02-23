@@ -11,6 +11,9 @@
     <%= f.text_field :email, :class => 'form-control' %><br>
     <%= f.label :password %><br>
     <%= f.text_field :password, :class => 'form-control' %><br>
+    <%= check_box_tag :all_products %>
+    <%= label_tag :all_products %>
+    <br>
     <%= f.label :products %><br>
     <%= f.select(:products, @products.collect {|p| [p.product_id, p.id] },  { :prompt => "Please select", :selected => @customer_user.products.map { |p| p.id }},
                  { :multiple => true, :size => 20, :class => 'form-control chosen-select' }) %>

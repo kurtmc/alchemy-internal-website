@@ -43,6 +43,11 @@ password: #{@customer_user.password}"
         @customer_user.email = params[:customer_user][:email]
         @customer_user.password = params[:customer_user][:password]
         @customer_user.products.delete_all
+        if params[:all_products] == '1'
+            @customer_user.products = Product.all
+            @customer_user.save
+            return
+        end
         if params[:customer_user][:products].nil?
             @customer_user.save
             return

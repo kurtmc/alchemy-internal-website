@@ -15,6 +15,9 @@
     <br>
     <%= f.text_field :password, :class => 'form-control', :value => @random_password %>
     <br>
+    <%= check_box_tag :all_products %>
+    <%= label_tag :all_products %>
+    <br>
     <%= f.label :products %>
     <br>
     <%= f.select(:products, @products.collect {|p| [p.product_id, p.id] }, { :prompt => "Please select"}, { :multiple => true, :size => 20, :class => 'form-control chosen-select' }) %>
