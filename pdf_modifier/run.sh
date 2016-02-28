@@ -1,6 +1,7 @@
 #!/bin/bash
 source "$( cd "${BASH_SOURCE[0]%/*}" && pwd )/bash-oo-framework/lib/oo-bootstrap.sh"
 import util/exception
+import util/tryCatch
 
 # Script to add a header or a footer to a PDF file
 # execute this script as follows:
@@ -59,8 +60,13 @@ mkdir -p $OUTPUT_DIR
 cp "$FILENAME" "$TMP_DIR/"
 
 # Remove encryption if possible
-qpdf --decrypt "$TMP_DIR/$BASENAME" "$TMP_DIR/decrypt.pdf"
-mv "$TMP_DIR/decrypt.pdf" "$TMP_DIR/$BASENAME"
+try {
+	qpdf --decrypt "$TMP_DIR/$BASENAME" "$TMP_DIR/decrypt.pdf"
+	mv "$TMP_DIR/decrypt.pdf" "$TMP_DIR/$BASENAME"
+} catch {
+	echo "Decrypt failed, moving on..."
+	rm -f "$TMP_DIR/decrypt.pdf"
+}
 
 pdfseparate "$TMP_DIR/$BASENAME" "$TMP_DIR/tmp_%05d.pdf"
 
