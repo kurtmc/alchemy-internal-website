@@ -8,7 +8,7 @@ git submodule update --init --recursive
 sudo cp systemd-services/pdf-files.service /etc/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl enable pdf-files.service
-sudo sysetmctl restart pdf-files.service
+sudo systemctl restart pdf-files.service
 
 # Rails
 rvm use ruby-2.1.7
