@@ -1,13 +1,12 @@
 #!/bin/bash
+
+SRC=/var/www/alchemy/alchemy-webservice/alchemy-info-tables/res/Product_Information/
+DST=alchemy@223.165.64.86:/var/www/html/current/content/uploads/pdf_folders
+
 function onchange {
 	EVENTS="CREATE,CLOSE_WRITE,DELETE,MODIFY,MOVED_FROM,MOVED_TO"
 
-	if [ -z "$1" ]; then
-		echo "Usage: $0 cmd ..."
-		exit -1;
-	fi
-
-	inotifywait -e "$EVENTS" -m -r --format '%:e %f' . | (
+	inotifywait -e "$EVENTS" -m -r --format '%:e %f' /var/www/alchemy/alchemy-webservice/alchemy-info-tables/res/Product_Information | (
 	WAITING="";
 	while true; do
 		LINE="";
@@ -23,13 +22,10 @@ function onchange {
 	done) | (
 	while true; do
 		read TMP;
-		echo $@
-		$@
+		echo su - alchemy -c "/usr/bin/rsync -azP --delete $SRC $DST"
+		su - alchemy -c "/usr/bin/rsync -azP --delete $SRC $DST"
 	done
 	)
 }
 
-SRC=/var/www/alchemy/alchemy-webservice/alchemy-info-tables/res/Product_Information/
-DST=alchemy@223.165.64.86:/var/www/html/current/content/uploads/pdf_folders
-
-onchange rsync -azP --delete $SRC $DST
+onchange 
