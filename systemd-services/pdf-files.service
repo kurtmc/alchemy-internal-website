@@ -1,0 +1,8 @@
+[Unit]
+Description=Watch for changes to pdf files and push to external website
+
+[Service]
+ExecStart=/home/kurt/workspace/alchemy/alchemy-webservice/scriptscontinuous-rsync.sh
+
+[Install]
+WantedBy=basic.target
