@@ -26,7 +26,9 @@ class AgenciesController < ChartController
     end
 
     def set_fields
-        @sales_html, @sales_js = get_charts
+        unless Rails.env.development?
+            @sales_html, @sales_js = get_charts
+        end
         @image_filename = get_image_path
     end
 
@@ -51,6 +53,7 @@ class AgenciesController < ChartController
     end
 
     def update
+        @agency = Agency.find(params[:id])
         set_fields
 
         unless params[:agency_logo]['logo_file'].nil?

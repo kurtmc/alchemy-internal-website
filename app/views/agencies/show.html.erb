@@ -18,7 +18,7 @@
   <%= image_tag("logo.svg", :alt => "Alchemy Logo", width: 300, :class => "pull-right") %>
   <% if params[:edit] == 'true' %>
     <div class="container">
-      <%= form_for :agency_logo, method: :patch, url: agency_path(@agency.agency_id), html: { :class => 'form-inline' } do |p| %>
+      <%= form_for :agency_logo, method: :patch, url: agency_path(@agency.id), html: { :class => 'form-inline' } do |p| %>
         <%= p.file_field :logo_file, {class: 'form-control'} %>
         <%= p.submit "Replace Logo", {class: 'btn btn-danger'} %>
       <% end %>
@@ -33,6 +33,8 @@
 <%= raw(@sales_js) %>
   </script>
   <div class="container">
+    <% unless Rails.env.development? %>
     <%= render :partial => "product_list", :locals => {:products => @products, :show_expired_only => false} %>
+  <% end %>
   </div>
 </div>
