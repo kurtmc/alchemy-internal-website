@@ -38,6 +38,7 @@ class VendorsController < ChartController
     end
 
     def handle_upload(uploaded_io)
+        @vendor = Vendor.find(params[:id])
         original = uploaded_io.original_filename
         new_filename = "#{@vendor.vendor_id}#{File.extname(original)}"
 

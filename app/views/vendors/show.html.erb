@@ -12,7 +12,7 @@
   <%= image_tag("logo.svg", :alt => "Alchemy Logo", width: 300, :class => "pull-right") %>
   <% if params[:edit] == 'true' %>
     <div class="container">
-      <%= form_for :vendor_logo, method: :patch, url: vendor_path(@vendor.vendor_id), html: { :class => 'form-inline' } do |p| %>
+      <%= form_for :vendor_logo, method: :patch, url: vendor_path(@vendor.id), html: { :class => 'form-inline' } do |p| %>
         <%= p.file_field :logo_file, {class: 'form-control'} %>
         <%= p.submit "Replace Logo", {class: 'btn btn-danger'} %>
       <% end %>
