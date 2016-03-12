@@ -1,13 +1,21 @@
 <div class="container theme-showcase" role="main">
-    <div class="page-header">
-        <%= image_tag("logo.svg", :alt => "Company Logo", width: 300) %>
+  <div class="page-header">
+    <%= image_tag("logo.svg", :alt => "Company Logo", width: 300) %>
+  </div>
+  <div class="container img-responsive center-block">
+    <div style="position: relative;">
+      <%= image_tag("blackboard1.jpg", :alt => "Notice Board", width: '100%', :class => "img-responsive center-block") %>
+      <div style="background: none repeat scroll 0 0 #00FFFFFF; opacity: 0.9; top:0; left:0; position: absolute;">
+
+        <!-- Notice board content goes here -->
+        <%= @notice.content %>
+
+      </div>
     </div>
-    <div class="list-group">
-        <%= link_to 'Tools', tools_path, {:class => 'list-group-item'} %>
-        <%= link_to 'Products', products_path, {:class => 'list-group-item'} %>
-        <%= link_to 'Customers', customers_path, {:class => 'list-group-item'} %>
-        <%= link_to 'Agencies', agencies_path, {:class => 'list-group-item'} %>
-        <%= link_to 'Manage Customer Logins', customer_users_path, {:class => 'list-group-item'} %>
-        <%= link_to 'Sales', sales_path, {:class => 'list-group-item'} %>
-    </div>
+    <%= form_for :notice_board, :url => welcome_index_path, :html => {:class => 'form'} do |p| %>
+      <%= p.text_area :body, rows: 10, :class => 'wysihtml5 form-control', :value => @body, as: :wysihtml5  %>
+      <br>
+      <%= p.submit "Update", {class: 'btn btn-primary'} %>
+    <% end %>
+  </div>
 </div>

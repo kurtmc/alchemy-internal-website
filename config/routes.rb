@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   devise_for :users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   get 'welcome/index'
+  post 'welcome/index' => 'welcome#update'
 
   resources :pdfs, :ashland, :sds
   resources :products, :constraints => { :id => /[0-9A-Za-z\-\.\%_\s\:\+<&\(\)]+/ }
