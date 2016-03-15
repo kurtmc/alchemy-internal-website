@@ -13,3 +13,4 @@ controllers = Dir[Rails.root.join('app/controllers/*_controller.rb')].map { |pat
 controllers.each { |controller|
     Rails.application.config.assets.precompile += ["#{controller}.js.coffee", "#{controller}.js", "#{controller}.css", "#{controller}.scss"]
 }
+Rails.application.config.assets.precompile << /\.(?:svg|eot|woff|ttf)\z/
