@@ -2,7 +2,9 @@
   <div class="page-header">
     <%= image_tag("logo.svg", :alt => "Company Logo", width: 300) %>
   </div>
-  <%= render :partial => "edit_button" %>
+  <% if is_admin %>
+    <%= render :partial => "edit_button" %>
+  <% end %>
   <% if params[:edit] == 'true' %>
     <%= form_for :notice_board, :url => welcome_index_path, :html => {:class => 'form'} do |p| %>
       <%= p.text_area :body, rows: 10, :class => 'wysihtml5 form-control', :value => @notice.content, as: :wysihtml5  %>
