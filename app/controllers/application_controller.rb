@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
     # For APIs, you may want to use :null_session instead.
     protect_from_forgery with: :exception
 
+    helper_method :is_admin
+
     # restrict access to admin module for non-admin users
     def authenticate_admin_user!
         if current_user.nil?
@@ -49,9 +51,20 @@ class ApplicationController < ActionController::Base
     end
 
     def index
-        @is_admin = false
-        unless Rails.env.test?
-            @is_admin = current_user.admin
+        puts 'INDEX on application ==================================='
+        puts 'INDEX on application ==================================='
+        puts 'INDEX on application ==================================='
+        puts 'INDEX on application ==================================='
+    end
+
+    def is_admin
+        if current_user.nil?
+            return false
         end
+        admin = false
+        unless Rails.env.test?
+            admin = current_user.admin
+        end
+        return admin
     end
 end
