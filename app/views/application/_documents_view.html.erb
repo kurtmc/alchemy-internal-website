@@ -4,6 +4,7 @@
       <th>Type</th>
       <th>Filename</th>
       <th>Expiration Date</th>
+	<th></th>
     </thead>
     <% @product.documents.each do |document| %>
       <tr>
@@ -14,6 +15,9 @@
         <% else %>
           <td><%= I18n.l document.expiration %></td>
         <% end %>
+	<td>
+	<%= link_to image_tag('mail.svg', :width => 25, :border => 0), new_email_path(:attachment_name => document.filename, :attachment_path => "#{document.absolute_directory}/#{document.filename}") %>
+	</td>
       </tr>
     <% end %>
   </table>
