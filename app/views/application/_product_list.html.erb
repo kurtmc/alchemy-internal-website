@@ -10,15 +10,17 @@
       <% end %>
     </thead>
 
-    <% products.each do |product| %>
-      <% if product.sds_expiry.past? || show_expired_only == false %>
-        <tr>
-          <td><%= link_to "#{product.product_id}", product_path(product.id) %></td>
-          <td><%= product.description %></td>
-          <% if show_expired_only %>
-            <td><%= product.get_sds_expiry_formatted %></td>
-          <% end %>
-        </tr>
+    <% unless products.nil? %>
+      <% products.each do |product| %>
+        <% if product.sds_expiry.past? || show_expired_only == false %>
+          <tr>
+            <td><%= link_to "#{product.product_id}", product_path(product.id) %></td>
+            <td><%= product.description %></td>
+            <% if show_expired_only %>
+              <td><%= product.get_sds_expiry_formatted %></td>
+            <% end %>
+          </tr>
+        <% end %>
       <% end %>
     <% end %>
   </table>
