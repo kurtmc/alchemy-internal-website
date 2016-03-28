@@ -11,15 +11,20 @@ class Product < ActiveRecord::Base
     include SqlUtils
 
     def vendor_image
+        if self.vendor.nil?
+            return nil
+        end
+
         images = Dir.glob(Rails.root.join('public', 'images', "#{self.vendor.vendor_id}.*"))
         if images.length > 0
             return File.basename(images[0])
         end
+
         return nil
     end
 
     def attributes
-        super.merge({'vendor_image' => vendor_image})
+        super.merge({'vendor_image' => self.vendor_image})
     end
 
     def self.documents_path
