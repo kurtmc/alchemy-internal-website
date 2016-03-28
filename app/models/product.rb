@@ -10,6 +10,18 @@ class Product < ActiveRecord::Base
 
     include SqlUtils
 
+    def vendor_image
+        images = Dir.glob(Rails.root.join('public', 'images', "#{self.vendor.vendor_id}.*"))
+        if images.length > 0
+            return File.basename(images[0])
+        end
+        return nil
+    end
+
+    def attributes
+        super.merge({'vendor_image' => vendor_image})
+    end
+
     def self.documents_path
         return Rails.root.join('alchemy-info-tables', 'res', 'Product_Information')
     end
