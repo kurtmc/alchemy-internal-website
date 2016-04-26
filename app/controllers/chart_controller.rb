@@ -2,6 +2,7 @@ class ChartController < ApplicationController
 
     include NavisionRecord
 
+    # This query is from some table special Excel thing that Alchemy uses
     def main_query
         return "SELECT
     customer . No_,
