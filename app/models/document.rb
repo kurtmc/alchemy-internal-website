@@ -19,8 +19,14 @@ class Document < ActiveRecord::Base
         if self.absolute_path.blank?
             return
         end
+
         # Remove file
-        FileUtils.rm(self.absolute_path)
+        begin
+            FileUtils.rm(self.absolute_path)
+        rescue
+            puts "Failed to delete file"
+            return
+        end
         
         # Commit
         cmd = 'cd alchemy-info-tables; '
