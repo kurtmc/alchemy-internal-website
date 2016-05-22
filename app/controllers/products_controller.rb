@@ -124,6 +124,7 @@ def index
                 start = "#{document.document_type.type_code} - "
                 unless filename.start_with?(start)
                     @product.errors.add("filename_error", "\"#{filename}\" does not begin with \"#{start}\"")
+            return
                     next
                 end
                 upload_file(uploaded_io)
@@ -194,10 +195,16 @@ def index
 
     def remove_document
         @product = Product.find(params[:id])
-        name = params[:document_name]
-        FileUtils.rm_f(@@info_path.join(@product.directory, name))
-        @misc_files = get_misc_files
-        render 'show'
+        begin   
+            doc = Document.find(params[:document_id])
+        rescue
+            render action: 'show'
+            return
+        end
+        doc.delete_file
+        doc.destroy
+        @product.save
+        render action: 'show'
     end
 
     private
