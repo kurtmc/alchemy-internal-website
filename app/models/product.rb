@@ -57,24 +57,23 @@ class Product < ActiveRecord::Base
 
         docs = Dir.glob(absolute_path.join('*'))
         docs = docs.map { |x| File.basename(x) }
+
+        doc_types = []
+        DocumentType.all.each { |doc_type|
+            doc_types.push(doc_type.type_code)
+        }
+
         docs.each { |doc|
-            if doc.start_with?('SDS - ')
-                type = DocumentType.find_by type_code: 'SDS'
-                if type.nil?
-                    type = DocumentType.new
-                    type.type_code = 'SDS'
-                    type.type_description = 'Safety Data Sheet'
-                    type.save
+            doc_types.each { |doc_type|
+                if doc.start_with("#{doc_type} - ")
+                    if type.nil?
+                        type = DocumentType.new
+                        type.type_code = doc_type
+                        type.type_description = DocumentType.find_by(:type_code => doc_type).type_description
+                        type.save
+                    end
                 end
-            elsif doc.start_with?('PDS - ')
-                type = DocumentType.find_by type_code: 'PDS'
-                if type.nil?
-                    type = DocumentType.new
-                    type.type_code = 'PDS'
-                    type.type_description = 'Product Data Sheet'
-                    type.save
-                end
-            end
+            }
 
             document = Document.find_by(absolute_directory: absolute_path.to_s, filename: doc.to_s)
             if document.nil?

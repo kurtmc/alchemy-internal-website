@@ -32,5 +32,3 @@ vendor/bundle
 
 # Ignore changes to the documents
 alchemy-info-tables
-
-Gemfile.lock

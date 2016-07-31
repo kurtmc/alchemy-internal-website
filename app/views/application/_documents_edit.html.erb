@@ -4,6 +4,7 @@
       <th>Type</th>
       <th>Filename</th>
       <th>Expiration Date</th>
+      <th>Delete</th>
     </thead>
     <% @product.documents.each do |document| %>
       <tr>
@@ -14,6 +15,8 @@
         <% else %>
           <td><%= I18n.l document.expiration %></td>
         <% end %>
+        <td><%= link_to "X", {:controller => :products, :action => :remove_document, :id => @product.id, :document_id => document.id} %></td>
+
       </tr>
     <% end %>
   </table>
