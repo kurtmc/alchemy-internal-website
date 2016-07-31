@@ -64,14 +64,12 @@ class Product < ActiveRecord::Base
         }
 
         docs.each { |doc|
+
+            # Get document type
             doc_types.each { |doc_type|
                 if doc.start_with?("#{doc_type} - ")
-                    if type.nil?
-                        type = DocumentType.new
-                        type.type_code = doc_type
-                        type.type_description = DocumentType.find_by(:type_code => doc_type).type_description
-                        type.save
-                    end
+                    type = DocumentType.find_by type_code: doc_type
+                    break
                 end
             }
 
