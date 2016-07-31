@@ -66,6 +66,7 @@ class Product < ActiveRecord::Base
         docs.each { |doc|
 
             # Get document type
+            type = nil
             doc_types.each { |doc_type|
                 if doc.start_with?("#{doc_type} - ")
                     type = DocumentType.find_by type_code: doc_type
