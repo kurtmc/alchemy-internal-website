@@ -58,13 +58,14 @@ class ApplicationController < ActionController::Base
     end
 
     def is_admin
+        if Rails.env.test?
+            return false
+        end
+
         if current_user.nil?
             return false
         end
-        admin = false
-        unless Rails.env.test?
-            admin = current_user.admin
-        end
-        return admin
+
+        return current_user.admin
     end
 end
