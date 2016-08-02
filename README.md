@@ -28,3 +28,25 @@ providing useful features to the Alchemy staff.
 - Sales:
 	* Overall company sales over the years chart
 	* Comparison of individual sales people charts	
+
+Development environment
+=======================
+
+### Build
+```
+docker build -t alchemy-internal-docker .
+```
+
+### Run
+First time only:
+```
+docker run -v $(pwd):/var/alchemy -i -t alchemy-internal-docker /var/alchemy/initialise-database-dev.sh
+```
+To start web app:
+```
+docker run --net=host -v $(pwd):/var/alchemy -i -t alchemy-internal-docker /var/alchemy/start.sh
+```
+
+### Login
+username: admin@example.com
+password: password
