@@ -44,7 +44,11 @@ docker run -v $(pwd):/var/alchemy -i -t alchemy-internal-docker /var/alchemy/ini
 ```
 To start web app:
 ```
-docker run --net=host -v $(pwd):/var/alchemy -i -t alchemy-internal-docker /var/alchemy/start.sh
+docker run --name alchemy-internal -p 3000:3000 -v $(pwd):/var/alchemy -i -t alchemy-internal-docker /var/alchemy/start.sh
+```
+To get into the console:
+```
+docker exec -i -t alchemy-internal /bin/bash -c "source /usr/local/rvm/scripts/rvm; cd /var/alchemy; bundle exec rails c development"
 ```
 
 ### Login
