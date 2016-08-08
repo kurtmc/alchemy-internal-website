@@ -40,6 +40,8 @@ password: #{@customer_user.password}"
     end
 
     def update_fields
+        @customer_user.name = params[:customer_user][:name]
+        @customer_user.company_name = params[:customer_user][:company_name]
         @customer_user.email = params[:customer_user][:email]
         @customer_user.password = params[:customer_user][:password]
         @customer_user.products.delete_all

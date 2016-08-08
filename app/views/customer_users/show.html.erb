@@ -3,6 +3,16 @@
   <p> Send credentials to customer <%= link_to image_tag('mail.svg', :width => 25, :border => 0), new_email_path(:to => @customer_user.email, :subject => 'Credentials for Alchemy Agencies Website', :body => @body) %></p>
 
   <p>
+  <strong>Name:</strong>
+  <%= @customer_user.name %>
+  </p>
+
+  <p>
+  <strong>Company:</strong>
+  <%= @customer_user.company_name %>
+  </p>
+
+  <p>
   <strong>Email:</strong>
   <%= @customer_user.email %>
   </p>

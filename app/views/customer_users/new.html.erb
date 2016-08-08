@@ -7,6 +7,14 @@
     <%= f.submit "Create User", {class: 'btn btn-primary'} %>
     <br>
     <br>
+    <%= f.label :name %>
+    <br>
+    <%= f.text_field :name, :class => 'form-control' %>
+    <br>
+    <%= f.label :company_name %>
+    <br>
+    <%= f.text_field :company_name, :class => 'form-control' %>
+    <br>
     <%= f.label :email %>
     <br>
     <%= f.text_field :email, :class => 'form-control' %>
