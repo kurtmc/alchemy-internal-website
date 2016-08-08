@@ -32,3 +32,6 @@ vendor/bundle
 
 # Ignore changes to the documents
 alchemy-info-tables
+
+# Database backups
+db_backups

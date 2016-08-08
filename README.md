@@ -60,7 +60,11 @@ API endpoints
 Here are some examples of using the endpoints with curl. You need to have a user
 in the database that has the api_user field set to true
 ```
+# Get list of products, customer users or vendors:
 curl -H 'Content-Type: application/json' -H 'Accept: application/json' -X GET -d '{"user":{"email":"api@user.com","password":"password"}}' http://localhost:3000/api/products
 curl -H 'Content-Type: application/json' -H 'Accept: application/json' -X GET -d '{"user":{"email":"api@user.com","password":"password"}}' http://localhost:3000/api/customer_users
 curl -H 'Content-Type: application/json' -H 'Accept: application/json' -X GET -d '{"user":{"email":"api@user.com","password":"password"}}' http://localhost:3000/api/vendors
+
+# Change customer user password:
+curl -H 'Content-Type: application/json' -H 'Accept: application/json' -X PUT -d '{"user":{"email":"api@user.com","password":"password"}, "password": "new_password"}' http://localhost:3000/api/customer_users/2
 ```
