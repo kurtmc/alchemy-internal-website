@@ -54,3 +54,13 @@ docker exec -i -t alchemy-internal /bin/bash -c "source /usr/local/rvm/scripts/r
 ### Login
 username: admin@example.com
 password: password
+
+API endpoints
+=============
+Here are some examples of using the endpoints with curl. You need to have a user
+in the database that has the api_user field set to true
+```
+curl -H 'Content-Type: application/json' -H 'Accept: application/json' -X GET -d '{"user":{"email":"api@user.com","password":"password"}}' http://localhost:3000/api/products
+curl -H 'Content-Type: application/json' -H 'Accept: application/json' -X GET -d '{"user":{"email":"api@user.com","password":"password"}}' http://localhost:3000/api/customer_users
+curl -H 'Content-Type: application/json' -H 'Accept: application/json' -X GET -d '{"user":{"email":"api@user.com","password":"password"}}' http://localhost:3000/api/vendors
+```
