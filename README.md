@@ -44,9 +44,23 @@ docker run -v $(pwd):/var/alchemy -i -t alchemy-internal-docker /var/alchemy/ini
 ```
 To start web app:
 ```
-docker run --net=host -v $(pwd):/var/alchemy -i -t alchemy-internal-docker /var/alchemy/start.sh
+docker run --name alchemy-internal -p 3000:3000 -v $(pwd):/var/alchemy -i -t alchemy-internal-docker /var/alchemy/start.sh
+```
+To get into the console:
+```
+docker exec -i -t alchemy-internal /bin/bash -c "source /usr/local/rvm/scripts/rvm; cd /var/alchemy; bundle exec rails c development"
 ```
 
 ### Login
 username: admin@example.com
 password: password
+
+API endpoints
+=============
+Here are some examples of using the endpoints with curl. You need to have a user
+in the database that has the api_user field set to true
+```
+curl -H 'Content-Type: application/json' -H 'Accept: application/json' -X GET -d '{"user":{"email":"api@user.com","password":"password"}}' http://localhost:3000/api/products
+curl -H 'Content-Type: application/json' -H 'Accept: application/json' -X GET -d '{"user":{"email":"api@user.com","password":"password"}}' http://localhost:3000/api/customer_users
+curl -H 'Content-Type: application/json' -H 'Accept: application/json' -X GET -d '{"user":{"email":"api@user.com","password":"password"}}' http://localhost:3000/api/vendors
+```
