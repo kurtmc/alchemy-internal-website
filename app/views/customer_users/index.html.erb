@@ -7,6 +7,8 @@
   <table class="order-table table">
   <thead>
     <tr>
+      <th>Name</th>
+      <th>Company</th>
       <th>Email</th>
       <th colspan="3"></th>
     </tr>
@@ -15,6 +17,8 @@
   <tbody>
     <% @customer_users.each do |customer_user| %>
       <tr>
+        <td><%= customer_user.name %></td>
+        <td><%= customer_user.company_name%></td>
         <td><%= customer_user.email %></td>
         <td><%= link_to 'Show', customer_user %></td>
         <td><%= link_to 'Edit', edit_customer_user_path(customer_user) %></td>
