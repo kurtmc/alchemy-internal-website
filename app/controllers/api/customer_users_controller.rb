@@ -11,6 +11,17 @@ class Api::CustomerUsersController < Api::ApiController
 
     def show
         @customer_user = CustomerUser.find(params[:id])
+
+        respond_to do |format|
+            format.json {
+                render :json => @customer_user
+            }
+        end
+    end
+
+    def get_by_email
+        @customer_user = CustomerUser.find_by email: params[:email]
+
         respond_to do |format|
             format.json {
                 render :json => @customer_user

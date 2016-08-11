@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   namespace :api do
     resources :products
     resources :vendors
+    get 'customer_users/email' => 'customer_users#get_by_email'
     resources :customer_users
   end
 
