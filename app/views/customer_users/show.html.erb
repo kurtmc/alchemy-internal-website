@@ -1,6 +1,6 @@
 <div class="container">
   <p id="notice"><%= notice %></p>
-  <p> Send credentials to customer <%= link_to image_tag('mail.svg', :width => 25, :border => 0), new_email_path(:to => @customer_user.email, :subject => 'Credentials for Alchemy Agencies Website', :body => @body) %></p>
+  <p align="right"> Send credentials to customer <%= link_to image_tag('mail.svg', :width => 25, :border => 0), new_email_path(:to => @customer_user.email, :subject => 'Credentials for Alchemy Agencies Website', :body => @body) %></p>
 
   <p>
   <strong>Name:</strong>
@@ -22,6 +22,15 @@
   <%= @customer_user.password %>
   </p>
 
+  <p>
+  <strong>Terms of Use:</strong>  
+  <% if @customer_user.terms_of_use %>
+      Accepted
+  <% else %>
+      Not accepted
+  <% end %>
+  </p>
+  <br>
   <div class="container">
     <%= render :partial => "product_list", :locals => {:products => @customer_user.products, :show_expired_only => params[:expired_sds] == 'true'} %>
   </div>
