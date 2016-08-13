@@ -91,11 +91,6 @@ ActiveRecord::Schema.define(version: 20160807062512) do
   add_index "documents", ["document_type_id"], name: "index_documents_on_document_type_id"
   add_index "documents", ["product_id"], name: "index_documents_on_product_id"
 
-  create_table "navision_records", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "navisions", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
