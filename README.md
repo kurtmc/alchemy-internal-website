@@ -32,6 +32,10 @@ providing useful features to the Alchemy staff.
 Development environment
 =======================
 
+### Initial setup
+Copy secrets.yml.example and database.yml.example to config/secrets.yml and
+config/database.yml
+
 ### Build
 ```
 docker build -t alchemy-internal-docker .
