@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   resources :sales
   resources :change_password
   resources :email
+  resources :config_table
   namespace :api do
     resources :products
     resources :vendors

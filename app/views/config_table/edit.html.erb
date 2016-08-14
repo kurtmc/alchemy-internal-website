@@ -1,0 +1,14 @@
+<div class="container">
+    <div class="page-header">
+      <h1>Update configuration for <%= @key_value.key %></h1>
+      <br>
+      <%= form_for :config_table, url: config_table_path(@key_value), method: :patch, :html => {:class => 'form'} do |f| %>
+      <%= f.text_area :value, :class => 'form-control, large_text_area', :value => (@key_value.value || '') %> 
+      <br>
+      <br>
+      <%= f.submit "Update", {class: 'btn btn-primary'} %>
+      <%= link_to "Cancel", :back, {:class=>"btn btn-default"} %>
+      <% end %>
+
+    </div>
+</div>
