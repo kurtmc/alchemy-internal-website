@@ -1,5 +1,6 @@
 <div class="container">
     <div class="page-header">
+    <% if is_admin %>
       <h1>Update configuration for <%= @key_value.key %></h1>
       <br>
       <%= form_for :config_table, url: config_table_path(@key_value), method: :patch, :html => {:class => 'form'} do |f| %>
@@ -9,6 +10,12 @@
       <%= f.submit "Update", {class: 'btn btn-primary'} %>
       <%= link_to "Cancel", :back, {:class=>"btn btn-default"} %>
       <% end %>
-
+    <% else %>
+    <div class="alert alert-danger" role="alert">
+      <strong>These are administrator settings only!</strong>
+    </div>
+    <br>
+    <br>
+    <% end %>
     </div>
 </div>

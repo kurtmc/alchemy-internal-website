@@ -1,8 +1,8 @@
 <div class="container">
+<% if is_admin %>
     <div class="page-header">
       <h1>Listing Configuration Values</h1>
     </div>
-
 
 <div class="table-responsive">
   <table class="order-table table">
@@ -23,7 +23,13 @@
   </tbody>
 </table>
 </div>
-
+<% else %>
+<div class="alert alert-danger" role="alert">
+  <strong>These are administrator settings only!</strong>
+</div>
+<br>
+<br>
+<% end %>
 <%= @hostname %>
 
 </div>
