@@ -1,0 +1,35 @@
+<div class="container">
+<% if is_admin %>
+    <div class="page-header">
+      <h1>Listing Configuration Values</h1>
+    </div>
+
+<div class="table-responsive">
+  <table class="order-table table">
+  <thead>
+    <tr>
+      <th>Configuration</th>
+      <th colspan="1"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @key_values.each do |key_value| %>
+      <tr>
+        <td><%= key_value.key %></td>
+        <td><%= link_to 'Edit', edit_config_table_path(key_value) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+<% else %>
+<div class="alert alert-danger" role="alert">
+  <strong>These are administrator settings only!</strong>
+</div>
+<br>
+<br>
+<% end %>
+<%= @hostname %>
+
+</div>

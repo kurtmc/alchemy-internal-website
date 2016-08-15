@@ -43,6 +43,7 @@
             <ul class="dropdown-menu">
               <% if is_admin %>
                 <li><%= link_to 'Admin', admin_users_path %></li>
+                <li><%= link_to 'Configuration', '/config_table/'%></li>
               <% end %>
               <li><%= link_to 'Change password', controller: "change_password", action: "index" %></li>
               <% unless is_admin %>
