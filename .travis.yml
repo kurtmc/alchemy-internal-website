@@ -7,3 +7,5 @@ before_install:
         - cp secrets.yml.example config/secrets.yml
         - gem update --system
         - gem --version
+        - bundle install
+        - rake db:schema:load RAILS_ENV=test
