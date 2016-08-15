@@ -31,12 +31,13 @@ class Api::CustomerUsersController < Api::ApiController
 
     def update
         @customer_user = CustomerUser.find(params[:id])
-        unless params[:terms_of_use].blank?
-            if ActiveRecord::ConnectionAdapters::Column.value_to_boolean(params[:terms_of_use]) 
-                @customer_user.terms_of_use = ActiveRecord::ConnectionAdapters::Column.value_to_boolean(params[:terms_of_use]) 
-                @customer_user.save
-            end
+        
+        terms = ActiveRecord::ConnectionAdapters::Column.value_to_boolean(params[:terms_of_use])
+        if terms
+            @customer_user.terms_of_use = ActiveRecord::ConnectionAdapters::Column.value_to_boolean(params[:terms_of_use]) 
+            @customer_user.save
         end
+
         unless params[:password].blank?
             @customer_user.password = params[:password]
             @customer_user.save
