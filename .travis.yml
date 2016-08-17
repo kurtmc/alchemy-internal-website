@@ -8,5 +8,5 @@ before_install:
         - gem update --system
         - gem --version
 before_script:
-        - rake db:schema:load RAILS_ENV=test
-        - rake db:migrate RAILS_ENV=test
+        - bundle exec rake db:schema:load RAILS_ENV=test
+        - bundle exec rake db:migrate RAILS_ENV=test
