@@ -59,6 +59,19 @@ mkdir -p $OUTPUT_DIR
 
 cp "$FILENAME" "$TMP_DIR/"
 
+# Attempt to repair pdf
+try {
+	gs \
+	-o "$TMP_DIR/repaired.pdf" \
+	-sDEVICE=pdfwrite \
+	-dPDFSETTINGS=/prepress \
+	"$TMP_DIR/$BASENAME"
+	mv "$TMP_DIR/repaired.pdf" "$TMP_DIR/$BASENAME"
+} catch {
+	echo "Repair failed, moving on..."
+	rm -f "$TMP_DIR/repaired.pdf"
+}
+
 # Remove encryption if possible
 try {
 	qpdf --decrypt "$TMP_DIR/$BASENAME" "$TMP_DIR/decrypt.pdf"
