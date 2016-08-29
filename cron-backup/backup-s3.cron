@@ -1,0 +1,4 @@
+#!/bin/bash
+
+/usr/bin/s3cmd sync /var/www/alchemy/alchemy-webservice/db s3://alchemy-internal-backup/
+/usr/bin/s3cmd sync /var/www/alchemy/alchemy-webservice/alchemy-info-tables s3://alchemy-internal-backup/
