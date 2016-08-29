@@ -10,6 +10,11 @@ sudo systemctl daemon-reload
 sudo systemctl enable pdf-files.service
 sudo systemctl restart pdf-files.service
 
+# Update cron jobs
+sudo cp cron-backup/* /etc/cron.hourly/
+sudo chown root:root /etc/cron.hourly/*
+sudo chmod 755 /etc/cron.hourly/*
+
 # Rails
 rvm use ruby-2.1.7
 bundle install --deployment --without development test
