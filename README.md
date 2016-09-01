@@ -71,4 +71,7 @@ curl -H 'Content-Type: application/json' -H 'Accept: application/json' -X GET -d
 
 # Change customer user password:
 curl -H 'Content-Type: application/json' -H 'Accept: application/json' -X PUT -d '{"user":{"email":"api@user.com","password":"password"}, "password": "new_password"}' http://localhost:3000/api/customer_users/2
+
+# Get COA document
+curl -H 'Content-Type: application/json' -H 'Accept: application/json' -X GET -d '{"user":{"email":"api@user.com","password":"password"},"cod_id":"123456"}' http://localhost:3000/api/certificate_of_approval > 123456.pdf
 ```

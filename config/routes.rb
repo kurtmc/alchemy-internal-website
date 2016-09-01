@@ -26,6 +26,7 @@ Rails.application.routes.draw do
     resources :vendors
     get 'customer_users/email' => 'customer_users#get_by_email'
     resources :customer_users
+    get 'certificate_of_approval' => 'certificate_of_approval#get_coa'
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
