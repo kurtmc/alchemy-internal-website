@@ -1,0 +1,9 @@
+test:
+  script:
+    - apt-get update -qy
+    - cp database.yml.example config/database.yml
+    - cp secrets.yml.example config/secrets.yml
+    - gem update --system
+    - bundle exec rake db:schema:load RAILS_ENV=test
+    - bundle exec rake db:migrate RAILS_ENV=test
+    - bundle exec rake
